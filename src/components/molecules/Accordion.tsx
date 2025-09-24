@@ -1,25 +1,27 @@
+import { GLOBAL_ELEMENTS } from "@/constants";
+import { MarkNasa, MarkNasaItem } from "@/data";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
-interface AccordionItem {
-  id: string;
-  title: string;
-  content: React.ReactNode;
-  icon?: React.ReactNode;
-}
+import { AccordionHeader } from "../atoms";
 
 interface AccordionProps {
-  items: AccordionItem[];
+  element: GLOBAL_ELEMENTS;
+  marks: MarkNasaItem[];
   allowMultiple?: boolean;
   defaultOpen?: string[];
   className?: string;
+  handleSubItemClick: (mark: MarkNasa) => void;
+  activeSubItem: MarkNasa | null;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
-  items,
-  allowMultiple = false,
+  element,
+  marks,
+  allowMultiple = true,
   defaultOpen = [],
   className = "",
+  handleSubItemClick,
+  activeSubItem,
 }) => {
   const [openItems, setOpenItems] = useState<string[]>(defaultOpen);
 
@@ -39,30 +41,22 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      {items.map((item) => (
+      {marks.map((mark) => (
         <div
-          key={item.id}
-          className="bg-gray-800/50 rounded-lg border border-gray-700/50 overflow-hidden"
+          key={mark.id}
+          className="bg-gray-800/50 rounded-lg border border-gray-700/50 overflow-scroll"
         >
           {/* Accordion Header */}
           <button
-            onClick={() => toggleItem(item.id)}
+            onClick={() => toggleItem(mark.id)}
             className="w-full p-3 flex items-center justify-between text-left 
                        hover:bg-gray-700/50 transition-colors duration-200
                        focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
           >
-            <div className="flex items-center">
-              {item.icon && (
-                <span className="mr-3 text-blue-400 flex-shrink-0">
-                  {item.icon}
-                </span>
-              )}
-              <span className="text-white font-medium text-sm">
-                {item.title}
-              </span>
-            </div>
+            <AccordionHeader element={element} type={mark.type} />
+
             <span className="text-gray-400 ml-2 transition-transform duration-200 flex-shrink-0">
-              {isOpen(item.id) ? (
+              {isOpen(mark.id) ? (
                 <FaChevronUp size={12} />
               ) : (
                 <FaChevronDown size={12} />
@@ -73,11 +67,48 @@ export const Accordion: React.FC<AccordionProps> = ({
           {/* Accordion Content */}
           <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isOpen(item.id) ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              isOpen(mark.id) ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
             <div className="p-3 pt-0 text-gray-300 text-sm border-t border-gray-700/30">
-              {item.content}
+              {mark.marks.map((subItem) => (
+                <button
+                  key={subItem.key}
+                  onClick={() => handleSubItemClick(subItem)}
+                  className={`
+                      w-full text-left p-3 rounded-lg transition-all duration-200 ease-in-out
+                      transform hover:scale-[1.02] hover:shadow-md relative
+                      ${
+                        activeSubItem?.key === subItem.key
+                          ? "bg-blue-600 text-white shadow-lg ring-2 ring-blue-400 ring-opacity-50"
+                          : "bg-gray-700/50 hover:bg-gray-700 text-gray-300 hover:text-white"
+                      }
+                    `}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium text-sm mb-1">
+                        {subItem.name}
+                      </div>
+                      {subItem.lat && (
+                        <div className="text-xs opacity-75">
+                          {subItem.lat} , {subItem.lng}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-xs opacity-60 mr-1">Info</span>
+                      <div
+                        className={`w-2 h-2 rounded-full ${
+                          activeSubItem?.key === subItem.key
+                            ? "bg-white animate-pulse"
+                            : "bg-blue-400"
+                        }`}
+                      ></div>
+                    </div>
+                  </div>
+                </button>
+              ))}
             </div>
           </div>
         </div>

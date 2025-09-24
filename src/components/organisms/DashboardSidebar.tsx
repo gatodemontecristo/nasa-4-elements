@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FaHome, FaChartLine, FaDownload, FaEye } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { FaFireAlt, FaWind } from "react-icons/fa";
 import { IoIosWater } from "react-icons/io";
 import { TbPlant } from "react-icons/tb";
 import { SidebarButton, Tooltip } from "../atoms";
-import { Accordion } from "../molecules/Accordion";
-import { TypeMark, winds, formattedMark } from "@/data";
-import { Accordion2 } from "../molecules/Accordion2";
-import { GiWindsock } from "react-icons/gi";
+import { TypeMark, winds, formattedMark, MarkNasa } from "@/data";
+import { Accordion } from "../molecules";
 
 interface MenuItem {
   id: string;
@@ -344,7 +342,7 @@ const menuItems: MenuItem[] = [
 export const DashboardSidebar: React.FC = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [activeSubItem, setActiveSubItem] = useState<string | null>(null);
+  const [activeSubItem, setActiveSubItem] = useState<MarkNasa | null>(null);
   const [showInfoPanel, setShowInfoPanel] = useState<boolean>(false);
 
   const handleItemClick = (itemId: string) => {
@@ -353,7 +351,7 @@ export const DashboardSidebar: React.FC = () => {
     setShowInfoPanel(false);
   };
 
-  const handleSubItemClick = (subItemId: string) => {
+  const handleSubItemClick = (subItemId: MarkNasa) => {
     setActiveSubItem(subItemId);
     setShowInfoPanel(true);
   };
@@ -364,10 +362,10 @@ export const DashboardSidebar: React.FC = () => {
     const activeMenuItem = menuItems.find((item) => item.id === activeItem);
     if (!activeMenuItem?.subItems) return null;
 
-    const activeSubMenuItem = activeMenuItem.subItems.find(
-      (subItem) => subItem.id === activeSubItem
-    );
-    return activeSubMenuItem?.content || null;
+    // const activeSubMenuItem = activeMenuItem.subItems.find(
+    //   (subItem) => subItem.id === activeSubItem
+    // );
+    // return activeSubMenuItem?.content || null;
   };
 
   useEffect(() => {
@@ -375,7 +373,7 @@ export const DashboardSidebar: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute left-0 top-0 h-screen z-50 flex p-4">
+    <div className="absolute left-0 top-0 h-screen z-50 flex p-4 overflow-scroll">
       {/* Main Sidebar */}
       <div className="bg-nasa-black w-16 h-full flex flex-col items-center py-4 shadow-2xl rounded-md mr-2">
         <div className="flex flex-col space-y-3 w-full">
@@ -421,7 +419,7 @@ export const DashboardSidebar: React.FC = () => {
               <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mt-2 rounded-full"></div>
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               {menuItems
                 .find((item) => item.id === activeItem)
                 ?.subItems?.map((subItem) => (
@@ -464,13 +462,15 @@ export const DashboardSidebar: React.FC = () => {
                     </div>
                   </button>
                 ))}
-            </div>
+            </div> */}
 
-            <Accordion2
+            <Accordion
               element="wind"
               marks={formattedMark(winds)}
               allowMultiple={true}
               defaultOpen={["filters"]}
+              handleSubItemClick={handleSubItemClick}
+              activeSubItem={activeSubItem}
             />
 
             {/* Close button */}
@@ -498,7 +498,7 @@ export const DashboardSidebar: React.FC = () => {
           <div className="relative p-6 h-full overflow-y-auto">
             {(() => {
               const content = getActiveSubItemContent();
-              if (!content) return null;
+              // if (!content) return null;
 
               return (
                 <>
@@ -508,147 +508,12 @@ export const DashboardSidebar: React.FC = () => {
                       <span className="mr-3 text-blue-400">
                         {menuItems.find((item) => item.id === activeItem)?.icon}
                       </span>
-                      {content.title}
+                      {activeSubItem.name}
                     </h3>
                     <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-4"></div>
                     <p className="text-gray-300 text-sm leading-relaxed">
-                      {content.description}
+                      {activeSubItem.lat} , {activeSubItem.lng}
                     </p>
-                  </div>
-
-                  {/* Features */}
-                  {content.features && (
-                    <div className="mb-6">
-                      <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">
-                        Características
-                      </h4>
-                      <div className="space-y-2">
-                        {content.features.map((feature, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center text-gray-300 text-sm"
-                          >
-                            <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 flex-shrink-0"></span>
-                            {feature}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Stats */}
-                  {content.stats && (
-                    <div className="mb-6">
-                      <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">
-                        Estadísticas
-                      </h4>
-                      <div className="space-y-3">
-                        {content.stats.map((stat, index) => (
-                          <div
-                            key={index}
-                            className="bg-gray-800/50 rounded-lg p-3 border border-gray-700/50"
-                          >
-                            <div className="text-blue-400 font-bold text-lg">
-                              {stat.value}
-                            </div>
-                            <div className="text-gray-400 text-xs uppercase tracking-wide">
-                              {stat.label}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Accordion Section */}
-                  <div className="mb-6">
-                    <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">
-                      Configuraciones Avanzadas
-                    </h4>
-                    <Accordion
-                      items={[
-                        {
-                          id: "filters",
-                          title: "Filtros de Datos",
-                          icon: <FaEye />,
-                          content: (
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <span>Filtro temporal</span>
-                                <select className="bg-gray-700 text-white text-xs rounded px-2 py-1">
-                                  <option>Último mes</option>
-                                  <option>Últimos 3 meses</option>
-                                  <option>Último año</option>
-                                </select>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Mostrar solo activos</span>
-                                <input
-                                  type="checkbox"
-                                  className="rounded"
-                                  defaultChecked
-                                />
-                              </div>
-                            </div>
-                          ),
-                        },
-                        {
-                          id: "export",
-                          title: "Opciones de Exportación",
-                          icon: <FaDownload />,
-                          content: (
-                            <div className="space-y-2">
-                              <button className="w-full text-left p-2 bg-gray-700/50 rounded text-xs hover:bg-gray-600/50 transition-colors">
-                                Exportar como CSV
-                              </button>
-                              <button className="w-full text-left p-2 bg-gray-700/50 rounded text-xs hover:bg-gray-600/50 transition-colors">
-                                Exportar como JSON
-                              </button>
-                              <button className="w-full text-left p-2 bg-gray-700/50 rounded text-xs hover:bg-gray-600/50 transition-colors">
-                                Generar reporte PDF
-                              </button>
-                            </div>
-                          ),
-                        },
-                        {
-                          id: "analytics",
-                          title: "Análisis Avanzado",
-                          icon: <FaChartLine />,
-                          content: (
-                            <div className="space-y-2">
-                              <div className="text-xs">
-                                <p className="mb-2">
-                                  Análisis predictivo disponible:
-                                </p>
-                                <ul className="space-y-1 text-gray-400">
-                                  <li>• Tendencias futuras</li>
-                                  <li>• Anomalías detectadas</li>
-                                  <li>• Correlaciones</li>
-                                </ul>
-                              </div>
-                            </div>
-                          ),
-                        },
-                      ]}
-                      allowMultiple={true}
-                      defaultOpen={["filters"]}
-                    />
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="space-y-2">
-                    <button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                      <FaEye className="text-sm" />
-                      Ver Detalles
-                    </button>
-                    <button className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                      <FaDownload className="text-sm" />
-                      Exportar Datos
-                    </button>
-                    <button className="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                      <FaChartLine className="text-sm" />
-                      Analizar
-                    </button>
                   </div>
                 </>
               );

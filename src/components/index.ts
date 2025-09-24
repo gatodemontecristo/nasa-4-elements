@@ -1,4 +1,4 @@
 export * from "./atoms";
-export * from "./molecules/Accordion";
+export * from "./molecules";
 export * from "./molecules/StreetViewModal";
 export * from "./organisms";

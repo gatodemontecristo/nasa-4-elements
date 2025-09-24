@@ -16,7 +16,9 @@
         "titleBar.activeBackground": "#741630",
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.inactiveBackground": "#74163099",
-        "titleBar.inactiveForeground": "#e7e7e799"
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "editor.selectionBackground": "#e788ff7c",
+        "editor.selectionHighlightBackground": "#ff00005b"
     },
     "peacock.color": "#741630"
 }

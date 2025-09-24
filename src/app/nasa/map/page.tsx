@@ -6,14 +6,19 @@ import {
   APIProvider,
   Map,
   AdvancedMarker,
-  Pin,
   InfoWindow,
 } from "@vis.gl/react-google-maps";
 import { GoGoal } from "react-icons/go";
 import { GrLocationPin } from "react-icons/gr";
-import { FaStreetView, FaTimes } from "react-icons/fa";
-import { DashboardSidebar, Markers } from "@/components";
+import { FaStreetView } from "react-icons/fa";
+import { DashboardSidebar, Markers, StreetViewModal } from "@/components";
+
 import winds from "../../../data/wind-turbine";
+import {
+  usePrefetchStreetView,
+  useReverseGeocode,
+  useStreetView,
+} from "@/hooks";
 
 export default function Intro() {
   //URL: https://www.google.com/maps/place/Comunidad+Urbana+Autogestionaria+de+Huayc%C3%A1n,+Ate+15483/@-12.029715,-76.8401525,14.38z/data=!4m6!3m5!1s0x9105b6300b679ae5:0x3dbad2cd0e12330!8m2!3d-12.0201464!4d-76.8175454!16s%2Fm%2F09v1g_0?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D
@@ -29,33 +34,23 @@ export default function Intro() {
     name: "",
   });
 
-  // Función para generar URL de Street View
-  const getStreetViewImageUrl = (
-    lat: number,
-    lng: number,
-    options: {
-      size?: string;
-      fov?: number;
-      heading?: number;
-      pitch?: number;
-      key?: string;
-    } = {}
-  ) => {
-    const {
-      size = "600x400",
-      fov = 90,
-      heading = 0,
-      pitch = 0,
-      key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    } = options;
+  // Hooks de React Query
+  const streetViewData = useStreetView(
+    selectedLocation.lat,
+    selectedLocation.lng,
+    { size: "800x400" }
+  );
 
-    return `https://maps.googleapis.com/maps/api/streetview?size=${size}&location=${lat},${lng}&fov=${fov}&heading=${heading}&pitch=${pitch}&key=${key}`;
-  };
+  const addressData = useReverseGeocode(currentCenter.lat, currentCenter.lng);
+
+  const { prefetchAvailability } = usePrefetchStreetView();
 
   // Función para abrir Street View
   const openStreetView = (lat: number, lng: number, name: string) => {
     setSelectedLocation({ lat, lng, name });
     setStreetViewOpen(true);
+    // Precargar datos cuando se abre
+    prefetchAvailability(lat, lng);
   };
 
   return (
@@ -65,7 +60,7 @@ export default function Intro() {
 
         {/* Controles de navegación personalizados */}
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
-          <div className="bg-nasa-secondary rounded-md  shadow-lg p-2">
+          <div className="bg-nasa-secondary rounded-md shadow-lg p-2">
             <div className="text-xs text-nasa-grey space-y-1">
               <span className="flex items-center gap-1">
                 <GoGoal /> <p>Zoom: {currentZoom}</p>
@@ -76,6 +71,24 @@ export default function Intro() {
               <span className="flex items-center gap-1">
                 <GrLocationPin /> <p>Lng: {currentCenter.lng.toFixed(4)}</p>
               </span>
+              {/* Mostrar dirección si está disponible */}
+              {addressData.data?.results[0] && (
+                <div className="pt-1 border-t border-nasa-grey/20 mt-1">
+                  <p
+                    className="text-xs text-nasa-grey/80 truncate max-w-48"
+                    title={addressData.data.results[0].formatted_address}
+                  >
+                    📍 {addressData.data.results[0].formatted_address}
+                  </p>
+                </div>
+              )}
+              {addressData.isLoading && (
+                <div className="pt-1 border-t border-nasa-grey/20 mt-1">
+                  <p className="text-xs text-nasa-grey/60">
+                    🔄 Obteniendo dirección...
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -157,45 +170,12 @@ export default function Intro() {
 
         {/* Modal de Street View */}
         {streetViewOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-nasa-secondary rounded-lg p-4 max-w-4xl max-h-[90vh] overflow-hidden">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-nasa-grey font-bold text-lg">
-                  Street View - {selectedLocation.name}
-                </h3>
-                <button
-                  onClick={() => setStreetViewOpen(false)}
-                  className="text-nasa-grey hover:text-white transition-colors"
-                >
-                  <FaTimes size={20} />
-                </button>
-              </div>
-              <div className="flex flex-col gap-4">
-                <img
-                  src={getStreetViewImageUrl(
-                    selectedLocation.lat,
-                    selectedLocation.lng,
-                    { size: "800x400" }
-                  )}
-                  alt={`Street View de ${selectedLocation.name}`}
-                  className="rounded-lg shadow-lg"
-                  onError={(e) => {
-                    e.currentTarget.src = "/placeholder-streetview.jpg";
-                  }}
-                />
-                <div className="text-nasa-grey text-sm">
-                  <p>
-                    Coordenadas: {selectedLocation.lat.toFixed(6)},{" "}
-                    {selectedLocation.lng.toFixed(6)}
-                  </p>
-                  <p className="mt-2 text-xs text-gray-400">
-                    Nota: Si no se muestra la imagen, es posible que no haya
-                    Street View disponible en esta ubicación.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <StreetViewModal
+            isOpen={streetViewOpen}
+            onClose={() => setStreetViewOpen(false)}
+            location={selectedLocation}
+            streetViewData={streetViewData}
+          />
         )}
       </div>
     </APIProvider>

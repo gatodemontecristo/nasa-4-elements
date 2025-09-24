@@ -5,11 +5,6 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const metadata = {
-  title: "Movie Ticket App",
-  description: "A movie ticket booking application",
-};
-
 export default function IntroLayout({ children }: Props) {
   return <>{children}</>;
 }

@@ -3,6 +3,7 @@ import { MarkNasa, MarkNasaItem } from "@/data";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AccordionHeader } from "../atoms";
+import { GrLocationPin } from "react-icons/gr";
 
 interface AccordionProps {
   element: GLOBAL_ELEMENTS;
@@ -40,11 +41,11 @@ export const Accordion: React.FC<AccordionProps> = ({
   const isOpen = (itemId: string) => openItems.includes(itemId);
 
   return (
-    <div className={`space-y-2 ${className}`}>
+    <div className={`space-y-2 custom-scroll ${className}`}>
       {marks.map((mark) => (
         <div
           key={mark.id}
-          className="bg-gray-800/50 rounded-lg border border-gray-700/50 overflow-scroll"
+          className="bg-gray-800/50 rounded-lg border border-gray-700/50 overflow-scroll accordion-scroll max-h-1/2"
         >
           {/* Accordion Header */}
           <button
@@ -66,11 +67,13 @@ export const Accordion: React.FC<AccordionProps> = ({
 
           {/* Accordion Content */}
           <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isOpen(mark.id) ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            className={`overflow-scroll accordion-scroll transition-all duration-300 ease-in-out ${
+              isOpen(mark.id)
+                ? "max-h-[400px] opacity-100 py-3"
+                : "max-h-0 opacity-0"
             }`}
           >
-            <div className="p-3 pt-0 text-gray-300 text-sm border-t border-gray-700/30">
+            <div className="flex flex-col gap-3 p-3 pt-0 text-gray-300 text-sm border-t border-gray-700/30">
               {mark.marks.map((subItem) => (
                 <button
                   key={subItem.key}
@@ -92,7 +95,14 @@ export const Accordion: React.FC<AccordionProps> = ({
                       </div>
                       {subItem.lat && (
                         <div className="text-xs opacity-75">
-                          {subItem.lat} , {subItem.lng}
+                          <span className="flex items-center gap-1">
+                            <GrLocationPin />{" "}
+                            <p>Lat: {subItem.lat.toFixed(4)}</p>
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <GrLocationPin />{" "}
+                            <p>Lng: {subItem.lng.toFixed(4)}</p>
+                          </span>
                         </div>
                       )}
                     </div>

@@ -373,7 +373,7 @@ export const DashboardSidebar: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute left-0 top-0 h-screen z-50 flex p-4 overflow-scroll">
+    <div className="absolute left-0 top-0 h-screen z-50 flex p-4 ">
       {/* Main Sidebar */}
       <div className="bg-nasa-black w-16 h-full flex flex-col items-center py-4 shadow-2xl rounded-md mr-2">
         <div className="flex flex-col space-y-3 w-full">
@@ -403,12 +403,12 @@ export const DashboardSidebar: React.FC = () => {
       {activeItem && (
         <div
           className="bg-nasa-grey w-64 h-full rounded-md shadow-2xl transform transition-all duration-300 ease-in-out
-                     animate-in slide-in-from-left-5 fade-in-0"
+                     animate-in slide-in-from-left-5 fade-in-0 overflow-scroll custom-scroll"
           style={{
             background: "linear-gradient(135deg, #374151 0%, #1f2937 100%)",
           }}
         >
-          <div className="relative p-4">
+          <div className="relative p-4 h-full">
             <div className="mb-6">
               <h3 className="text-white text-lg font-semibold flex items-center">
                 <span className="mr-3 text-blue-400">
@@ -467,7 +467,7 @@ export const DashboardSidebar: React.FC = () => {
             <Accordion
               element="wind"
               marks={formattedMark(winds)}
-              allowMultiple={true}
+              allowMultiple={false}
               defaultOpen={["filters"]}
               handleSubItemClick={handleSubItemClick}
               activeSubItem={activeSubItem}
@@ -495,7 +495,7 @@ export const DashboardSidebar: React.FC = () => {
             background: "linear-gradient(135deg, #1f2937 0%, #111827 100%)",
           }}
         >
-          <div className="relative p-6 h-full overflow-y-auto">
+          <div className="relative p-6 h-full overflow-y-auto custom-scroll">
             {(() => {
               const content = getActiveSubItemContent();
               // if (!content) return null;

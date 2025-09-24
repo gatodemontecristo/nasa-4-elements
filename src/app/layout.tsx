@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NASA App",
-  description: "A NASA-themed application",
+  title: "NASA urban planning project",
+  description: "Application for urban planning using NASA data - Four Elements",
   icons: {
     icon: "/nasa.png",
   },

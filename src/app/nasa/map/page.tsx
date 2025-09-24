@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   APIProvider,
   Map,
@@ -13,7 +13,6 @@ import { GrLocationPin } from "react-icons/gr";
 import { FaStreetView } from "react-icons/fa";
 import { DashboardSidebar, Markers, StreetViewModal } from "@/components";
 
-import winds from "../../../data/wind-turbine";
 import {
   usePrefetchStreetView,
   useReverseGeocode,
@@ -120,7 +119,7 @@ export default function Intro() {
             setCurrentCenter(ev.detail.center);
           }}
         >
-          <Markers points={winds} />
+          {/* <Markers points={formattedMark(winds)} /> */}
           {/* <AdvancedMarker position={position} onClick={() => setOpen(true)}>
             <Pin
               background={"grey"}

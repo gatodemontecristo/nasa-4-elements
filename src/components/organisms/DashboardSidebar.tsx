@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { FaFireAlt, FaWind } from "react-icons/fa";
 import { IoIosWater } from "react-icons/io";
 import { TbPlant } from "react-icons/tb";
 import { SidebarButton, Tooltip } from "../atoms";
-import { TypeMark, winds, formattedMark, MarkNasa, earths } from "@/data";
+import {
+  TypeMark,
+  winds,
+  formattedMark,
+  MarkNasa,
+  earths,
+  waters,
+  fires,
+} from "@/data";
 import { Accordion } from "../molecules";
 import { InformationPanel } from "./InformationPanel";
 import { GLOBAL_ELEMENTS } from "@/constants";
@@ -32,6 +40,7 @@ const menuItems: MenuItem[] = [
     color: "text-red-500",
     bg: "bg-red-500",
     label: "Fire",
+    collection: fires,
   },
   {
     id: "water",
@@ -39,6 +48,7 @@ const menuItems: MenuItem[] = [
     color: "text-blue-600",
     bg: "bg-blue-600",
     label: "Water",
+    collection: waters,
   },
   {
     id: "wind",
@@ -91,10 +101,6 @@ export const DashboardSidebar = ({
     setShowInfoPanel(false);
     setActiveSubItem(null);
   };
-
-  useEffect(() => {
-    console.log("FORMATTED", formattedMark(winds));
-  }, []);
 
   return (
     <div className="absolute left-0 top-0 h-screen z-50 flex p-4 ">

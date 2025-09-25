@@ -19,13 +19,17 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
     element: "wind",
     types: {
       TYPE01: {
-        icon: <GiWindsock className={`text-yellow-500 size-8 ${className}`} />,
+        icon: (
+          <GiWindsock className={`size-8 ${className || "text-yellow-500"}`} />
+        ),
         title: "Wind Sock",
         subtitle: "Measures wind direction",
       },
       TYPE02: {
         icon: (
-          <GiWindTurbine className={`text-yellow-500 size-8 ${className}`} />
+          <GiWindTurbine
+            className={`size-8 ${className || "text-yellow-500"}`}
+          />
         ),
         title: "Wind Turbine",
         subtitle: "Generates wind energy",
@@ -36,12 +40,18 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
     element: "water",
     types: {
       TYPE01: {
-        icon: <FaBottleWater className={`size-8 ${className}`} />,
+        icon: (
+          <FaBottleWater className={`size-8 ${className || "text-blue-500"}`} />
+        ),
         title: "Water Bottle",
         subtitle: "Stores drinking water",
       },
       TYPE02: {
-        icon: <FaCloudShowersWater className={` size-8 ${className}`} />,
+        icon: (
+          <FaCloudShowersWater
+            className={` size-8 ${className || "text-blue-500"}`}
+          />
+        ),
         title: "Cloud Showers",
         subtitle: "Indicates rain",
       },
@@ -51,13 +61,17 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
     element: "earth",
     types: {
       TYPE01: {
-        icon: <GiPineTree className={`text-green-500 size-8 ${className}`} />,
+        icon: (
+          <GiPineTree className={`size-8 ${className || "text-green-500 "}`} />
+        ),
         title: "Pine Tree",
         subtitle: "A tall coniferous tree",
       },
       TYPE02: {
         icon: (
-          <RiBuilding2Fill className={`text-green-500 size-8 ${className}`} />
+          <RiBuilding2Fill
+            className={` size-8 ${className || "text-green-500 "}`}
+          />
         ),
         title: "Building",
         subtitle: "A man-made structure",
@@ -68,13 +82,17 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
     element: "fire",
     types: {
       TYPE01: {
-        icon: <FaDumpsterFire className={`text-red-500 size-8 ${className}`} />,
+        icon: (
+          <FaDumpsterFire className={`size-8 ${className || "text-red-500"}`} />
+        ),
         title: "Dumpster Fire",
         subtitle: "A fire in a dumpster",
       },
       TYPE02: {
         icon: (
-          <MdFireHydrantAlt className={`text-red-500 size-8 ${className}`} />
+          <MdFireHydrantAlt
+            className={`size-8 ${className || "text-red-500"}`}
+          />
         ),
         title: "Fire Hydrant",
         subtitle: "A hydrant for fire emergencies",

@@ -46,8 +46,9 @@ export const Accordion: React.FC<AccordionProps> = ({
         <div
           key={mark.id}
           className={clsx(
-            `bg-${activeItem.color} rounded-lg overflow-scroll border-2 accordion-scroll max-h-1/2`,
-            activeItem.border
+            `rounded-lg overflow-scroll border-2 accordion-scroll max-h-1/2`,
+            activeItem.border,
+            activeItem.bg
           )}
         >
           {/* Accordion Header */}
@@ -76,7 +77,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                 : "max-h-0 opacity-0"
             }`}
           >
-            <div className="flex flex-col gap-3 p-3 pt-0 text-gray-300 text-sm border-t border-gray-700/30">
+            <div className="flex flex-col gap-3 p-3 pt-0 text-gray-300 text-sm">
               {mark.marks.map((subItem) => (
                 <button
                   key={subItem.key}
@@ -86,7 +87,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                       transform hover:scale-[1.02] hover:shadow-md relative
                       ${
                         activeSubItem?.key === subItem.key
-                          ? "bg-blue-600 text-white shadow-lg ring-2 ring-blue-400 ring-opacity-50"
+                          ? "bg-nasa-black text-nasa-white shadow-lg ring-2 ring-nasa-greysoft ring-opacity-50"
                           : "bg-nasa-whitesoft hover:bg-gray-700 text-nasa-black hover:text-white"
                       }
                     `}
@@ -110,12 +111,20 @@ export const Accordion: React.FC<AccordionProps> = ({
                       )}
                     </div>
                     <div className="flex items-center">
-                      <span className="text-xs opacity-60 mr-1">Info</span>
+                      <span
+                        className={`text-xs  mr-1 ${
+                          activeSubItem?.key === subItem.key
+                            ? "text-nasa-whitesoft"
+                            : "text-nasa-secondary opacity-60"
+                        }`}
+                      >
+                        Info
+                      </span>
                       <div
                         className={`w-2 h-2 rounded-full ${
                           activeSubItem?.key === subItem.key
-                            ? "bg-white animate-pulse"
-                            : "bg-blue-400"
+                            ? "bg-nasa-yellow animate-pulse"
+                            : "bg-nasa-greysoft"
                         }`}
                       ></div>
                     </div>

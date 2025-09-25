@@ -1,11 +1,6 @@
 import { DEFAULT_ICON, elementsIcons, GLOBAL_ELEMENTS } from "@/constants";
 import { elementsIconsDetailProps } from "@/types";
 
-// interface proyectElement {
-//   types: MarkNasaGroup[];
-//   element: GLOBAL_ELEMENTS;
-// }
-
 export const getElementIcon = (
   element: GLOBAL_ELEMENTS,
   type: string,

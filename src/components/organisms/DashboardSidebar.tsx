@@ -22,6 +22,7 @@ export interface MenuItem {
   icon: React.ReactNode;
   label: string;
   color: string;
+  bg: string;
   border: string;
   collection?: TypeMark[];
 }
@@ -31,6 +32,7 @@ const menuItems: MenuItem[] = [
     id: "home",
     icon: <FaHome />,
     color: "orange-500",
+    bg: "bg-orange-500",
     border: "border-orange-500",
     label: "Home",
   },
@@ -38,6 +40,7 @@ const menuItems: MenuItem[] = [
     id: "fire",
     icon: <FaFireAlt />,
     color: "red-500",
+    bg: "bg-red-500",
     border: "border-red-500",
     label: "Fire",
     collection: fires,
@@ -46,6 +49,7 @@ const menuItems: MenuItem[] = [
     id: "water",
     icon: <IoIosWater />,
     color: "blue-600",
+    bg: "bg-blue-600",
     border: "border-blue-600",
     label: "Water",
     collection: waters,
@@ -55,6 +59,7 @@ const menuItems: MenuItem[] = [
     icon: <FaWind />,
     label: "Wind",
     color: "yellow-500",
+    bg: "bg-yellow-500",
     border: "border-yellow-500",
     collection: winds,
   },
@@ -63,6 +68,7 @@ const menuItems: MenuItem[] = [
     icon: <TbPlant />,
     label: "Earth",
     color: "green-500",
+    bg: "bg-green-500",
     border: "border-green-500",
     collection: earths,
   },
@@ -144,7 +150,8 @@ export const DashboardSidebar = ({
                 </span>
                 {menuItems.find((item) => item.id === activeItem.id)?.label}
               </h3>
-              <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mt-2 rounded-full"></div>
+              {/* <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mt-2 rounded-full"></div> */}
+              <div className="h-0.5 bg-nasa-greysoft mt-2 rounded-full"></div>
             </div>
             <Accordion
               activeItem={activeItem}

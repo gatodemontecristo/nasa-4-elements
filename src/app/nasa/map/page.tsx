@@ -139,26 +139,6 @@ export default function Intro() {
               </div>
             </div>
           </AdvancedMarker>
-          {/* <AdvancedMarker
-            position={position}
-            onClick={() => setCustomPinOpen(true)}
-          >
-            <div className="relative">
-              <Image
-                src="/naki_yoho.png" // 👈 desde /public
-                alt="Naki Yoho"
-                fill
-                className="w-12 h-12 rounded-full border-3 border-white shadow-lg hover:scale-110 transition-transform duration-300 cursor-pointer"
-                style={{
-                  filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))",
-                }}
-                priority
-              />
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-                <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-white shadow-sm"></div>
-              </div>
-            </div>
-          </AdvancedMarker> */}
 
           {open && (
             <InfoWindow position={position} onCloseClick={() => setOpen(false)}>

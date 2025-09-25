@@ -6,6 +6,8 @@ import { TbPlant } from "react-icons/tb";
 import { SidebarButton, Tooltip } from "../atoms";
 import { TypeMark, winds, formattedMark, MarkNasa } from "@/data";
 import { Accordion } from "../molecules";
+import { useStreetView } from "@/hooks";
+import { InformationPanel } from "./InformationPanel";
 
 interface MenuItem {
   id: string;
@@ -353,6 +355,7 @@ export const DashboardSidebar: React.FC = () => {
 
   const handleSubItemClick = (subItemId: MarkNasa) => {
     setActiveSubItem(subItemId);
+
     setShowInfoPanel(true);
   };
 
@@ -366,6 +369,11 @@ export const DashboardSidebar: React.FC = () => {
     //   (subItem) => subItem.id === activeSubItem
     // );
     // return activeSubMenuItem?.content || null;
+  };
+
+  const onCloseInformationPanel = () => {
+    setShowInfoPanel(false);
+    setActiveSubItem(null);
   };
 
   useEffect(() => {
@@ -488,51 +496,10 @@ export const DashboardSidebar: React.FC = () => {
 
       {/* Information Panel */}
       {showInfoPanel && activeSubItem && (
-        <div
-          className="bg-nasa-secondary w-80 h-full rounded-md shadow-2xl ml-2 transform transition-all duration-500 ease-in-out
-                     animate-in slide-in-from-right-5 fade-in-0 overflow-hidden"
-          style={{
-            background: "linear-gradient(135deg, #1f2937 0%, #111827 100%)",
-          }}
-        >
-          <div className="relative p-6 h-full overflow-y-auto custom-scroll">
-            {(() => {
-              const content = getActiveSubItemContent();
-              // if (!content) return null;
-
-              return (
-                <>
-                  {/* Header */}
-                  <div className="mb-6">
-                    <h3 className="text-white text-xl font-bold mb-2 flex items-center">
-                      <span className="mr-3 text-blue-400">
-                        {menuItems.find((item) => item.id === activeItem)?.icon}
-                      </span>
-                      {activeSubItem.name}
-                    </h3>
-                    <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-4"></div>
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      {activeSubItem.lat} , {activeSubItem.lng}
-                    </p>
-                  </div>
-                </>
-              );
-            })()}
-
-            {/* Close button */}
-            <button
-              onClick={() => {
-                setShowInfoPanel(false);
-                setActiveSubItem(null);
-              }}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center
-                         bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white
-                         rounded-full transition-all duration-200 hover:scale-110 z-10"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
+        <InformationPanel
+          activeSubItem={activeSubItem}
+          onClose={onCloseInformationPanel}
+        ></InformationPanel>
       )}
     </div>
   );

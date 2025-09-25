@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   APIProvider,
   Map,
@@ -23,7 +23,6 @@ import {
   useReverseGeocode,
   useStreetView,
 } from "@/hooks";
-// Data imports removed - not currently in use
 
 export default function Intro() {
   //URL: https://www.google.com/maps/place/Comunidad+Urbana+Autogestionaria+de+Huayc%C3%A1n,+Ate+15483/@-12.029715,-76.8401525,14.38z/data=!4m6!3m5!1s0x9105b6300b679ae5:0x3dbad2cd0e12330!8m2!3d-12.0201464!4d-76.8175454!16s%2Fm%2F09v1g_0?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D
@@ -58,7 +57,11 @@ export default function Intro() {
     prefetchAvailability(lat, lng);
   };
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
-
+  console.log(
+    "process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY",
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+  );
+  console.log("process.env.NEXT_PUBLIC_MAP_ID", process.env.NEXT_PUBLIC_MAP_ID);
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <div className="relative h-screen w-full">

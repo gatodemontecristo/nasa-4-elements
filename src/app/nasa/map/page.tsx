@@ -11,13 +11,19 @@ import {
 import { GoGoal } from "react-icons/go";
 import { GrLocationPin } from "react-icons/gr";
 import { FaStreetView } from "react-icons/fa";
-import { DashboardSidebar, Markers, StreetViewModal } from "@/components";
+import {
+  DashboardSidebar,
+  Markers,
+  MenuItem,
+  StreetViewModal,
+} from "@/components";
 
 import {
   usePrefetchStreetView,
   useReverseGeocode,
   useStreetView,
 } from "@/hooks";
+import { formattedMap, formattedMark, removeTypeFromMarks } from "@/data";
 
 export default function Intro() {
   //URL: https://www.google.com/maps/place/Comunidad+Urbana+Autogestionaria+de+Huayc%C3%A1n,+Ate+15483/@-12.029715,-76.8401525,14.38z/data=!4m6!3m5!1s0x9105b6300b679ae5:0x3dbad2cd0e12330!8m2!3d-12.0201464!4d-76.8175454!16s%2Fm%2F09v1g_0?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D
@@ -51,11 +57,15 @@ export default function Intro() {
     // Precargar datos cuando se abre
     prefetchAvailability(lat, lng);
   };
+  const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
 
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <div className="relative h-screen w-full">
-        <DashboardSidebar />
+        <DashboardSidebar
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+        />
 
         {/* Controles de navegación personalizados */}
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
@@ -119,7 +129,7 @@ export default function Intro() {
             setCurrentCenter(ev.detail.center);
           }}
         >
-          {/* <Markers points={formattedMark(winds)} /> */}
+          <Markers points={activeItem} />
           {/* <AdvancedMarker position={position} onClick={() => setOpen(true)}>
             <Pin
               background={"grey"}

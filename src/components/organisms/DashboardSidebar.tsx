@@ -22,7 +22,7 @@ export interface MenuItem {
   icon: React.ReactNode;
   label: string;
   color: string;
-  bg: string;
+  border: string;
   collection?: TypeMark[];
 }
 
@@ -30,23 +30,23 @@ const menuItems: MenuItem[] = [
   {
     id: "home",
     icon: <FaHome />,
-    color: "text-orange-500",
-    bg: "bg-orange-500",
+    color: "orange-500",
+    border: "border-orange-500",
     label: "Home",
   },
   {
     id: "fire",
     icon: <FaFireAlt />,
-    color: "text-red-500",
-    bg: "bg-red-500",
+    color: "red-500",
+    border: "border-red-500",
     label: "Fire",
     collection: fires,
   },
   {
     id: "water",
     icon: <IoIosWater />,
-    color: "text-blue-600",
-    bg: "bg-blue-600",
+    color: "blue-600",
+    border: "border-blue-600",
     label: "Water",
     collection: waters,
   },
@@ -54,16 +54,16 @@ const menuItems: MenuItem[] = [
     id: "wind",
     icon: <FaWind />,
     label: "Wind",
-    color: "text-yellow-500",
-    bg: "bg-yellow-500",
+    color: "yellow-500",
+    border: "border-yellow-500",
     collection: winds,
   },
   {
     id: "earth",
     icon: <TbPlant />,
     label: "Earth",
-    color: "text-green-500",
-    bg: "bg-green-500",
+    color: "green-500",
+    border: "border-green-500",
     collection: earths,
   },
 ];
@@ -118,7 +118,7 @@ export const DashboardSidebar = ({
                 icon={item.icon}
                 isActive={activeItem?.id === item.id}
                 onClick={() => handleItemClick(item.id)}
-                color={item.bg}
+                color={item.color}
               />
 
               {/* Tooltip on hover */}
@@ -133,16 +133,13 @@ export const DashboardSidebar = ({
       {/* Submenu Sidebar */}
       {activeItem && (
         <div
-          className="bg-nasa-grey w-64 h-full rounded-md shadow-2xl transform transition-all duration-300 ease-in-out
+          className="bg-nasa-white w-64 h-full rounded-md shadow-2xl transform transition-all duration-300 ease-in-out
                      animate-in slide-in-from-left-5 fade-in-0 overflow-scroll custom-scroll"
-          style={{
-            background: "linear-gradient(135deg, #374151 0%, #1f2937 100%)",
-          }}
         >
           <div className="relative p-4 h-full">
             <div className="mb-6">
-              <h3 className="text-white text-lg font-semibold flex items-center">
-                <span className={`mr-3 ${activeItem.color}`}>
+              <h3 className="text-nasa-noir text-lg font-semibold flex items-center">
+                <span className={`mr-3 text-${activeItem.color}`}>
                   {menuItems.find((item) => item.id === activeItem.id)?.icon}
                 </span>
                 {menuItems.find((item) => item.id === activeItem.id)?.label}
@@ -150,8 +147,7 @@ export const DashboardSidebar = ({
               <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mt-2 rounded-full"></div>
             </div>
             <Accordion
-              element={activeItem.id}
-              marks={formattedMark(activeItem.collection || [])}
+              activeItem={activeItem}
               allowMultiple={false}
               defaultOpen={["filters"]}
               handleSubItemClick={handleSubItemClick}

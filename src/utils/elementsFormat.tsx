@@ -8,9 +8,12 @@ import { elementsIconsDetailProps } from "@/types";
 
 export const getElementIcon = (
   element: GLOBAL_ELEMENTS,
-  type: string
+  type: string,
+  className?: string
 ): elementsIconsDetailProps => {
-  const elementData = elementsIcons.find((el) => el.element === element);
+  const elementData = elementsIcons(className).find(
+    (el) => el.element === element
+  );
   if (elementData && elementData.types[type]) {
     return elementData.types[type];
   }

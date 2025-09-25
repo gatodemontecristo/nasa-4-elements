@@ -2,10 +2,15 @@
 
 @theme {
   /* Movie Theme Colors */
-  --color-nasa-black: #1b1b1b;
-  --color-nasa-grey: #bbbbbb;
+  --color-nasa-black: #201f21;
+  --color-nasa-grey: #efefef;
   --color-nasa-white: #ffffff;
-  --color-nasa-secondary: #282828;
+  --color-nasa-whitesoft: #dedede;
+  --color-nasa-secondary: #454545;
+  --color-nasa-greysoft: #525252;
+  --color-nasa-noir: #343434;
+  --color-nasa-yellow: #f9c202;
+  --color-nasa-orange: #ff5402;
 }
 :root {
   --background: #ffffff;

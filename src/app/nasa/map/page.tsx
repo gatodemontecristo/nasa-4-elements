@@ -69,7 +69,7 @@ export default function Intro() {
 
         {/* Controles de navegación personalizados */}
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
-          <div className="bg-nasa-secondary rounded-md shadow-lg p-2">
+          <div className="bg-nasa-black rounded-md shadow-lg p-2">
             <div className="text-xs text-nasa-grey space-y-1">
               <span className="flex items-center gap-1">
                 <GoGoal /> <p>Zoom: {currentZoom}</p>
@@ -93,9 +93,7 @@ export default function Intro() {
               )}
               {addressData.isLoading && (
                 <div className="pt-1 border-t border-nasa-grey/20 mt-1">
-                  <p className="text-xs text-nasa-grey/60">
-                    🔄 Obteniendo dirección...
-                  </p>
+                  <p className="text-xs text-nasa-grey">🔄 Obtaining data...</p>
                 </div>
               )}
             </div>
@@ -110,7 +108,7 @@ export default function Intro() {
                 "Vista actual"
               )
             }
-            className="bg-nasa-secondary text-nasa-grey p-2 rounded-md shadow-lg hover:bg-nasa-primary transition-colors flex items-center gap-2"
+            className="bg-nasa-black text-nasa-grey p-2 rounded-md shadow-lg hover:bg-nasa-primary transition-colors flex items-center gap-2"
             title="Ver Street View de la ubicación actual"
           >
             <FaStreetView />

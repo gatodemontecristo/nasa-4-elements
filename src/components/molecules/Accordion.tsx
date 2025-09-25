@@ -1,13 +1,13 @@
-import { GLOBAL_ELEMENTS } from "@/constants";
-import { MarkNasa, MarkNasaItem } from "@/data";
+import { formattedMark, MarkNasa } from "@/data";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AccordionHeader } from "../atoms";
 import { GrLocationPin } from "react-icons/gr";
+import { MenuItem } from "../organisms";
+import clsx from "clsx";
 
 interface AccordionProps {
-  element: GLOBAL_ELEMENTS;
-  marks: MarkNasaItem[];
+  activeItem: MenuItem;
   allowMultiple?: boolean;
   defaultOpen?: string[];
   className?: string;
@@ -16,8 +16,7 @@ interface AccordionProps {
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
-  element,
-  marks,
+  activeItem,
   allowMultiple = true,
   defaultOpen = [],
   className = "",
@@ -39,13 +38,17 @@ export const Accordion: React.FC<AccordionProps> = ({
   };
 
   const isOpen = (itemId: string) => openItems.includes(itemId);
+  const marks = formattedMark(activeItem.collection || []);
 
   return (
     <div className={`space-y-2 custom-scroll ${className}`}>
       {marks.map((mark) => (
         <div
           key={mark.id}
-          className="bg-gray-800/50 rounded-lg border border-gray-700/50 overflow-scroll accordion-scroll max-h-1/2"
+          className={clsx(
+            `bg-${activeItem.color} rounded-lg overflow-scroll border-2 accordion-scroll max-h-1/2`,
+            activeItem.border
+          )}
         >
           {/* Accordion Header */}
           <button
@@ -54,9 +57,9 @@ export const Accordion: React.FC<AccordionProps> = ({
                        hover:bg-gray-700/50 transition-colors duration-200
                        focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
           >
-            <AccordionHeader element={element} type={mark.type} />
+            <AccordionHeader element={activeItem.id} type={mark.type} />
 
-            <span className="text-gray-400 ml-2 transition-transform duration-200 flex-shrink-0">
+            <span className="text-nasa-whitesoft ml-2 transition-transform duration-200 flex-shrink-0">
               {isOpen(mark.id) ? (
                 <FaChevronUp size={12} />
               ) : (
@@ -67,7 +70,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
           {/* Accordion Content */}
           <div
-            className={`overflow-scroll accordion-scroll transition-all duration-300 ease-in-out ${
+            className={`overflow-scroll bg-nasa-white accordion-scroll transition-all duration-300 ease-in-out ${
               isOpen(mark.id)
                 ? "max-h-[400px] opacity-100 py-3"
                 : "max-h-0 opacity-0"
@@ -84,7 +87,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                       ${
                         activeSubItem?.key === subItem.key
                           ? "bg-blue-600 text-white shadow-lg ring-2 ring-blue-400 ring-opacity-50"
-                          : "bg-gray-700/50 hover:bg-gray-700 text-gray-300 hover:text-white"
+                          : "bg-nasa-whitesoft hover:bg-gray-700 text-nasa-black hover:text-white"
                       }
                     `}
                 >

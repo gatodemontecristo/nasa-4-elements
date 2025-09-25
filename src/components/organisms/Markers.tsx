@@ -1,13 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-type Point = google.maps.LatLngLiteral & { key: string };
 type Props = { points: MenuItem | null };
 import { useMap, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import type { Marker } from "@googlemaps/markerclusterer";
-import { GiWindsock } from "react-icons/gi";
 import { MenuItem } from "./DashboardSidebar";
-import { formattedMark, TypeMark } from "@/data";
+import { TypeMark } from "@/data";
 import { getElementIcon } from "@/utils";
 
 export const Markers = ({ points }: Props) => {

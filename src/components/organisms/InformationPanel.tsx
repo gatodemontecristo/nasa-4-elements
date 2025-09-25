@@ -6,13 +6,16 @@ import React from "react";
 import { FaLocationArrow } from "react-icons/fa";
 import { GrLocationPin } from "react-icons/gr";
 import { InfoSkeleton } from "../atoms";
+import { MenuItem } from "./DashboardSidebar";
 
 export interface InformationPanelProps {
   activeSubItem?: MarkNasa;
+  activeItem: MenuItem;
   onClose?: () => void;
 }
 export const InformationPanel = ({
   activeSubItem,
+  activeItem,
   onClose,
 }: InformationPanelProps) => {
   const streetViewData = useStreetView(
@@ -38,7 +41,7 @@ export const InformationPanel = ({
               {/* Header */}
               <div className="mb-6">
                 <h3 className="text-white text-lg font-bold mb-2 flex items-center">
-                  <span className="mr-3 text-blue-400">
+                  <span className={`mr-3 ${activeItem.color}`}>
                     <FaLocationArrow />
                   </span>
                   {activeSubItem.name}

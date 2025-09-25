@@ -4,12 +4,14 @@ interface SidebarButtonProps {
   icon: React.ReactNode;
   isActive: boolean;
   onClick: () => void;
+  color: string;
 }
 
 export const SidebarButton = ({
   icon,
   isActive,
   onClick,
+  color,
 }: SidebarButtonProps) => {
   return (
     <button
@@ -19,7 +21,7 @@ export const SidebarButton = ({
         transition-all duration-300 ease-in-out transform
         ${
           isActive
-            ? "bg-blue-600 text-white scale-110 shadow-sm"
+            ? `${color} text-white scale-110 shadow-sm`
             : "bg-nasa-secondary hover:bg-gray-700 text-gray-300 hover:text-white hover:scale-105"
         }
         hover:shadow-lg

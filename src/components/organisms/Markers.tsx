@@ -1,11 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 type Point = google.maps.LatLngLiteral & { key: string };
-type Props = { points: Point[] };
+type Props = { points: MenuItem | null };
 import { useMap, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import type { Marker } from "@googlemaps/markerclusterer";
 import { GiWindsock } from "react-icons/gi";
+import { MenuItem } from "./DashboardSidebar";
+import { formattedMark, TypeMark } from "@/data";
+import { getElementIcon } from "@/utils";
 
 export const Markers = ({ points }: Props) => {
   const map = useMap();
@@ -41,13 +44,15 @@ export const Markers = ({ points }: Props) => {
 
   return (
     <>
-      {points.map((point) => (
+      {(points?.collection || []).map(([name, type, lat, lng]: TypeMark) => (
         <AdvancedMarker
-          position={point}
-          key={point.key}
-          ref={(marker) => setMarkerRef(marker, point.key)}
+          position={{ lat, lng }}
+          key={JSON.stringify({ name, lat, lng })}
+          ref={(marker) =>
+            setMarkerRef(marker, JSON.stringify({ name, lat, lng }))
+          }
         >
-          <GiWindsock className="text-yellow-300 size-8" />
+          {getElementIcon(points?.id || "home", type).icon}
         </AdvancedMarker>
       ))}
     </>

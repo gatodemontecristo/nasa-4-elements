@@ -2,10 +2,15 @@
 
 @theme {
   /* Movie Theme Colors */
-  --color-nasa-black: #1b1b1b;
-  --color-nasa-grey: #bbbbbb;
+  --color-nasa-black: #201f21;
+  --color-nasa-grey: #efefef;
   --color-nasa-white: #ffffff;
-  --color-nasa-secondary: #282828;
+  --color-nasa-whitesoft: #dedede;
+  --color-nasa-secondary: #454545;
+  --color-nasa-greysoft: #525252;
+  --color-nasa-noir: #343434;
+  --color-nasa-yellow: #f9c202;
+  --color-nasa-orange: #ff5402;
 }
 :root {
   --background: #ffffff;
@@ -47,111 +52,181 @@ body {
 }
 
 /* ========================================
-   CUSTOM SCROLLBAR STYLES - DARK THEME
+   PROFESSIONAL DARK THEME SCROLLBARS
    ======================================== */
 
-/* Webkit browsers (Chrome, Safari, Edge) */
+/* Global Scrollbar - Premium Dark Theme */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(17, 24, 39, 0.3); /* gray-900 with opacity */
-  border-radius: 3px;
+  background: rgba(15, 23, 42, 0.4); /* slate-900 with opacity */
+  border-radius: 0; /* Geometric style - no rounded corners */
+  border: 1px solid rgba(51, 65, 85, 0.2); /* slate-700 border */
 }
 
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(
-    135deg,
-    #374151 0%,
-    #4b5563 100%
-  ); /* gray-700 to gray-600 gradient */
-  border-radius: 3px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    180deg,
+    #334155 0%,
+    /* slate-700 */ #475569 50%,
+    /* slate-600 */ #64748b 100% /* slate-500 */
+  );
+  border-radius: 0; /* Architectural geometric style */
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(15, 23, 42, 0.8);
+  transition: all 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(
-    135deg,
-    #4b5563 0%,
-    #6b7280 100%
-  ); /* gray-600 to gray-500 gradient */
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    180deg,
+    #475569 0%,
+    /* slate-600 */ #64748b 50%,
+    /* slate-500 */ #94a3b8 100% /* slate-400 */
+  );
+  border-color: rgba(94, 111, 135, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(15, 23, 42, 0.6), 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:active {
   background: linear-gradient(
-    135deg,
-    #6b7280 0%,
-    #9ca3af 100%
-  ); /* gray-500 to gray-400 gradient */
+    180deg,
+    #64748b 0%,
+    /* slate-500 */ #94a3b8 50%,
+    /* slate-400 */ #cbd5e1 100% /* slate-300 */
+  );
+  border-color: rgba(148, 163, 184, 0.5);
 }
 
 ::-webkit-scrollbar-corner {
-  background: rgba(17, 24, 39, 0.3);
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(51, 65, 85, 0.2);
 }
 
-/* Firefox */
+/* Firefox - Professional Dark Theme */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #374151 rgba(17, 24, 39, 0.3);
+  scrollbar-color: #475569 rgba(15, 23, 42, 0.4);
 }
 
 /* ========================================
-   CUSTOM SCROLLBAR FOR SPECIFIC COMPONENTS
+   COMPONENT-SPECIFIC SCROLLBARS
    ======================================== */
 
-/* Para componentes con scroll específico como modales, sidebars, etc. */
+/* Sidebar & Dashboard Scrollbar - Ultra-thin Elegant */
 .custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #4b5563 rgba(17, 24, 39, 0.2);
+  scrollbar-color: #64748b rgba(15, 23, 42, 0.3);
 }
 
 .custom-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 0;
+  border-left: 1px solid rgba(51, 65, 85, 0.15);
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #64748b 0%,
+    /* slate-500 */ #475569 100% /* slate-600 */
+  );
+  border-radius: 0;
+  border-left: 1px solid rgba(100, 116, 139, 0.2);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 0.5px rgba(15, 23, 42, 0.7);
+  transition: all 0.15s ease;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #94a3b8 0%,
+    /* slate-400 */ #64748b 100% /* slate-500 */
+  );
+  border-left-color: rgba(148, 163, 184, 0.3);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 0.5px rgba(15, 23, 42, 0.5), 0 0 2px rgba(59, 130, 246, 0.08);
+}
+
+/* Accordion Scrollbar - Blue Accent Theme */
+.accordion-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #534b4b rgba(15, 23, 42, 0.2);
+}
+
+.accordion-scroll::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 
-.custom-scroll::-webkit-scrollbar-track {
-  background: rgba(17, 24, 39, 0.2);
-  border-radius: 2px;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
-  border-radius: 2px;
-  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.1);
-}
-
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
-}
-
-/* Scrollbar para el Accordion */
-.accordion-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: #3b82f6 rgba(17, 24, 39, 0.2);
-}
-
-.accordion-scroll::-webkit-scrollbar {
-  width: 3px;
-}
-
 .accordion-scroll::-webkit-scrollbar-track {
-  background: rgba(17, 24, 39, 0.1);
-  border-radius: 1.5px;
+  background: rgba(15, 23, 42, 0.2);
+  border-radius: 0;
+  border-left: 1px solid rgba(59, 130, 246, 0.1);
 }
 
 .accordion-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-  border-radius: 1.5px;
-  box-shadow: 0 0 2px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(
+    180deg,
+    #534b4b 0%,
+    /* blue-500 */ #534b4b 100% /* blue-600 */
+  );
+  border-radius: 0;
+  border-left: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.08),
+    0 0 1px rgba(59, 130, 246, 0.3);
+  transition: all 0.15s ease;
 }
 
 .accordion-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
-  box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(
+    180deg,
+    #534b4b 0%,
+    /* blue-400 */ #534b4b 100% /* blue-500 */
+  );
+  border-left-color: rgba(96, 165, 250, 0.3);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.12),
+    0 0 2px rgba(59, 130, 246, 0.4), 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Modal & Overlay Scrollbar - Minimal Clean */
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.6) rgba(15, 23, 42, 0.1);
+}
+
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.1);
+  border-radius: 0;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.6);
+  border-radius: 0;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: all 0.15s ease;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(203, 213, 225, 0.8);
+  border-color: rgba(203, 213, 225, 0.3);
+  box-shadow: 0 0 2px rgba(148, 163, 184, 0.4);
 }
 
 html,

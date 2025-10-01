@@ -9,15 +9,19 @@ export const AccordionHeader = ({
   element: GLOBAL_ELEMENTS;
   type: string;
 }) => {
-  const item = getElementIcon(element, type);
+  const item = getElementIcon(element, type, "text-nasa-white");
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row items-center ">
       {item.icon && (
-        <span className="mr-3 text-blue-400 flex-shrink-0">{item.icon}</span>
+        <span className="mr-3 text-nasa-white flex-shrink-0">{item.icon}</span>
       )}
       <div className="flex flex-col items-start">
-        <span className="text-white font-medium text-sm">{item.title}</span>
-        <span className="text-white font-medium text-xs">{item.subtitle}</span>
+        <span className="text-nasa-white font-medium text-sm">
+          {item.title}
+        </span>
+        <span className="text-nasa-white font-medium text-xs">
+          {item.subtitle}
+        </span>
       </div>
     </div>
   );

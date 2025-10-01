@@ -9,22 +9,28 @@ import { MdFireHydrantAlt } from "react-icons/md";
 
 export type GLOBAL_ELEMENTS = "wind" | "water" | "fire" | "earth" | "home";
 export const DEFAULT_ICON: elementsIconsDetailProps = {
-  icon: <SiNasa className="text-blue-700 size-8" />,
+  icon: <SiNasa className="text-nasa-white size-8" />,
   title: "NASA",
   subtitle: "National Aeronautics and Space Administration",
 };
 
-export const elementsIcons: elementsIconsProps[] = [
+export const elementsIcons = (className?: string): elementsIconsProps[] => [
   {
     element: "wind",
     types: {
       TYPE01: {
-        icon: <GiWindsock className="text-yellow-500 size-8" />,
+        icon: (
+          <GiWindsock className={`size-8 ${className || "text-yellow-500"}`} />
+        ),
         title: "Wind Sock",
         subtitle: "Measures wind direction",
       },
       TYPE02: {
-        icon: <GiWindTurbine className="text-yellow-500 size-8" />,
+        icon: (
+          <GiWindTurbine
+            className={`size-8 ${className || "text-yellow-500"}`}
+          />
+        ),
         title: "Wind Turbine",
         subtitle: "Generates wind energy",
       },
@@ -34,12 +40,18 @@ export const elementsIcons: elementsIconsProps[] = [
     element: "water",
     types: {
       TYPE01: {
-        icon: <FaBottleWater className="text-blue-600 size-8" />,
+        icon: (
+          <FaBottleWater className={`size-8 ${className || "text-blue-500"}`} />
+        ),
         title: "Water Bottle",
         subtitle: "Stores drinking water",
       },
       TYPE02: {
-        icon: <FaCloudShowersWater className="text-blue-600 size-8" />,
+        icon: (
+          <FaCloudShowersWater
+            className={` size-8 ${className || "text-blue-500"}`}
+          />
+        ),
         title: "Cloud Showers",
         subtitle: "Indicates rain",
       },
@@ -49,12 +61,18 @@ export const elementsIcons: elementsIconsProps[] = [
     element: "earth",
     types: {
       TYPE01: {
-        icon: <GiPineTree className="text-green-500 size-8" />,
+        icon: (
+          <GiPineTree className={`size-8 ${className || "text-green-500 "}`} />
+        ),
         title: "Pine Tree",
         subtitle: "A tall coniferous tree",
       },
       TYPE02: {
-        icon: <RiBuilding2Fill className="text-green-500 size-8" />,
+        icon: (
+          <RiBuilding2Fill
+            className={` size-8 ${className || "text-green-500 "}`}
+          />
+        ),
         title: "Building",
         subtitle: "A man-made structure",
       },
@@ -64,12 +82,18 @@ export const elementsIcons: elementsIconsProps[] = [
     element: "fire",
     types: {
       TYPE01: {
-        icon: <FaDumpsterFire className="text-red-500 size-8" />,
+        icon: (
+          <FaDumpsterFire className={`size-8 ${className || "text-red-500"}`} />
+        ),
         title: "Dumpster Fire",
         subtitle: "A fire in a dumpster",
       },
       TYPE02: {
-        icon: <MdFireHydrantAlt className="text-red-500 size-8" />,
+        icon: (
+          <MdFireHydrantAlt
+            className={`size-8 ${className || "text-red-500"}`}
+          />
+        ),
         title: "Fire Hydrant",
         subtitle: "A hydrant for fire emergencies",
       },

@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { FaFireAlt, FaWind } from "react-icons/fa";
 import { IoIosWater } from "react-icons/io";
 import { TbPlant } from "react-icons/tb";
-import { SidebarButton, Tooltip } from "../atoms";
+import { FormLine, SidebarButton, Tooltip } from "../atoms";
 import {
   TypeMark,
   winds,
@@ -23,6 +23,7 @@ export interface MenuItem {
   label: string;
   color: string;
   bg: string;
+  border: string;
   collection?: TypeMark[];
 }
 
@@ -32,6 +33,7 @@ const menuItems: MenuItem[] = [
     icon: <FaHome />,
     color: "text-orange-500",
     bg: "bg-orange-500",
+    border: "border-orange-500",
     label: "Home",
   },
   {
@@ -39,6 +41,7 @@ const menuItems: MenuItem[] = [
     icon: <FaFireAlt />,
     color: "text-red-500",
     bg: "bg-red-500",
+    border: "border-red-500",
     label: "Fire",
     collection: fires,
   },
@@ -47,6 +50,7 @@ const menuItems: MenuItem[] = [
     icon: <IoIosWater />,
     color: "text-blue-600",
     bg: "bg-blue-600",
+    border: "border-blue-600",
     label: "Water",
     collection: waters,
   },
@@ -56,6 +60,7 @@ const menuItems: MenuItem[] = [
     label: "Wind",
     color: "text-yellow-500",
     bg: "bg-yellow-500",
+    border: "border-yellow-500",
     collection: winds,
   },
   {
@@ -64,6 +69,7 @@ const menuItems: MenuItem[] = [
     label: "Earth",
     color: "text-green-500",
     bg: "bg-green-500",
+    border: "border-green-500",
     collection: earths,
   },
 ];
@@ -133,25 +139,22 @@ export const DashboardSidebar = ({
       {/* Submenu Sidebar */}
       {activeItem && (
         <div
-          className="bg-nasa-grey w-64 h-full rounded-md shadow-2xl transform transition-all duration-300 ease-in-out
+          className="bg-nasa-white w-64 h-full rounded-md shadow-2xl transform transition-all duration-300 ease-in-out
                      animate-in slide-in-from-left-5 fade-in-0 overflow-scroll custom-scroll"
-          style={{
-            background: "linear-gradient(135deg, #374151 0%, #1f2937 100%)",
-          }}
         >
           <div className="relative p-4 h-full">
             <div className="mb-6">
-              <h3 className="text-white text-lg font-semibold flex items-center">
+              <h3 className="text-nasa-noir text-lg font-semibold flex items-center">
                 <span className={`mr-3 ${activeItem.color}`}>
                   {menuItems.find((item) => item.id === activeItem.id)?.icon}
                 </span>
+
                 {menuItems.find((item) => item.id === activeItem.id)?.label}
               </h3>
-              <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mt-2 rounded-full"></div>
+              <FormLine></FormLine>
             </div>
             <Accordion
-              element={activeItem.id}
-              marks={formattedMark(activeItem.collection || [])}
+              activeItem={activeItem}
               allowMultiple={false}
               defaultOpen={["filters"]}
               handleSubItemClick={handleSubItemClick}

@@ -1,13 +1,13 @@
-import { GLOBAL_ELEMENTS } from "@/constants";
-import { MarkNasa, MarkNasaItem } from "@/data";
+import { formattedMark, MarkNasa } from "@/data";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AccordionHeader } from "../atoms";
 import { GrLocationPin } from "react-icons/gr";
+import { MenuItem } from "../organisms";
+import clsx from "clsx";
 
 interface AccordionProps {
-  element: GLOBAL_ELEMENTS;
-  marks: MarkNasaItem[];
+  activeItem: MenuItem;
   allowMultiple?: boolean;
   defaultOpen?: string[];
   className?: string;
@@ -16,8 +16,7 @@ interface AccordionProps {
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
-  element,
-  marks,
+  activeItem,
   allowMultiple = true,
   defaultOpen = [],
   className = "",
@@ -39,13 +38,18 @@ export const Accordion: React.FC<AccordionProps> = ({
   };
 
   const isOpen = (itemId: string) => openItems.includes(itemId);
+  const marks = formattedMark(activeItem.collection || []);
 
   return (
     <div className={`space-y-2 custom-scroll ${className}`}>
       {marks.map((mark) => (
         <div
           key={mark.id}
-          className="bg-gray-800/50 rounded-lg border border-gray-700/50 overflow-scroll accordion-scroll max-h-1/2"
+          className={clsx(
+            `rounded-lg overflow-scroll border-2 accordion-scroll max-h-1/2`,
+            activeItem.border,
+            activeItem.bg
+          )}
         >
           {/* Accordion Header */}
           <button
@@ -54,9 +58,9 @@ export const Accordion: React.FC<AccordionProps> = ({
                        hover:bg-gray-700/50 transition-colors duration-200
                        focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
           >
-            <AccordionHeader element={element} type={mark.type} />
+            <AccordionHeader element={activeItem.id} type={mark.type} />
 
-            <span className="text-gray-400 ml-2 transition-transform duration-200 flex-shrink-0">
+            <span className="text-nasa-whitesoft ml-2 transition-transform duration-200 flex-shrink-0">
               {isOpen(mark.id) ? (
                 <FaChevronUp size={12} />
               ) : (
@@ -67,13 +71,13 @@ export const Accordion: React.FC<AccordionProps> = ({
 
           {/* Accordion Content */}
           <div
-            className={`overflow-scroll accordion-scroll transition-all duration-300 ease-in-out ${
+            className={`overflow-scroll bg-nasa-white accordion-scroll transition-all duration-300 ease-in-out ${
               isOpen(mark.id)
                 ? "max-h-[400px] opacity-100 py-3"
                 : "max-h-0 opacity-0"
             }`}
           >
-            <div className="flex flex-col gap-3 p-3 pt-0 text-gray-300 text-sm border-t border-gray-700/30">
+            <div className="flex flex-col gap-3 p-3 pt-0 text-gray-300 text-sm">
               {mark.marks.map((subItem) => (
                 <button
                   key={subItem.key}
@@ -83,8 +87,8 @@ export const Accordion: React.FC<AccordionProps> = ({
                       transform hover:scale-[1.02] hover:shadow-md relative
                       ${
                         activeSubItem?.key === subItem.key
-                          ? "bg-blue-600 text-white shadow-lg ring-2 ring-blue-400 ring-opacity-50"
-                          : "bg-gray-700/50 hover:bg-gray-700 text-gray-300 hover:text-white"
+                          ? "bg-nasa-black text-nasa-white shadow-lg ring-2 ring-nasa-greysoft ring-opacity-50"
+                          : "bg-nasa-whitesoft hover:bg-gray-700 text-nasa-black hover:text-white"
                       }
                     `}
                 >
@@ -107,12 +111,20 @@ export const Accordion: React.FC<AccordionProps> = ({
                       )}
                     </div>
                     <div className="flex items-center">
-                      <span className="text-xs opacity-60 mr-1">Info</span>
+                      <span
+                        className={`text-xs  mr-1 ${
+                          activeSubItem?.key === subItem.key
+                            ? "text-nasa-whitesoft"
+                            : "text-nasa-secondary opacity-60"
+                        }`}
+                      >
+                        Info
+                      </span>
                       <div
                         className={`w-2 h-2 rounded-full ${
                           activeSubItem?.key === subItem.key
-                            ? "bg-white animate-pulse"
-                            : "bg-blue-400"
+                            ? `${activeItem.bg} animate-pulse`
+                            : "bg-nasa-greysoft"
                         }`}
                       ></div>
                     </div>

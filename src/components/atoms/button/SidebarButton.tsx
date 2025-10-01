@@ -22,7 +22,7 @@ export const SidebarButton = ({
         ${
           isActive
             ? `${color} text-white scale-110 shadow-sm`
-            : "bg-nasa-secondary hover:bg-gray-700 text-gray-300 hover:text-white hover:scale-105"
+            : "bg-nasa-white hover:bg-nasa-greysoft text-nasa-black hover:text-nasa-grey hover:scale-105"
         }
         hover:shadow-lg
       `}

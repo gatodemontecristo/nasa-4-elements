@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AccordionHeader } from "../atoms";
 import { GrLocationPin } from "react-icons/gr";
-import { MenuItem } from "../organisms";
 import clsx from "clsx";
+import { MenuItem } from "@/types/generalType";
 
 interface AccordionProps {
   activeItem: MenuItem;

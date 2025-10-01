@@ -4,9 +4,9 @@ type Props = { points: MenuItem | null };
 import { useMap, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import type { Marker } from "@googlemaps/markerclusterer";
-import { MenuItem } from "./DashboardSidebar";
 import { TypeMark } from "@/data";
 import { getElementIcon } from "@/utils";
+import { MenuItem } from "@/types/generalType";
 
 export const Markers = ({ points }: Props) => {
   const map = useMap();

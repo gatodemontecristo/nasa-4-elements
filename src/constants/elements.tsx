@@ -2,10 +2,14 @@ import { elementsIconsDetailProps, elementsIconsProps } from "@/types";
 import { SiNasa } from "react-icons/si";
 import { GiWindsock, GiWindTurbine, GiPineTree } from "react-icons/gi";
 import { RiBuilding2Fill } from "react-icons/ri";
-import { FaBottleWater } from "react-icons/fa6";
-import { FaCloudShowersWater } from "react-icons/fa6";
-import { FaDumpsterFire } from "react-icons/fa";
+import { FaBottleWater, FaCloudShowersWater } from "react-icons/fa6";
 import { MdFireHydrantAlt } from "react-icons/md";
+import { MenuItem } from "@/types/generalType";
+import { FaHome } from "react-icons/fa";
+import { FaFireAlt, FaWind, FaDumpsterFire } from "react-icons/fa";
+import { IoIosWater } from "react-icons/io";
+import { TbPlant } from "react-icons/tb";
+import { winds, earths, waters, fires } from "@/data";
 
 export type GLOBAL_ELEMENTS = "wind" | "water" | "fire" | "earth" | "home";
 export const DEFAULT_ICON: elementsIconsDetailProps = {
@@ -98,5 +102,52 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
         subtitle: "A hydrant for fire emergencies",
       },
     },
+  },
+];
+
+export const MENU_ELEMENTS: MenuItem[] = [
+  {
+    id: "home",
+    icon: <FaHome />,
+    color: "text-orange-500",
+    bg: "bg-orange-500",
+    border: "border-orange-500",
+    label: "Home",
+  },
+  {
+    id: "fire",
+    icon: <FaFireAlt />,
+    color: "text-red-500",
+    bg: "bg-red-500",
+    border: "border-red-500",
+    label: "Fire",
+    collection: fires,
+  },
+  {
+    id: "water",
+    icon: <IoIosWater />,
+    color: "text-blue-600",
+    bg: "bg-blue-600",
+    border: "border-blue-600",
+    label: "Water",
+    collection: waters,
+  },
+  {
+    id: "wind",
+    icon: <FaWind />,
+    label: "Wind",
+    color: "text-yellow-500",
+    bg: "bg-yellow-500",
+    border: "border-yellow-500",
+    collection: winds,
+  },
+  {
+    id: "earth",
+    icon: <TbPlant />,
+    label: "Earth",
+    color: "text-green-500",
+    bg: "bg-green-500",
+    border: "border-green-500",
+    collection: earths,
   },
 ];

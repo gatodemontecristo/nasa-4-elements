@@ -5,8 +5,9 @@ import Image from "next/image";
 import React from "react";
 import { FaLocationArrow } from "react-icons/fa";
 import { GrLocationPin } from "react-icons/gr";
-import { InfoSkeleton } from "../atoms";
+import { CloseSidebar, InfoSkeleton } from "../atoms";
 import { MenuItem } from "./DashboardSidebar";
+import { getElementIcon } from "@/utils";
 
 export interface InformationPanelProps {
   activeSubItem?: MarkNasa;
@@ -25,7 +26,7 @@ export const InformationPanel = ({
   );
   const { url, isAvailable, isLoading, error } = streetViewData;
   if (!activeSubItem) return null;
-
+  const elementIcon = getElementIcon(activeItem.id, activeSubItem.type);
   return (
     <div
       className="bg-nasa-secondary w-80 h-full rounded-md shadow-2xl ml-2 transform transition-all duration-500 ease-in-out
@@ -42,7 +43,7 @@ export const InformationPanel = ({
               <div className="mb-6">
                 <h3 className="text-white text-lg font-bold mb-2 flex items-center">
                   <span className={`mr-3 ${activeItem.color}`}>
-                    <FaLocationArrow />
+                    {elementIcon.icon ? elementIcon.icon : <FaLocationArrow />}
                   </span>
                   {activeSubItem.name}
                 </h3>
@@ -53,16 +54,6 @@ export const InformationPanel = ({
                 ) : (
                   <div className="flex flex-col gap-4">
                     <div className="relative h-64 bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
-                      {/* {isLoading && (
-                   
-                      //   <div className="flex flex-col items-center gap-2">
-                      //     <FaSpinner className="animate-spin text-nasa-grey text-2xl" />
-                      //     <p className="text-nasa-grey text-sm">
-                      //       Verificando disponibilidad...
-                      //     </p>
-                      //   </div>
-                    )} */}
-
                       {error && (
                         <Image
                           src="/not-found.jpg"
@@ -136,15 +127,7 @@ export const InformationPanel = ({
           );
         })()}
 
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center
-                         bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white
-                         rounded-full transition-all duration-200 hover:scale-110 z-10"
-        >
-          ✕
-        </button>
+        <CloseSidebar onClick={onClose} />
       </div>
     </div>
   );

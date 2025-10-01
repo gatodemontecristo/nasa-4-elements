@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { FaFireAlt, FaWind } from "react-icons/fa";
 import { IoIosWater } from "react-icons/io";
 import { TbPlant } from "react-icons/tb";
-import { FormLine, SidebarButton, Tooltip } from "../atoms";
+import { CloseSidebar, FormLine, SidebarButton, Tooltip } from "../atoms";
 import {
   TypeMark,
   winds,
@@ -144,7 +144,7 @@ export const DashboardSidebar = ({
         >
           <div className="relative p-4 h-full">
             <div className="mb-6">
-              <h3 className="text-nasa-noir text-lg font-semibold flex items-center">
+              <h3 className="text-nasa-noir text-lg font-bold flex items-center">
                 <span className={`mr-3 ${activeItem.color}`}>
                   {menuItems.find((item) => item.id === activeItem.id)?.icon}
                 </span>
@@ -160,16 +160,7 @@ export const DashboardSidebar = ({
               handleSubItemClick={handleSubItemClick}
               activeSubItem={activeSubItem}
             />
-
-            {/* Close button */}
-            <button
-              onClick={() => setActiveItem(null)}
-              className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center
-                         bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white
-                         rounded-full transition-all duration-200 hover:scale-110"
-            >
-              ✕
-            </button>
+            <CloseSidebar onClick={() => setActiveItem(null)} />
           </div>
         </div>
       )}

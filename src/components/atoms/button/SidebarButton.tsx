@@ -21,7 +21,7 @@ export const SidebarButton = ({
         transition-all duration-300 ease-in-out transform
         ${
           isActive
-            ? `bg-${color} text-white scale-110 shadow-sm`
+            ? `${color} text-white scale-110 shadow-sm`
             : "bg-nasa-white hover:bg-nasa-greysoft text-nasa-black hover:text-nasa-grey hover:scale-105"
         }
         hover:shadow-lg

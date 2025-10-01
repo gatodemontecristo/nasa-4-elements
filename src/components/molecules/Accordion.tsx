@@ -123,7 +123,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                       <div
                         className={`w-2 h-2 rounded-full ${
                           activeSubItem?.key === subItem.key
-                            ? "bg-nasa-yellow animate-pulse"
+                            ? `${activeItem.bg} animate-pulse`
                             : "bg-nasa-greysoft"
                         }`}
                       ></div>

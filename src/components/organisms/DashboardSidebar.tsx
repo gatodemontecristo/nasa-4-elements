@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { FaFireAlt, FaWind } from "react-icons/fa";
 import { IoIosWater } from "react-icons/io";
 import { TbPlant } from "react-icons/tb";
-import { SidebarButton, Tooltip } from "../atoms";
+import { FormLine, SidebarButton, Tooltip } from "../atoms";
 import {
   TypeMark,
   winds,
@@ -31,7 +31,7 @@ const menuItems: MenuItem[] = [
   {
     id: "home",
     icon: <FaHome />,
-    color: "orange-500",
+    color: "text-orange-500",
     bg: "bg-orange-500",
     border: "border-orange-500",
     label: "Home",
@@ -39,7 +39,7 @@ const menuItems: MenuItem[] = [
   {
     id: "fire",
     icon: <FaFireAlt />,
-    color: "red-500",
+    color: "text-red-500",
     bg: "bg-red-500",
     border: "border-red-500",
     label: "Fire",
@@ -48,7 +48,7 @@ const menuItems: MenuItem[] = [
   {
     id: "water",
     icon: <IoIosWater />,
-    color: "blue-600",
+    color: "text-blue-600",
     bg: "bg-blue-600",
     border: "border-blue-600",
     label: "Water",
@@ -58,7 +58,7 @@ const menuItems: MenuItem[] = [
     id: "wind",
     icon: <FaWind />,
     label: "Wind",
-    color: "yellow-500",
+    color: "text-yellow-500",
     bg: "bg-yellow-500",
     border: "border-yellow-500",
     collection: winds,
@@ -67,7 +67,7 @@ const menuItems: MenuItem[] = [
     id: "earth",
     icon: <TbPlant />,
     label: "Earth",
-    color: "green-500",
+    color: "text-green-500",
     bg: "bg-green-500",
     border: "border-green-500",
     collection: earths,
@@ -124,7 +124,7 @@ export const DashboardSidebar = ({
                 icon={item.icon}
                 isActive={activeItem?.id === item.id}
                 onClick={() => handleItemClick(item.id)}
-                color={item.color}
+                color={item.bg}
               />
 
               {/* Tooltip on hover */}
@@ -145,13 +145,13 @@ export const DashboardSidebar = ({
           <div className="relative p-4 h-full">
             <div className="mb-6">
               <h3 className="text-nasa-noir text-lg font-semibold flex items-center">
-                <span className={`mr-3 text-${activeItem.color}`}>
+                <span className={`mr-3 ${activeItem.color}`}>
                   {menuItems.find((item) => item.id === activeItem.id)?.icon}
                 </span>
+
                 {menuItems.find((item) => item.id === activeItem.id)?.label}
               </h3>
-              {/* <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mt-2 rounded-full"></div> */}
-              <div className="h-0.5 bg-nasa-greysoft mt-2 rounded-full"></div>
+              <FormLine></FormLine>
             </div>
             <Accordion
               activeItem={activeItem}

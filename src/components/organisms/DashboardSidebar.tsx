@@ -1,78 +1,12 @@
 import React, { useState } from "react";
-import { FaHome } from "react-icons/fa";
-import { FaFireAlt, FaWind } from "react-icons/fa";
-import { IoIosWater } from "react-icons/io";
-import { TbPlant } from "react-icons/tb";
-import { CloseSidebar, FormLine, SidebarButton, Tooltip } from "../atoms";
-import {
-  TypeMark,
-  winds,
-  formattedMark,
-  MarkNasa,
-  earths,
-  waters,
-  fires,
-} from "@/data";
-import { Accordion } from "../molecules";
+
+import { CloseSidebar } from "../atoms";
+import { MarkNasa } from "@/data";
+import { Accordion, UnderlinedTitle } from "../molecules";
 import { InformationPanel } from "./InformationPanel";
-import { GLOBAL_ELEMENTS } from "@/constants";
-
-export interface MenuItem {
-  id: GLOBAL_ELEMENTS;
-  icon: React.ReactNode;
-  label: string;
-  color: string;
-  bg: string;
-  border: string;
-  collection?: TypeMark[];
-}
-
-const menuItems: MenuItem[] = [
-  {
-    id: "home",
-    icon: <FaHome />,
-    color: "text-orange-500",
-    bg: "bg-orange-500",
-    border: "border-orange-500",
-    label: "Home",
-  },
-  {
-    id: "fire",
-    icon: <FaFireAlt />,
-    color: "text-red-500",
-    bg: "bg-red-500",
-    border: "border-red-500",
-    label: "Fire",
-    collection: fires,
-  },
-  {
-    id: "water",
-    icon: <IoIosWater />,
-    color: "text-blue-600",
-    bg: "bg-blue-600",
-    border: "border-blue-600",
-    label: "Water",
-    collection: waters,
-  },
-  {
-    id: "wind",
-    icon: <FaWind />,
-    label: "Wind",
-    color: "text-yellow-500",
-    bg: "bg-yellow-500",
-    border: "border-yellow-500",
-    collection: winds,
-  },
-  {
-    id: "earth",
-    icon: <TbPlant />,
-    label: "Earth",
-    color: "text-green-500",
-    bg: "bg-green-500",
-    border: "border-green-500",
-    collection: earths,
-  },
-];
+import { MainSidebar } from "./MainSidebar";
+import { MenuItem } from "@/types/generalType";
+import { MENU_ELEMENTS } from "@/constants";
 
 export interface DashboardSidebarProps {
   activeItem: MenuItem | null;
@@ -91,7 +25,7 @@ export const DashboardSidebar = ({
     setActiveItem(
       activeItem?.id === itemId
         ? null
-        : menuItems.find((item) => item.id === itemId) || null
+        : MENU_ELEMENTS.find((item) => item.id === itemId) || null
     );
     setActiveSubItem(null);
     setShowInfoPanel(false);
@@ -110,31 +44,14 @@ export const DashboardSidebar = ({
 
   return (
     <div className="absolute left-0 top-0 h-screen z-50 flex p-4 ">
-      {/* Main Sidebar */}
-      <div className="bg-nasa-black w-16 h-full flex flex-col items-center py-4 shadow-2xl rounded-md mr-2">
-        <div className="flex flex-col space-y-3 w-full">
-          {menuItems.map((item) => (
-            <div
-              key={item.id}
-              className="relative flex items-center w-full"
-              onMouseEnter={() => setHoveredItem(item.id)}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              <SidebarButton
-                icon={item.icon}
-                isActive={activeItem?.id === item.id}
-                onClick={() => handleItemClick(item.id)}
-                color={item.bg}
-              />
-
-              {/* Tooltip on hover */}
-              {hoveredItem === item.id && !activeItem && (
-                <Tooltip label={item.label} />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      <MainSidebar
+        className="bg-nasa-black w-16 "
+        menuItems={MENU_ELEMENTS}
+        activeItem={activeItem}
+        hoveredItem={hoveredItem}
+        setHoveredItem={setHoveredItem}
+        handleItemClick={handleItemClick}
+      ></MainSidebar>
 
       {/* Submenu Sidebar */}
       {activeItem && (
@@ -143,16 +60,16 @@ export const DashboardSidebar = ({
                      animate-in slide-in-from-left-5 fade-in-0 overflow-scroll custom-scroll"
         >
           <div className="relative p-4 h-full">
-            <div className="mb-6">
-              <h3 className="text-nasa-noir text-lg font-bold flex items-center">
-                <span className={`mr-3 ${activeItem.color}`}>
-                  {menuItems.find((item) => item.id === activeItem.id)?.icon}
-                </span>
-
-                {menuItems.find((item) => item.id === activeItem.id)?.label}
-              </h3>
-              <FormLine></FormLine>
-            </div>
+            <UnderlinedTitle
+              title={
+                MENU_ELEMENTS.find((item) => item.id === activeItem.id)?.label
+              }
+              icon={
+                MENU_ELEMENTS.find((item) => item.id === activeItem.id)?.icon
+              }
+              iconColor={activeItem.color}
+              textColor="text-nasa-noir"
+            />
             <Accordion
               activeItem={activeItem}
               allowMultiple={false}

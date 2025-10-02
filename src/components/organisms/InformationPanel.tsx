@@ -1,5 +1,4 @@
 "use client";
-import { MarkNasa } from "@/data";
 import { useStreetView } from "@/hooks";
 import Image from "next/image";
 import React from "react";
@@ -7,23 +6,19 @@ import { GrLocationPin } from "react-icons/gr";
 import { CloseSidebar, InfoSkeleton } from "../atoms";
 import { getElementIcon } from "@/utils";
 import { UnderlinedTitle } from "../molecules";
-import { MenuItem } from "@/types/generalType";
+import { useSidebarStore } from "@/store";
 
 export interface InformationPanelProps {
-  activeSubItem?: MarkNasa;
-  activeItem: MenuItem;
   onClose?: () => void;
 }
-export const InformationPanel = ({
-  activeSubItem,
-  activeItem,
-  onClose,
-}: InformationPanelProps) => {
+export const InformationPanel = ({ onClose }: InformationPanelProps) => {
+  const { activeItem, activeSubItem } = useSidebarStore();
   const streetViewData = useStreetView(
     activeSubItem?.lat || 0,
     activeSubItem?.lng || 0,
     { size: "800x400" }
   );
+  if (!activeItem) return null;
   const { url, isAvailable, isLoading, error } = streetViewData;
   if (!activeSubItem) return null;
   const elementIcon = getElementIcon(activeItem.id, activeSubItem.type);

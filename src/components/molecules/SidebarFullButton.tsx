@@ -1,21 +1,21 @@
 import React from "react";
 import { SidebarButton, Tooltip } from "../atoms";
 import { MenuItem } from "@/types/generalType";
+import { useSidebarStore } from "@/store";
 
 interface SidebarFullButtonProps {
   item: MenuItem;
   onClick: () => void;
   btnActive: boolean;
   tipActive: boolean;
-  setHoveredItem: (value: React.SetStateAction<string | null>) => void;
 }
 export const SidebarFullButton = ({
   item,
   onClick,
   btnActive,
   tipActive,
-  setHoveredItem,
 }: SidebarFullButtonProps) => {
+  const { setHoveredItem } = useSidebarStore();
   return (
     <div
       key={item.id}

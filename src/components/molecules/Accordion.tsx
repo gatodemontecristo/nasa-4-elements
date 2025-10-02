@@ -51,7 +51,6 @@ export const Accordion: React.FC<AccordionProps> = ({
             activeItem.bg
           )}
         >
-          {/* Accordion Header */}
           <button
             onClick={() => toggleItem(mark.id)}
             className="w-full p-3 flex items-center justify-between text-left 
@@ -62,14 +61,13 @@ export const Accordion: React.FC<AccordionProps> = ({
 
             <span className="text-nasa-whitesoft ml-2 transition-transform duration-200 flex-shrink-0">
               {isOpen(mark.id) ? (
-                <FaChevronUp size={12} />
+                <FaChevronUp size={14} />
               ) : (
-                <FaChevronDown size={12} />
+                <FaChevronDown size={14} />
               )}
             </span>
           </button>
 
-          {/* Accordion Content */}
           <div
             className={`overflow-scroll bg-nasa-white accordion-scroll transition-all duration-300 ease-in-out ${
               isOpen(mark.id)

@@ -1,22 +1,13 @@
 import React from "react";
 import { SidebarFullButton } from "../molecules";
 import { MenuItem } from "@/types/generalType";
+import { useSidebarStore } from "@/store";
 interface MainSidebarProps {
   className?: string;
   menuItems: MenuItem[];
-  handleItemClick: (itemId: string) => void;
-  activeItem?: MenuItem | null;
-  hoveredItem: string | null;
-  setHoveredItem: React.Dispatch<React.SetStateAction<string | null>>;
 }
-export const MainSidebar = ({
-  className,
-  menuItems,
-  hoveredItem,
-  setHoveredItem,
-  activeItem,
-  handleItemClick,
-}: MainSidebarProps) => {
+export const MainSidebar = ({ className, menuItems }: MainSidebarProps) => {
+  const { activeItem, hoveredItem, handleItemClick } = useSidebarStore();
   return (
     <div
       className={`bg-nasa-black w-16 h-full flex flex-col items-center py-4 shadow-2xl rounded-md mr-2 ${className}`}
@@ -29,7 +20,6 @@ export const MainSidebar = ({
             onClick={() => handleItemClick(item.id)}
             btnActive={activeItem?.id === item.id}
             tipActive={hoveredItem === item.id && !activeItem}
-            setHoveredItem={setHoveredItem}
           ></SidebarFullButton>
         ))}
       </div>

@@ -1,56 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { CloseSidebar } from "../atoms";
-import { MarkNasa } from "@/data";
 import { Accordion, UnderlinedTitle } from "../molecules";
 import { InformationPanel } from "./InformationPanel";
 import { MainSidebar } from "./MainSidebar";
-import { MenuItem } from "@/types/generalType";
 import { MENU_ELEMENTS } from "@/constants";
+import { useSidebarStore } from "@/store";
 
-export interface DashboardSidebarProps {
-  activeItem: MenuItem | null;
-  setActiveItem: (item: MenuItem | null) => void;
-}
-
-export const DashboardSidebar = ({
-  activeItem,
-  setActiveItem,
-}: DashboardSidebarProps) => {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [activeSubItem, setActiveSubItem] = useState<MarkNasa | null>(null);
-  const [showInfoPanel, setShowInfoPanel] = useState<boolean>(false);
-
-  const handleItemClick = (itemId: string) => {
-    setActiveItem(
-      activeItem?.id === itemId
-        ? null
-        : MENU_ELEMENTS.find((item) => item.id === itemId) || null
-    );
-    setActiveSubItem(null);
-    setShowInfoPanel(false);
-  };
-
-  const handleSubItemClick = (subItemId: MarkNasa) => {
-    setActiveSubItem(subItemId);
-
-    setShowInfoPanel(true);
-  };
-
-  const onCloseInformationPanel = () => {
-    setShowInfoPanel(false);
-    setActiveSubItem(null);
-  };
+export const DashboardSidebar = () => {
+  const {
+    activeItem,
+    setActiveItem,
+    activeSubItem,
+    showInfoPanel,
+    handleSubItemClick,
+    onCloseInformationPanel,
+  } = useSidebarStore();
 
   return (
     <div className="absolute left-0 top-0 h-screen z-50 flex p-4 ">
       <MainSidebar
         className="bg-nasa-black w-16 "
         menuItems={MENU_ELEMENTS}
-        activeItem={activeItem}
-        hoveredItem={hoveredItem}
-        setHoveredItem={setHoveredItem}
-        handleItemClick={handleItemClick}
       ></MainSidebar>
 
       {/* Submenu Sidebar */}
@@ -84,11 +55,7 @@ export const DashboardSidebar = ({
 
       {/* Information Panel */}
       {showInfoPanel && activeSubItem && activeItem && (
-        <InformationPanel
-          activeSubItem={activeSubItem}
-          activeItem={activeItem}
-          onClose={onCloseInformationPanel}
-        ></InformationPanel>
+        <InformationPanel onClose={onCloseInformationPanel}></InformationPanel>
       )}
     </div>
   );

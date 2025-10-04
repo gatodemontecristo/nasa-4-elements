@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   APIProvider,
   Map,
@@ -18,7 +18,6 @@ import {
   useReverseGeocode,
   useStreetView,
 } from "@/hooks";
-import { MenuItem } from "@/types/generalType";
 import { useSidebarStore } from "@/store";
 
 export default function Intro() {
@@ -120,13 +119,7 @@ export default function Intro() {
           }}
         >
           <Markers points={activeItem} />
-          {/* <AdvancedMarker position={position} onClick={() => setOpen(true)}>
-            <Pin
-              background={"grey"}
-              borderColor={"green"}
-              glyphColor={"purple"}
-            />
-          </AdvancedMarker> */}
+
           <AdvancedMarker position={position}>
             <div className="relative">
               <img

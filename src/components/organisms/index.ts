@@ -1,4 +1,4 @@
-export * from "./DashboardSidebar";
 export * from "./Markers";
-export * from "./InformationPanel";
+export * from "./InformationSidebar";
 export * from "./MainSidebar";
+export * from "./SubmenuSidebar";

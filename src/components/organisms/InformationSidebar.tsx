@@ -8,10 +8,10 @@ import { getElementIcon } from "@/utils";
 import { UnderlinedTitle } from "../molecules";
 import { useSidebarStore } from "@/store";
 
-export interface InformationPanelProps {
+export interface InformationSidebarProps {
   onClose?: () => void;
 }
-export const InformationPanel = ({ onClose }: InformationPanelProps) => {
+export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
   const { activeItem, activeSubItem } = useSidebarStore();
   const streetViewData = useStreetView(
     activeSubItem?.lat || 0,

@@ -1,5 +1,5 @@
-import { GLOBAL_ELEMENTS } from "@/constants";
-import { TypeMark } from "@/data";
+import { GLOBAL_ELEMENTS } from '@/constants';
+import { TypeMark } from '@/data';
 
 export interface MenuItem {
   id: GLOBAL_ELEMENTS;

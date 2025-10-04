@@ -1,4 +1,4 @@
-import { GLOBAL_ELEMENTS } from "@/constants";
+import { GLOBAL_ELEMENTS } from '@/constants';
 
 export interface elementsIconsDetailProps {
   icon: React.ReactNode;

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface FormLineProps {
   isFantasy?: boolean;
@@ -7,9 +7,9 @@ export const FormLine = ({ isFantasy = false }: FormLineProps) => {
   return (
     <>
       {isFantasy ? (
-        <div className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-4"></div>
+        <div className="mb-4 h-0.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
       ) : (
-        <div className="h-0.5 bg-nasa-greysoft mt-2 rounded-full"></div>
+        <div className="bg-nasa-greysoft mt-2 h-0.5 rounded-full"></div>
       )}
     </>
   );

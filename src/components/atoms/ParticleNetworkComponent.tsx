@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 interface ParticleNetworkProps {
   className?: string;
   particleColor?: string;
   background?: string;
   interactive?: boolean;
-  speed?: "slow" | "medium" | "fast" | "none";
-  density?: "low" | "medium" | "high" | number;
+  speed?: 'slow' | 'medium' | 'fast' | 'none';
+  density?: 'low' | 'medium' | 'high' | number;
 }
 
 interface ParticleOptions {
@@ -71,15 +71,15 @@ class ParticleNetwork {
   constructor(container: HTMLElement, options: Partial<ParticleOptions> = {}) {
     this.container = container;
     this.options = {
-      particleColor: options.particleColor || "#fff",
-      background: options.background || "#1a252f",
+      particleColor: options.particleColor || '#fff',
+      background: options.background || '#1a252f',
       interactive: options.interactive !== false,
       velocity: this.setVelocity(options.velocity),
       density: this.setDensity(options.density),
     };
 
-    this.canvas = document.createElement("canvas");
-    this.g = this.canvas.getContext("2d")!;
+    this.canvas = document.createElement('canvas');
+    this.g = this.canvas.getContext('2d')!;
 
     this.init();
   }
@@ -94,7 +94,7 @@ class ParticleNetwork {
   private setDensity(density?: number): number {
     if (density === 5000) return 5000; // high
     if (density === 20000) return 20000; // low
-    if (typeof density === "number") return density;
+    if (typeof density === 'number') return density;
     return 10000; // medium
   }
 
@@ -107,17 +107,17 @@ class ParticleNetwork {
     if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(this.options.background)) {
       this.setStyles(this.container, {
         background: this.options.background,
-        position: "relative",
+        position: 'relative',
       });
     } else if (/\.(gif|jpg|jpeg|tiff|png)$/i.test(this.options.background)) {
       this.setStyles(this.container, {
         background: `url("${this.options.background}") no-repeat center`,
-        backgroundSize: "cover",
-        position: "relative",
+        backgroundSize: 'cover',
+        position: 'relative',
       });
     } else {
       this.setStyles(this.container, {
-        position: "relative",
+        position: 'relative',
       });
     }
 
@@ -126,10 +126,10 @@ class ParticleNetwork {
     this.canvas.height = this.container.offsetHeight || window.innerHeight;
 
     this.setStyles(this.canvas, {
-      position: "absolute",
-      top: "0",
-      left: "0",
-      zIndex: "20",
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      zIndex: '20',
     });
 
     this.container.appendChild(this.canvas);
@@ -149,7 +149,7 @@ class ParticleNetwork {
       this.interactiveParticle.velocity = { x: 0, y: 0 };
       this.particles.push(this.interactiveParticle);
 
-      this.canvas.addEventListener("mousemove", (e) => {
+      this.canvas.addEventListener('mousemove', e => {
         if (this.interactiveParticle) {
           const rect = this.canvas.getBoundingClientRect();
           this.interactiveParticle.x = e.clientX - rect.left;
@@ -157,7 +157,7 @@ class ParticleNetwork {
         }
       });
 
-      this.canvas.addEventListener("mouseup", () => {
+      this.canvas.addEventListener('mouseup', () => {
         if (this.interactiveParticle) {
           this.interactiveParticle.velocity = {
             x: (Math.random() - 0.5) * this.options.velocity,
@@ -203,7 +203,7 @@ class ParticleNetwork {
       }, 500);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Start animation
     if (this.options.velocity !== 0) {
@@ -251,7 +251,7 @@ class ParticleNetwork {
     if (this.resizeTimeout) {
       clearTimeout(this.resizeTimeout);
     }
-    window.removeEventListener("resize", () => {});
+    window.removeEventListener('resize', () => {});
     if (this.canvas && this.container.contains(this.canvas)) {
       this.container.removeChild(this.canvas);
     }
@@ -259,12 +259,12 @@ class ParticleNetwork {
 }
 
 export default function ParticleNetworkComponent({
-  className = "",
-  particleColor = "#888",
-  background = "transparent",
+  className = '',
+  particleColor = '#888',
+  background = 'transparent',
   interactive = true,
-  speed = "medium",
-  density = "high",
+  speed = 'medium',
+  density = 'high',
 }: ParticleNetworkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const networkRef = useRef<ParticleNetwork | null>(null);
@@ -287,10 +287,10 @@ export default function ParticleNetworkComponent({
 
     networkRef.current = new ParticleNetwork(containerRef.current, {
       particleColor,
-      background: background === "transparent" ? "transparent" : background,
+      background: background === 'transparent' ? 'transparent' : background,
       interactive,
       velocity: velocityMap[speed],
-      density: typeof density === "number" ? density : densityMap[density],
+      density: typeof density === 'number' ? density : densityMap[density],
     });
 
     return () => {
@@ -303,9 +303,9 @@ export default function ParticleNetworkComponent({
   return (
     <div
       ref={containerRef}
-      className={`w-full h-full ${className}`}
+      className={`h-full w-full ${className}`}
       style={{
-        minHeight: "100vh",
+        minHeight: '100vh',
       }}
     />
   );

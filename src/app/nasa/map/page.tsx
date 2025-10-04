@@ -1,24 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
-import { useState } from "react";
-import {
-  APIProvider,
-  Map,
-  AdvancedMarker,
-  InfoWindow,
-} from "@vis.gl/react-google-maps";
-import { GoGoal } from "react-icons/go";
-import { GrLocationPin } from "react-icons/gr";
-import { FaStreetView } from "react-icons/fa";
-import { DashboardSidebar, Markers, StreetViewModal } from "@/components";
+import { useState } from 'react';
+import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
+import { GoGoal } from 'react-icons/go';
+import { GrLocationPin } from 'react-icons/gr';
+import { FaStreetView } from 'react-icons/fa';
+import { DashboardSidebar, Markers, StreetViewModal } from '@/components';
 
-import {
-  usePrefetchStreetView,
-  useReverseGeocode,
-  useStreetView,
-} from "@/hooks";
-import { useSidebarStore } from "@/store";
+import { usePrefetchStreetView, useReverseGeocode, useStreetView } from '@/hooks';
+import { useSidebarStore } from '@/store';
 
 export default function Intro() {
   //URL: https://www.google.com/maps/place/Comunidad+Urbana+Autogestionaria+de+Huayc%C3%A1n,+Ate+15483/@-12.029715,-76.8401525,14.38z/data=!4m6!3m5!1s0x9105b6300b679ae5:0x3dbad2cd0e12330!8m2!3d-12.0201464!4d-76.8175454!16s%2Fm%2F09v1g_0?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D
@@ -31,15 +21,13 @@ export default function Intro() {
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 0,
     lng: 0,
-    name: "",
+    name: '',
   });
 
   // Hooks de React Query
-  const streetViewData = useStreetView(
-    selectedLocation.lat,
-    selectedLocation.lng,
-    { size: "800x400" }
-  );
+  const streetViewData = useStreetView(selectedLocation.lat, selectedLocation.lng, {
+    size: '800x400',
+  });
 
   const addressData = useReverseGeocode(currentCenter.lat, currentCenter.lng);
 
@@ -60,8 +48,8 @@ export default function Intro() {
 
         {/* Controles de navegación personalizados */}
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
-          <div className="bg-nasa-black rounded-md shadow-lg p-2">
-            <div className="text-xs text-nasa-grey space-y-1">
+          <div className="bg-nasa-black rounded-md p-2 shadow-lg">
+            <div className="text-nasa-grey space-y-1 text-xs">
               <span className="flex items-center gap-1">
                 <GoGoal /> <p>Zoom: {currentZoom}</p>
               </span>
@@ -73,9 +61,9 @@ export default function Intro() {
               </span>
               {/* Mostrar dirección si está disponible */}
               {addressData.data?.results[0] && (
-                <div className="pt-1 border-t border-nasa-grey/20 mt-1">
+                <div className="border-nasa-grey/20 mt-1 border-t pt-1">
                   <p
-                    className="text-xs text-nasa-grey/80 truncate max-w-48"
+                    className="text-nasa-grey/80 max-w-48 truncate text-xs"
                     title={addressData.data.results[0].formatted_address}
                   >
                     📍 {addressData.data.results[0].formatted_address}
@@ -83,8 +71,8 @@ export default function Intro() {
                 </div>
               )}
               {addressData.isLoading && (
-                <div className="pt-1 border-t border-nasa-grey/20 mt-1">
-                  <p className="text-xs text-nasa-grey">🔄 Obtaining data...</p>
+                <div className="border-nasa-grey/20 mt-1 border-t pt-1">
+                  <p className="text-nasa-grey text-xs">🔄 Obtaining data...</p>
                 </div>
               )}
             </div>
@@ -92,14 +80,8 @@ export default function Intro() {
 
           {/* Botón para Street View del centro actual */}
           <button
-            onClick={() =>
-              openStreetView(
-                currentCenter.lat,
-                currentCenter.lng,
-                "Vista actual"
-              )
-            }
-            className="bg-nasa-black text-nasa-grey p-2 rounded-md shadow-lg hover:bg-nasa-primary transition-colors flex items-center gap-2"
+            onClick={() => openStreetView(currentCenter.lat, currentCenter.lng, 'Vista actual')}
+            className="bg-nasa-black text-nasa-grey hover:bg-nasa-primary flex items-center gap-2 rounded-md p-2 shadow-lg transition-colors"
             title="Ver Street View de la ubicación actual"
           >
             <FaStreetView />
@@ -113,7 +95,7 @@ export default function Intro() {
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
           streetViewControl={false}
           mapTypeControl={false}
-          onCameraChanged={(ev) => {
+          onCameraChanged={ev => {
             setCurrentZoom(ev.detail.zoom);
             setCurrentCenter(ev.detail.center);
           }}
@@ -125,10 +107,10 @@ export default function Intro() {
               <img
                 src="/naki_yoho.png" // 👈 desde /public
                 alt="Marker"
-                className="w-12 h-12 rounded-full border-2 border-white shadow-lg"
+                className="h-12 w-12 rounded-full border-2 border-white shadow-lg"
               />
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
-                <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-white"></div>
+                <div className="h-0 w-0 border-t-[8px] border-r-[6px] border-l-[6px] border-t-white border-r-transparent border-l-transparent"></div>
               </div>
             </div>
           </AdvancedMarker>

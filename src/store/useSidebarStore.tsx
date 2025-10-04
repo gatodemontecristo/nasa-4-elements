@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { MenuItem } from "../types/generalType";
-import { MarkNasa } from "@/data";
-import { MENU_ELEMENTS } from "@/constants";
+import { create } from 'zustand';
+import { MenuItem } from '../types/generalType';
+import { MarkNasa } from '@/data';
+import { MENU_ELEMENTS } from '@/constants';
 interface SidebarStoreProps {
   activeItem: MenuItem | null;
   hoveredItem: string | null;
@@ -29,9 +29,7 @@ export const useSidebarStore = create<SidebarStoreProps>((set, get) => ({
     const { activeItem } = get();
     set({
       activeItem:
-        activeItem?.id === itemId
-          ? null
-          : MENU_ELEMENTS.find((item) => item.id === itemId) || null,
+        activeItem?.id === itemId ? null : MENU_ELEMENTS.find(item => item.id === itemId) || null,
       activeSubItem: null,
       showInfoPanel: false,
     });

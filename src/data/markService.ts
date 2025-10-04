@@ -40,19 +40,17 @@ export const formattedMark = (collection: TypeMark[]): MarkNasaItem[] => {
 
   const ans = arr2.reduce((newObj: MarkNasaItem[], item: MarkNasa) => {
     const dataKey = item.type;
-    const existingGroup = newObj.find((el) => el.type === dataKey);
+    const existingGroup = newObj.find(el => el.type === dataKey);
     if (!existingGroup) {
       newObj.push({ type: dataKey, id: item.key, marks: [] });
     }
-    newObj.find((el) => el.type === dataKey)?.marks.push(item);
+    newObj.find(el => el.type === dataKey)?.marks.push(item);
     return newObj;
   }, []);
   return ans;
 };
 
-export const removeTypeFromMarks = (
-  collection: TypeMark[]
-): TypeMarkWithoutType[] => {
+export const removeTypeFromMarks = (collection: TypeMark[]): TypeMarkWithoutType[] => {
   return collection.map(([name, , lat, lng]) => [name, lat, lng]);
 };
 

@@ -22,7 +22,7 @@ yarn add @tanstack/react-query @tanstack/react-query-devtools
 ### 1. Provider Setup (Ya configurado en `layout.tsx`)
 
 ```tsx
-import { Providers } from "@/components/providers/Providers";
+import { Providers } from '@/components/providers/Providers';
 
 export default function RootLayout({ children }) {
   return (
@@ -50,11 +50,10 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=tu_api_key_aqui
 Combina URL de Street View y verificación de disponibilidad:
 
 ```tsx
-const { url, isAvailable, isLoading, error } = useStreetView(
-  -12.0201464,
-  -76.8175454,
-  { size: "800x400", fov: 90 }
-);
+const { url, isAvailable, isLoading, error } = useStreetView(-12.0201464, -76.8175454, {
+  size: '800x400',
+  fov: 90,
+});
 ```
 
 ### `useStreetViewUrl(lat, lng, options?)`
@@ -63,7 +62,7 @@ Genera URL de Street View (síncrono):
 
 ```tsx
 const streetViewUrl = useStreetViewUrl(lat, lng, {
-  size: "600x400",
+  size: '600x400',
   fov: 120,
   heading: 0,
   pitch: 0,
@@ -75,11 +74,7 @@ const streetViewUrl = useStreetViewUrl(lat, lng, {
 Verifica si Street View está disponible:
 
 ```tsx
-const {
-  data: isAvailable,
-  isLoading,
-  error,
-} = useStreetViewAvailability(lat, lng);
+const { data: isAvailable, isLoading, error } = useStreetViewAvailability(lat, lng);
 ```
 
 ### `useGeocode(address)`
@@ -87,11 +82,7 @@ const {
 Convierte dirección en coordenadas:
 
 ```tsx
-const {
-  data: geocodeResult,
-  isLoading,
-  error,
-} = useGeocode("1600 Amphitheatre Parkway");
+const { data: geocodeResult, isLoading, error } = useGeocode('1600 Amphitheatre Parkway');
 ```
 
 ### `useReverseGeocode(lat, lng)`
@@ -114,7 +105,7 @@ const handleSearch = async () => {
     const result = await geocodeMutation.mutateAsync(address);
     console.log(result.results[0].geometry.location);
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
   }
 };
 ```
@@ -124,8 +115,7 @@ const handleSearch = async () => {
 Para precargar datos:
 
 ```tsx
-const { prefetchAvailability, prefetchReverseGeocode } =
-  usePrefetchStreetView();
+const { prefetchAvailability, prefetchReverseGeocode } = usePrefetchStreetView();
 
 // Precargar al hacer hover sobre un marcador
 const handleMarkerHover = (lat, lng) => {
@@ -144,7 +134,7 @@ Modal optimizado para mostrar Street View:
 <StreetViewModal
   isOpen={streetViewOpen}
   onClose={() => setStreetViewOpen(false)}
-  location={{ lat, lng, name: "Mi ubicación" }}
+  location={{ lat, lng, name: 'Mi ubicación' }}
   streetViewData={streetViewData}
 />
 ```
@@ -152,33 +142,23 @@ Modal optimizado para mostrar Street View:
 ## 💡 Ejemplo de Uso Completo
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import {
-  useStreetView,
-  useReverseGeocode,
-  usePrefetchStreetView,
-} from "@/hooks/useGoogleMaps";
-import { StreetViewModal } from "@/components";
+import { useState } from 'react';
+import { useStreetView, useReverseGeocode, usePrefetchStreetView } from '@/hooks/useGoogleMaps';
+import { StreetViewModal } from '@/components';
 
 export default function MapComponent() {
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 0,
     lng: 0,
-    name: "",
+    name: '',
   });
   const [modalOpen, setModalOpen] = useState(false);
 
   // Hooks de React Query
-  const streetViewData = useStreetView(
-    selectedLocation.lat,
-    selectedLocation.lng
-  );
-  const addressData = useReverseGeocode(
-    selectedLocation.lat,
-    selectedLocation.lng
-  );
+  const streetViewData = useStreetView(selectedLocation.lat, selectedLocation.lng);
+  const addressData = useReverseGeocode(selectedLocation.lat, selectedLocation.lng);
   const { prefetchAvailability } = usePrefetchStreetView();
 
   const openStreetView = (lat: number, lng: number, name: string) => {
@@ -194,9 +174,7 @@ export default function MapComponent() {
 
       {/* Información de dirección */}
       {addressData.data?.results[0] && (
-        <div className="address-info">
-          📍 {addressData.data.results[0].formatted_address}
-        </div>
+        <div className="address-info">📍 {addressData.data.results[0].formatted_address}</div>
       )}
 
       {/* Modal de Street View */}
@@ -248,7 +226,7 @@ En desarrollo, se incluyen las React Query DevTools para inspeccionar el estado 
 Puedes monitorear el uso de la API y performance mediante:
 
 ```tsx
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from '@tanstack/react-query';
 
 const queryClient = useQueryClient();
 
@@ -256,7 +234,7 @@ const queryClient = useQueryClient();
 console.log(queryClient.getQueryCache().getAll());
 
 // Invalidar queries específicas
-queryClient.invalidateQueries({ queryKey: ["streetViewAvailability"] });
+queryClient.invalidateQueries({ queryKey: ['streetViewAvailability'] });
 ```
 
 ¡Listo! Ahora tienes una implementación robusta y optimizada de Google Maps API con React Query. 🎉

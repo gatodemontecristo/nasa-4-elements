@@ -1,1 +1,1 @@
-export * from "./elementsFormat";
+export * from './elementsFormat';

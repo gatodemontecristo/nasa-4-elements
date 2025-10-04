@@ -1,1 +1,1 @@
-export * from "./googlemap.service";
+export * from './googlemap.service';

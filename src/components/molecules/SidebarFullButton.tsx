@@ -1,7 +1,7 @@
-import React from "react";
-import { SidebarButton, Tooltip } from "../atoms";
-import { MenuItem } from "@/types/generalType";
-import { useSidebarStore } from "@/store";
+import React from 'react';
+import { SidebarButton, Tooltip } from '../atoms';
+import { MenuItem } from '@/types/generalType';
+import { useSidebarStore } from '@/store';
 
 interface SidebarFullButtonProps {
   item: MenuItem;
@@ -19,16 +19,11 @@ export const SidebarFullButton = ({
   return (
     <div
       key={item.id}
-      className="relative flex items-center w-full"
+      className="relative flex w-full items-center"
       onMouseEnter={() => setHoveredItem(item.id)}
       onMouseLeave={() => setHoveredItem(null)}
     >
-      <SidebarButton
-        icon={item.icon}
-        isActive={btnActive}
-        onClick={onClick}
-        color={item.bg}
-      />
+      <SidebarButton icon={item.icon} isActive={btnActive} onClick={onClick} color={item.bg} />
       {tipActive && <Tooltip label={item.label} />}
     </div>
   );

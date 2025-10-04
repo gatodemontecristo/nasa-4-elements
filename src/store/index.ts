@@ -1,1 +1,1 @@
-export * from "./useSidebarStore";
+export * from './useSidebarStore';

@@ -1,12 +1,12 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
+'use client';
+import { useEffect, useRef, useState } from 'react';
 type Props = { points: MenuItem | null };
-import { useMap, AdvancedMarker } from "@vis.gl/react-google-maps";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import type { Marker } from "@googlemaps/markerclusterer";
-import { TypeMark } from "@/data";
-import { getElementIcon } from "@/utils";
-import { MenuItem } from "@/types/generalType";
+import { useMap, AdvancedMarker } from '@vis.gl/react-google-maps';
+import { MarkerClusterer } from '@googlemaps/markerclusterer';
+import type { Marker } from '@googlemaps/markerclusterer';
+import { TypeMark } from '@/data';
+import { getElementIcon } from '@/utils';
+import { MenuItem } from '@/types/generalType';
 
 export const Markers = ({ points }: Props) => {
   const map = useMap();
@@ -29,7 +29,7 @@ export const Markers = ({ points }: Props) => {
     if (marker && markers[key]) return;
     if (!marker && !markers[key]) return;
 
-    setMarkers((prev) => {
+    setMarkers(prev => {
       if (marker) {
         return { ...prev, [key]: marker };
       } else {
@@ -46,11 +46,9 @@ export const Markers = ({ points }: Props) => {
         <AdvancedMarker
           position={{ lat, lng }}
           key={JSON.stringify({ name, lat, lng })}
-          ref={(marker) =>
-            setMarkerRef(marker, JSON.stringify({ name, lat, lng }))
-          }
+          ref={marker => setMarkerRef(marker, JSON.stringify({ name, lat, lng }))}
         >
-          {getElementIcon(points?.id || "home", type).icon}
+          {getElementIcon(points?.id || 'home', type).icon}
         </AdvancedMarker>
       ))}
     </>

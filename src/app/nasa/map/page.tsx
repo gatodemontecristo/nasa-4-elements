@@ -5,7 +5,7 @@ import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-goog
 import { GoGoal } from 'react-icons/go';
 import { GrLocationPin } from 'react-icons/gr';
 import { FaStreetView } from 'react-icons/fa';
-import { DashboardSidebar, Markers, StreetViewModal } from '@/components';
+import { DashboardSidebar, Markers, StreetViewModal, TextIcon, TextLoading } from '@/components';
 
 import { usePrefetchStreetView, useReverseGeocode, useStreetView } from '@/hooks';
 import { useSidebarStore } from '@/store';
@@ -50,31 +50,10 @@ export default function Intro() {
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
           <div className="bg-nasa-black rounded-md p-2 shadow-lg">
             <div className="text-nasa-grey space-y-1 text-xs">
-              <span className="flex items-center gap-1">
-                <GoGoal /> <p>Zoom: {currentZoom}</p>
-              </span>
-              <span className="flex items-center gap-1">
-                <GrLocationPin /> <p>Lat: {currentCenter.lat.toFixed(4)}</p>
-              </span>
-              <span className="flex items-center gap-1">
-                <GrLocationPin /> <p>Lng: {currentCenter.lng.toFixed(4)}</p>
-              </span>
-              {/* Mostrar dirección si está disponible */}
-              {addressData.data?.results[0] && (
-                <div className="border-nasa-grey/20 mt-1 border-t pt-1">
-                  <p
-                    className="text-nasa-grey/80 max-w-48 truncate text-xs"
-                    title={addressData.data.results[0].formatted_address}
-                  >
-                    📍 {addressData.data.results[0].formatted_address}
-                  </p>
-                </div>
-              )}
-              {addressData.isLoading && (
-                <div className="border-nasa-grey/20 mt-1 border-t pt-1">
-                  <p className="text-nasa-grey text-xs">🔄 Obtaining data...</p>
-                </div>
-              )}
+              <TextIcon icon={<GoGoal />} text={`Zoom: ${currentZoom.toFixed(4)}`} />
+              <TextIcon icon={<GrLocationPin />} text={`Lat: ${currentCenter.lat.toFixed(4)}`} />
+              <TextIcon icon={<GrLocationPin />} text={`Lng: ${currentCenter.lng.toFixed(4)}`} />
+              <TextLoading isShow={addressData.isFetching} label="🔄 Obtaining data..." />
             </div>
           </div>
 

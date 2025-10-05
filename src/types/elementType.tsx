@@ -12,3 +12,8 @@ export interface elementsIconsProps {
     [key: string]: elementsIconsDetailProps;
   };
 }
+
+export interface elementsBannerProps {
+  element: GLOBAL_ELEMENTS;
+  subtitle: string;
+}

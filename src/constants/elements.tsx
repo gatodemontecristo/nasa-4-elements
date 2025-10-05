@@ -1,4 +1,4 @@
-import { elementsIconsDetailProps, elementsIconsProps } from '@/types';
+import { elementsBannerProps, elementsIconsDetailProps, elementsIconsProps } from '@/types';
 import { SiNasa } from 'react-icons/si';
 import { GiWindsock, GiWindTurbine, GiPineTree } from 'react-icons/gi';
 import { RiBuilding2Fill } from 'react-icons/ri';
@@ -125,6 +125,27 @@ export const MENU_ELEMENTS: MenuItem[] = [
     bg: 'bg-green-500',
     border: 'border-green-500',
     collection: earths,
+  },
+];
+
+export const ELEMENTS_MAIN_MSG: string =
+  'Advanced geospatial intelligence platform integrating Earth observation data with urban planning methodologies for sustainable city development.';
+export const ELEMENTS_BANNER: elementsBannerProps[] = [
+  {
+    element: 'wind',
+    subtitle: 'Ground Analysis',
+  },
+  {
+    element: 'water',
+    subtitle: 'Hydrological Systems',
+  },
+  {
+    element: 'fire',
+    subtitle: 'Risk Assessment',
+  },
+  {
+    element: 'earth',
+    subtitle: 'Risk Assessment',
   },
 ];
 

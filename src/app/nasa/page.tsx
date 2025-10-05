@@ -1,7 +1,7 @@
 import ParticleNetworkComponent from '@/components/atoms/ParticleNetworkComponent';
 import Link from 'next/link';
 import React from 'react';
-import { HeaderSection, VideoIcon } from '../../components';
+import { HeaderSection, MainBanner, VideoIcon } from '../../components';
 import { MdReportProblem } from 'react-icons/md';
 import { RiBuilding2Fill } from 'react-icons/ri';
 import { FaShuttleSpace } from 'react-icons/fa6';
@@ -13,12 +13,12 @@ export const metadata = {
 
 export default function MainPage() {
   return (
-    <div className="relative h-screen w-full overflow-scroll bg-gradient-to-br from-slate-950 via-slate-900 to-black">
+    <div className="relative h-screen w-full overflow-scroll bg-black">
       {/* Particle Network Background */}
       <div className="absolute inset-0">
         <ParticleNetworkComponent
           particleColor="#3b82f6"
-          background="transparent"
+          background="#000000"
           interactive={true}
           speed="slow"
           density="medium"
@@ -27,7 +27,7 @@ export default function MainPage() {
       </div>
 
       {/* Grid Overlay for Architectural Feel */}
-      <div className="absolute inset-0 opacity-5">
+      {/* <div className="absolute inset-0 opacity-5">
         <div
           className="h-full w-full"
           style={{
@@ -38,7 +38,7 @@ export default function MainPage() {
             backgroundSize: '50px 50px',
           }}
         ></div>
-      </div>
+      </div> */}
 
       <HeaderSection />
 
@@ -59,38 +59,7 @@ export default function MainPage() {
               <span className="font-orbitron font-extralight tracking-tight">4 ELEMENTS</span>
             </h1>
 
-            <div className="mx-auto mb-12 max-w-3xl">
-              <p className="font-inter mb-6 text-xl leading-relaxed text-gray-300">
-                Advanced geospatial intelligence platform integrating Earth observation data with
-                urban planning methodologies for sustainable city development.
-              </p>
-              <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-4">
-                <div className="space-y-2">
-                  <div className="font-jetbrains text-2xl font-bold text-blue-400">EARTH</div>
-                  <div className="font-inter text-xs tracking-wide text-gray-500 uppercase">
-                    Ground Analysis
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="font-jetbrains text-2xl font-bold text-green-400">WATER</div>
-                  <div className="font-inter text-xs tracking-wide text-gray-500 uppercase">
-                    Hydrological Systems
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="font-jetbrains text-2xl font-bold text-orange-400">FIRE</div>
-                  <div className="font-inter text-xs tracking-wide text-gray-500 uppercase">
-                    Risk Assessment
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="font-jetbrains text-2xl font-bold text-cyan-400">WIND</div>
-                  <div className="font-inter text-xs tracking-wide text-gray-500 uppercase">
-                    Atmospheric Data
-                  </div>
-                </div>
-              </div>
-            </div>
+            <MainBanner></MainBanner>
             <Link
               href="/nasa/map"
               className="group font-space-grotesk inline-flex items-center justify-center border-2 border-blue-500 bg-transparent px-12 py-4 font-semibold tracking-wide text-blue-400 transition-all duration-300 hover:bg-blue-500 hover:text-white"
@@ -176,7 +145,7 @@ export default function MainPage() {
         </div>
       </div>
 
-      <div className="bg-nasa-white flex h-screen flex-row items-center justify-center p-4 text-black">
+      <div className="text-nasa-white font-jetbrains flex h-screen flex-row items-center justify-center bg-black p-4">
         <div className="flex w-1/5 flex-col gap-4">
           <p>Lore</p>
           <p>

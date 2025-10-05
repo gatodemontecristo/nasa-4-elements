@@ -1,4 +1,3 @@
-export * from './ParticleNetworkComponent';
 export * from './button';
 export * from './ornament';
 export * from './detail';

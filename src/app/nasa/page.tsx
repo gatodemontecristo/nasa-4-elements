@@ -1,8 +1,8 @@
-import ParticleNetworkComponent from '@/components/atoms/ParticleNetworkComponent';
 import React from 'react';
 import { ElementSection, HeaderSection, MainBanner, MainLink } from '../../components';
 import { ELEMENTS_SECTIONS } from '../../constants';
 import { nanoid } from 'nanoid';
+import ParticleNetworkComponent from '../../components/templates/ParticleNetworkComponent';
 
 export const metadata = {
   title: 'NASA Urban Observatory',

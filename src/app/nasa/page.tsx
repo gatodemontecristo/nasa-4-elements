@@ -1,6 +1,10 @@
 import ParticleNetworkComponent from '@/components/atoms/ParticleNetworkComponent';
 import Link from 'next/link';
 import React from 'react';
+import { HeaderSection, VideoIcon } from '../../components';
+import { MdReportProblem } from 'react-icons/md';
+import { RiBuilding2Fill } from 'react-icons/ri';
+import { FaShuttleSpace } from 'react-icons/fa6';
 
 export const metadata = {
   title: 'NASA Urban Observatory',
@@ -36,28 +40,7 @@ export default function MainPage() {
         ></div>
       </div>
 
-      {/* Navigation Bar */}
-      <nav className="relative z-40 flex items-center justify-between p-8">
-        <div className="flex items-center space-x-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-blue-500">
-            <span className="font-space-grotesk text-lg font-bold text-white">N</span>
-          </div>
-          <span className="font-jetbrains text-sm tracking-widest text-white">
-            NASA.URBAN.OBSERVATORY
-          </span>
-        </div>
-        <div className="font-inter hidden space-x-8 text-sm md:flex">
-          <span className="cursor-pointer text-gray-400 transition-colors hover:text-white">
-            PROJECTS
-          </span>
-          <span className="cursor-pointer text-gray-400 transition-colors hover:text-white">
-            DATA
-          </span>
-          <span className="cursor-pointer text-gray-400 transition-colors hover:text-white">
-            RESEARCH
-          </span>
-        </div>
-      </nav>
+      <HeaderSection />
 
       {/* Main Content */}
       <div className="relative z-30 mt-20 flex h-full items-center justify-center px-8">
@@ -70,10 +53,10 @@ export default function MainPage() {
               </span>
             </div>
 
-            <h1 className="font-playfair mb-6 text-6xl leading-tight font-light text-white lg:text-8xl">
+            <h1 className="font-nasalization mb-6 text-6xl font-light text-white lg:text-8xl">
               NASA
               <br />
-              <span className="font-space-grotesk font-black tracking-tight">4 ELEMENTS</span>
+              <span className="font-orbitron font-extralight tracking-tight">4 ELEMENTS</span>
             </h1>
 
             <div className="mx-auto mb-12 max-w-3xl">
@@ -112,7 +95,7 @@ export default function MainPage() {
               href="/nasa/map"
               className="group font-space-grotesk inline-flex items-center justify-center border-2 border-blue-500 bg-transparent px-12 py-4 font-semibold tracking-wide text-blue-400 transition-all duration-300 hover:bg-blue-500 hover:text-white"
             >
-              <span className="mr-3">ACCESS PLATFORM</span>
+              <span className="font-orbitron mr-3">ACCESS THE DEMO</span>
               <div className="flex h-6 w-6 items-center justify-center border border-current group-hover:border-white">
                 <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
@@ -191,6 +174,43 @@ export default function MainPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="bg-nasa-white flex h-screen flex-row items-center justify-center p-4 text-black">
+        <div className="flex w-1/5 flex-col gap-4">
+          <p>Lore</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa omnis soluta, aliquid
+            voluptatem eaque id amet assumenda officiis minima ipsum! Id fuga quibusdam temporibus
+            quis tempora, adipisci fugiat eligendi culpa.
+          </p>
+        </div>
+        <div className="flex w-1/5 flex-col gap-4">
+          <p>Lore</p>
+          <MdReportProblem />
+          <p>Problema</p>
+          <RiBuilding2Fill />
+          <p>Problema</p>
+          <FaShuttleSpace />
+          <p>Problema</p>
+        </div>
+
+        <VideoIcon srcVideo="/video.mp4" element="water" className="w-2/5"></VideoIcon>
+
+        {/* <svg width="0" height="0">
+          <defs>
+            <pattern id="water-pattern" patternUnits="userSpaceOnUse" width="100%" height="100%">
+              <image
+                href="/water.jpg"
+                x="0"
+                y="0"
+                width="100%"
+                height="100%"
+                preserveAspectRatio="xMidYMid slice"
+              />
+            </pattern>
+          </defs>
+        </svg> */}
       </div>
 
       {/* Footer */}

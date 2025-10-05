@@ -1,8 +1,7 @@
-import { GLOBAL_ELEMENTS } from '@/constants';
 import { TypeMark } from '@/data';
 
 export interface MenuItem {
-  id: GLOBAL_ELEMENTS;
+  id: string;
   icon: React.ReactNode;
   label: string;
   color: string;

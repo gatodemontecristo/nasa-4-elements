@@ -28,14 +28,17 @@
 .font-inter {
   font-family: var(--font-inter), sans-serif;
 }
-.font-playfair {
-  font-family: var(--font-playfair), serif;
-}
-.font-space-grotesk {
-  font-family: var(--font-space-grotesk), sans-serif;
-}
+
 .font-jetbrains {
   font-family: var(--font-jetbrains-mono), monospace;
+}
+
+.font-orbitron {
+  font-family: var(--font-orbitron), monospace;
+}
+
+.font-nasalization {
+  font-family: var(--font-nasalization), sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

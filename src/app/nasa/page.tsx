@@ -1,6 +1,6 @@
 import ParticleNetworkComponent from '@/components/atoms/ParticleNetworkComponent';
 import React from 'react';
-import { HeaderSection, MainBanner, MainLink, VideoIcon } from '../../components';
+import { HeaderSection, LineSeparator, MainBanner, MainLink, VideoIcon } from '../../components';
 import { MdReportProblem } from 'react-icons/md';
 import { RiBuilding2Fill } from 'react-icons/ri';
 import { FaShuttleSpace } from 'react-icons/fa6';
@@ -128,7 +128,7 @@ export default function MainPage() {
         <div className="absolute top-1/6 right-0 left-0 h-px bg-gray-800"></div>
         <div className="absolute right-0 bottom-1/6 left-0 h-px bg-gray-800"></div>
 
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
+        <LineSeparator direction={'vertical'}></LineSeparator>
         <div className="flex w-1/5 flex-col gap-4">
           <p className="font-orbitron text-2xl">Summary</p>
           <p>
@@ -136,17 +136,18 @@ export default function MainPage() {
             systems for safe and resilient supply in vulnerable settlements.
           </p>
         </div>
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
+        <LineSeparator direction={'vertical'}></LineSeparator>
+
         <div className="flex w-1/5 flex-col items-center justify-center gap-4">
           <p className="font-orbitron text-2xl">Element features</p>
-          <MdReportProblem className="h-8 w-8 text-amber-300" />
+          <MdReportProblem className="h-8 w-8 text-orange-400" />
           <p>Scarce clean sources</p>
-          <RiBuilding2Fill className="text-nasa-orange h-8 w-8" />
+          <RiBuilding2Fill className="h-8 w-8 text-green-500" />
           <p>Ensure safe supply</p>
           <FaShuttleSpace className="h-8 w-8 text-blue-500" />
           <p>Smart water systems</p>
         </div>
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
+        <LineSeparator direction={'vertical'}></LineSeparator>
 
         <VideoIcon srcVideo="/videos/water.mp4" element="water" className="w-2/5"></VideoIcon>
         <div className="mx-4 h-full w-px bg-gray-800"></div>

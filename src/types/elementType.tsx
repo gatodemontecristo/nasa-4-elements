@@ -18,3 +18,13 @@ export interface elementsBannerProps {
   element: GLOBAL_ELEMENTS;
   subtitle: string;
 }
+
+export interface elementsSectionProps {
+  element: GLOBAL_ELEMENTS;
+  className?: string;
+  summary: string;
+  problem: string;
+  goal: string;
+  solution: string;
+  video: string;
+}

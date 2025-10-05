@@ -8,7 +8,7 @@ interface VideoIconProps {
 }
 export const VideoIcon = ({ className, srcVideo, element }: VideoIconProps) => {
   return (
-    <div className={`h-100 w-100 ${className}`}>
+    <div className={`flex h-100 w-100 flex-col items-center justify-center ${className}`}>
       <video
         src={srcVideo}
         autoPlay

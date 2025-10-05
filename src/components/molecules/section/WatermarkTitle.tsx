@@ -7,7 +7,7 @@ interface WatermarkTitleProps {
 export const WatermarkTitle = ({ className, title }: WatermarkTitleProps) => {
   return (
     <div
-      className={`font-nasalization absolute top-15 right-0 left-0 text-[200px] text-gray-100 opacity-20 uppercase${className}`}
+      className={`font-nasalization absolute top-15 right-0 left-0 text-[200px] text-gray-100 uppercase opacity-20 ${className}`}
     >
       <p>{title}</p>
     </div>

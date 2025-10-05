@@ -3,7 +3,7 @@ import { FeaturesSection, SectionDecorations, SummarySection, WatermarkTitle } f
 import { LineSeparator, VideoIcon } from '../atoms';
 import { elementsSectionProps } from '../../types';
 
-export const ElementSection = (element: elementsSectionProps) => {
+export const ElementSection = ({ element }: { element: elementsSectionProps }) => {
   return (
     <div className="text-nasa-white font-jetbrains relative flex h-screen flex-row items-center justify-center bg-black px-5">
       <SectionDecorations></SectionDecorations>

@@ -1,4 +1,9 @@
-import { elementsBannerProps, elementsIconsDetailProps, elementsIconsProps } from '@/types';
+import {
+  elementsBannerProps,
+  elementsIconsDetailProps,
+  elementsIconsProps,
+  elementsSectionProps,
+} from '@/types';
 import { SiNasa } from 'react-icons/si';
 import { GiWindsock, GiWindTurbine, GiPineTree } from 'react-icons/gi';
 import { RiBuilding2Fill } from 'react-icons/ri';
@@ -9,7 +14,7 @@ import { FaFireAlt, FaWind, FaDumpsterFire } from 'react-icons/fa';
 import { IoIosWater } from 'react-icons/io';
 import { TbPlant } from 'react-icons/tb';
 import { winds, earths, waters, fires } from '@/data';
-import { SVG_FIRE, SVG_WATER, SVG_WIND } from './svg';
+import { SVG_EARTH, SVG_FIRE, SVG_WATER, SVG_WIND } from './svg';
 
 export type GLOBAL_ELEMENTS = 'wind' | 'water' | 'fire' | 'earth';
 export const DEFAULT_ICON: elementsIconsDetailProps = {
@@ -153,10 +158,48 @@ export const ELEMENTS_BANNER: elementsBannerProps[] = [
   },
 ];
 
+export const ELEMENTS_SECTIONS: elementsSectionProps[] = [
+  {
+    element: 'wind',
+    summary:
+      'NASA wind and air-quality data reveal pollution and airflow patterns, enabling cleaner cities through renewable energy and ventilation-aware design.',
+    problem: 'Air pollution',
+    goal: 'Cleaner environment',
+    solution: 'Renewable energy',
+    video: '/videos/wind.mp4',
+  },
+  {
+    element: 'water',
+    summary:
+      'Using NASA water data, we target scarce sources and seasonal risks, creating smart systems for safe and resilient supply in vulnerable settlements.',
+    problem: 'Scarce clean sources',
+    goal: 'Ensure safe supply',
+    solution: 'Smart water systems',
+    video: '/videos/water.mp4',
+  },
+  {
+    element: 'fire',
+    summary:
+      'By applying NASA fire and drought monitoring, we enable early detection and community-focused strategies to reduce wildfire risks near settlements.',
+    problem: 'Wildfire risks',
+    goal: 'Risk reduction',
+    solution: 'Early detection',
+    video: '/videos/fire.mp4',
+  },
+  {
+    element: 'earth',
+    summary:
+      'With NASA land and soil insights, we guide sustainable zoning and growth, preventing overuse and supporting resilient urban planning.',
+    problem: 'Land overuse',
+    goal: 'Sustainable growth',
+    solution: 'Geo-data planning',
+    video: '/videos/earth.mp4',
+  },
+];
+
 export const elementsSvg: Record<GLOBAL_ELEMENTS, string> = {
   wind: SVG_WIND,
   water: SVG_WATER,
   fire: SVG_FIRE,
-  earth:
-    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d='M272 32L368 32C385.7 32 400 46.3 400 64C400 81.7 385.7 96 368 96L272 96C254.3 96 240 81.7 240 64C240 46.3 254.3 32 272 32zM176 208C176 172.7 204.7 144 240 144L400 144C435.3 144 464 172.7 464 208C464 232.1 450.7 253.1 431 264C450.7 274.9 464 295.9 464 320C464 344.1 450.7 365.1 431 376C450.7 386.9 464 407.9 464 432C464 456.1 450.7 477.1 431 488C450.7 498.9 464 519.9 464 544C464 579.3 435.3 608 400 608L240 608C204.7 608 176 579.3 176 544C176 519.9 189.3 498.9 209 488C189.3 477.1 176 456.1 176 432C176 407.9 189.3 386.9 209 376C189.3 365.1 176 344.1 176 320C176 295.9 189.3 274.9 209 264C189.3 253.1 176 232.1 176 208z'/></svg>",
+  earth: SVG_EARTH,
 };

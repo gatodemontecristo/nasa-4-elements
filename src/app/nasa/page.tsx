@@ -1,9 +1,8 @@
 import ParticleNetworkComponent from '@/components/atoms/ParticleNetworkComponent';
 import React from 'react';
-import { HeaderSection, LineSeparator, MainBanner, MainLink, VideoIcon } from '../../components';
-import { MdReportProblem } from 'react-icons/md';
-import { RiBuilding2Fill } from 'react-icons/ri';
-import { FaShuttleSpace } from 'react-icons/fa6';
+import { ElementSection, HeaderSection, MainBanner, MainLink } from '../../components';
+import { ELEMENTS_SECTIONS } from '../../constants';
+import { nanoid } from 'nanoid';
 
 export const metadata = {
   title: 'NASA Urban Observatory',
@@ -103,90 +102,9 @@ export default function MainPage() {
           </div>
         </div>
       </div>
-
-      <div className="text-nasa-white font-jetbrains relative flex h-screen flex-row items-center justify-center bg-black px-5">
-        {/* Línea horizontal */}
-        <div className="absolute top-15 right-0 left-0 text-center">
-          <div className="font-jetbrains mt-6 flex items-center justify-center space-x-8 text-xs text-gray-600">
-            <span>LAT: -12.0201464</span>
-            <span>•</span>
-            <span>LNG: -76.8175454</span>
-            <span>•</span>
-            <span>ALT: 2240M</span>
-          </div>
-        </div>
-
-        <div className="font-jetbrains absolute right-0 bottom-20 left-0 flex flex-row justify-around text-center text-xs text-gray-600">
-          <span>{`40' - 9' X 4' - 6'`}</span>
-          <span>{`1729 • 2300 • 21312`}</span>
-          <span>{`7' - 8' X 18' - 10'`}</span>
-        </div>
-
-        <div className="font-nasalization absolute top-15 right-0 left-0 text-[200px] text-gray-100 opacity-20">
-          <p>WATER</p>
-        </div>
-        <div className="absolute top-1/6 right-0 left-0 h-px bg-gray-800"></div>
-        <div className="absolute right-0 bottom-1/6 left-0 h-px bg-gray-800"></div>
-
-        <LineSeparator direction={'vertical'}></LineSeparator>
-        <div className="flex w-1/5 flex-col gap-4">
-          <p className="font-orbitron text-2xl">Summary</p>
-          <p>
-            Using NASA water data, we target scarce sources and seasonal risks, creating smart
-            systems for safe and resilient supply in vulnerable settlements.
-          </p>
-        </div>
-        <LineSeparator direction={'vertical'}></LineSeparator>
-
-        <div className="flex w-1/5 flex-col items-center justify-center gap-4">
-          <p className="font-orbitron text-2xl">Element features</p>
-          <MdReportProblem className="h-8 w-8 text-orange-400" />
-          <p>Scarce clean sources</p>
-          <RiBuilding2Fill className="h-8 w-8 text-green-500" />
-          <p>Ensure safe supply</p>
-          <FaShuttleSpace className="h-8 w-8 text-blue-500" />
-          <p>Smart water systems</p>
-        </div>
-        <LineSeparator direction={'vertical'}></LineSeparator>
-
-        <VideoIcon srcVideo="/videos/water.mp4" element="water" className="w-2/5"></VideoIcon>
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
-      </div>
-      <div className="text-nasa-white font-jetbrains relative flex h-screen flex-row items-center justify-center bg-black p-0">
-        {/* Línea horizontal */}
-
-        <div className="font-nasalization absolute top-15 right-0 left-0 text-[200px] text-gray-100 opacity-30">
-          <p>WIND</p>
-        </div>
-        <div className="absolute top-1/6 right-0 left-0 h-px bg-gray-800"></div>
-        <div className="absolute right-0 bottom-1/6 left-0 h-px bg-gray-800"></div>
-
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
-        <div className="flex w-1/5 flex-col gap-4">
-          <p>Lore</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa omnis soluta, aliquid
-            voluptatem eaque id amet assumenda officiis minima ipsum! Id fuga quibusdam temporibus
-            quis tempora, adipisci fugiat eligendi culpa.
-          </p>
-        </div>
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
-        <div className="flex w-1/5 flex-col items-center justify-center gap-4">
-          <p>Lore</p>
-          <MdReportProblem />
-          <p>Problema</p>
-          <RiBuilding2Fill />
-          <p>Problema</p>
-          <FaShuttleSpace />
-          <p>Problema</p>
-        </div>
-
-        {/* Línea vertical */}
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
-
-        <VideoIcon srcVideo="/videos/wind.mp4" element="wind" className="w-2/5"></VideoIcon>
-        <div className="mx-4 h-full w-px bg-gray-800"></div>
-      </div>
+      {ELEMENTS_SECTIONS.map(element => (
+        <ElementSection key={nanoid()} element={element}></ElementSection>
+      ))}
 
       {/* Footer */}
       <div className="absolute right-8 bottom-8 left-8 z-30">

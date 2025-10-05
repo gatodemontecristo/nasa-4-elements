@@ -14,6 +14,7 @@ export interface elementsIconsProps {
 }
 
 export interface elementsBannerProps {
+  className?: string;
   element: GLOBAL_ELEMENTS;
   subtitle: string;
 }

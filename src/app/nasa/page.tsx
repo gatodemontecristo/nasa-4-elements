@@ -1,7 +1,6 @@
 import ParticleNetworkComponent from '@/components/atoms/ParticleNetworkComponent';
-import Link from 'next/link';
 import React from 'react';
-import { HeaderSection, MainBanner, VideoIcon } from '../../components';
+import { HeaderSection, MainBanner, MainLink, VideoIcon } from '../../components';
 import { MdReportProblem } from 'react-icons/md';
 import { RiBuilding2Fill } from 'react-icons/ri';
 import { FaShuttleSpace } from 'react-icons/fa6';
@@ -26,24 +25,10 @@ export default function MainPage() {
         />
       </div>
 
-      {/* Grid Overlay for Architectural Feel */}
-      {/* <div className="absolute inset-0 opacity-5">
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage: `
-                 linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                 linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-               `,
-            backgroundSize: '50px 50px',
-          }}
-        ></div>
-      </div> */}
-
       <HeaderSection />
 
       {/* Main Content */}
-      <div className="relative z-30 mt-20 flex h-full items-center justify-center px-8">
+      <div className="relative z-30 mt-20 mb-10 flex h-full items-center justify-center px-8">
         <div className="mx-auto max-w-6xl">
           {/* Hero Section */}
           <div className="mb-16 text-center">
@@ -60,22 +45,7 @@ export default function MainPage() {
             </h1>
 
             <MainBanner></MainBanner>
-            <Link
-              href="/nasa/map"
-              className="group font-space-grotesk inline-flex items-center justify-center border-2 border-blue-500 bg-transparent px-12 py-4 font-semibold tracking-wide text-blue-400 transition-all duration-300 hover:bg-blue-500 hover:text-white"
-            >
-              <span className="font-orbitron mr-3">ACCESS THE DEMO</span>
-              <div className="flex h-6 w-6 items-center justify-center border border-current group-hover:border-white">
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
-            </Link>
+            <MainLink href="/nasa/map" text="ACCESS THE DEMO" />
           </div>
 
           {/* Technical Information Cards */}
@@ -131,21 +101,66 @@ export default function MainPage() {
               </div>
             </div>
           </div>
-
-          {/* Call to Action */}
-          <div className="text-center">
-            <div className="font-jetbrains mt-6 flex items-center justify-center space-x-8 text-xs text-gray-600">
-              <span>LAT: -12.0201464</span>
-              <span>•</span>
-              <span>LNG: -76.8175454</span>
-              <span>•</span>
-              <span>ALT: 2240M</span>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div className="text-nasa-white font-jetbrains flex h-screen flex-row items-center justify-center bg-black p-4">
+      <div className="text-nasa-white font-jetbrains relative flex h-screen flex-row items-center justify-center bg-black px-5">
+        {/* Línea horizontal */}
+        <div className="absolute top-15 right-0 left-0 text-center">
+          <div className="font-jetbrains mt-6 flex items-center justify-center space-x-8 text-xs text-gray-600">
+            <span>LAT: -12.0201464</span>
+            <span>•</span>
+            <span>LNG: -76.8175454</span>
+            <span>•</span>
+            <span>ALT: 2240M</span>
+          </div>
+        </div>
+
+        <div className="font-jetbrains absolute right-0 bottom-20 left-0 flex flex-row justify-around text-center text-xs text-gray-600">
+          <span>{`40' - 9' X 4' - 6'`}</span>
+          <span>{`1729 • 2300 • 21312`}</span>
+          <span>{`7' - 8' X 18' - 10'`}</span>
+        </div>
+
+        <div className="font-nasalization absolute top-15 right-0 left-0 text-[200px] text-gray-100 opacity-20">
+          <p>WATER</p>
+        </div>
+        <div className="absolute top-1/6 right-0 left-0 h-px bg-gray-800"></div>
+        <div className="absolute right-0 bottom-1/6 left-0 h-px bg-gray-800"></div>
+
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
+        <div className="flex w-1/5 flex-col gap-4">
+          <p className="font-orbitron text-2xl">Summary</p>
+          <p>
+            Using NASA water data, we target scarce sources and seasonal risks, creating smart
+            systems for safe and resilient supply in vulnerable settlements.
+          </p>
+        </div>
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
+        <div className="flex w-1/5 flex-col items-center justify-center gap-4">
+          <p className="font-orbitron text-2xl">Element features</p>
+          <MdReportProblem className="h-8 w-8 text-amber-300" />
+          <p>Scarce clean sources</p>
+          <RiBuilding2Fill className="text-nasa-orange h-8 w-8" />
+          <p>Ensure safe supply</p>
+          <FaShuttleSpace className="h-8 w-8 text-blue-500" />
+          <p>Smart water systems</p>
+        </div>
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
+
+        <VideoIcon srcVideo="/videos/water.mp4" element="water" className="w-2/5"></VideoIcon>
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
+      </div>
+      <div className="text-nasa-white font-jetbrains relative flex h-screen flex-row items-center justify-center bg-black p-0">
+        {/* Línea horizontal */}
+
+        <div className="font-nasalization absolute top-15 right-0 left-0 text-[200px] text-gray-100 opacity-30">
+          <p>WIND</p>
+        </div>
+        <div className="absolute top-1/6 right-0 left-0 h-px bg-gray-800"></div>
+        <div className="absolute right-0 bottom-1/6 left-0 h-px bg-gray-800"></div>
+
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
         <div className="flex w-1/5 flex-col gap-4">
           <p>Lore</p>
           <p>
@@ -154,7 +169,8 @@ export default function MainPage() {
             quis tempora, adipisci fugiat eligendi culpa.
           </p>
         </div>
-        <div className="flex w-1/5 flex-col gap-4">
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
+        <div className="flex w-1/5 flex-col items-center justify-center gap-4">
           <p>Lore</p>
           <MdReportProblem />
           <p>Problema</p>
@@ -164,22 +180,11 @@ export default function MainPage() {
           <p>Problema</p>
         </div>
 
-        <VideoIcon srcVideo="/video.mp4" element="water" className="w-2/5"></VideoIcon>
+        {/* Línea vertical */}
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
 
-        {/* <svg width="0" height="0">
-          <defs>
-            <pattern id="water-pattern" patternUnits="userSpaceOnUse" width="100%" height="100%">
-              <image
-                href="/water.jpg"
-                x="0"
-                y="0"
-                width="100%"
-                height="100%"
-                preserveAspectRatio="xMidYMid slice"
-              />
-            </pattern>
-          </defs>
-        </svg> */}
+        <VideoIcon srcVideo="/videos/wind.mp4" element="wind" className="w-2/5"></VideoIcon>
+        <div className="mx-4 h-full w-px bg-gray-800"></div>
       </div>
 
       {/* Footer */}

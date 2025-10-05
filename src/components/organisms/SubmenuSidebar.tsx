@@ -5,7 +5,7 @@ import { MENU_ELEMENTS } from '@/constants';
 import { useSidebarStore } from '@/store';
 
 export const SubmenuSidebar = () => {
-  const { activeItem, setActiveItem, activeSubItem, handleSubItemClick } = useSidebarStore();
+  const { activeItem, setActiveItem, activeSubItem } = useSidebarStore();
   if (!activeItem) return null;
   return (
     <div className="bg-nasa-white animate-in slide-in-from-left-5 fade-in-0 custom-scroll h-full w-64 transform overflow-scroll rounded-md shadow-2xl transition-all duration-300 ease-in-out">
@@ -20,7 +20,6 @@ export const SubmenuSidebar = () => {
           activeItem={activeItem}
           allowMultiple={false}
           defaultOpen={['filters']}
-          handleSubItemClick={handleSubItemClick}
           activeSubItem={activeSubItem}
         />
         <CloseSidebar onClick={() => setActiveItem(null)} />

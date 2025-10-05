@@ -1,17 +1,22 @@
-import { elementsIconsDetailProps, elementsIconsProps } from '@/types';
+import {
+  elementsBannerProps,
+  elementsIconsDetailProps,
+  elementsIconsProps,
+  elementsSectionProps,
+} from '@/types';
 import { SiNasa } from 'react-icons/si';
 import { GiWindsock, GiWindTurbine, GiPineTree } from 'react-icons/gi';
 import { RiBuilding2Fill } from 'react-icons/ri';
 import { FaBottleWater, FaCloudShowersWater } from 'react-icons/fa6';
 import { MdFireHydrantAlt } from 'react-icons/md';
 import { MenuItem } from '@/types/generalType';
-import { FaHome } from 'react-icons/fa';
 import { FaFireAlt, FaWind, FaDumpsterFire } from 'react-icons/fa';
 import { IoIosWater } from 'react-icons/io';
 import { TbPlant } from 'react-icons/tb';
 import { winds, earths, waters, fires } from '@/data';
+import { SVG_EARTH, SVG_FIRE, SVG_WATER, SVG_WIND } from './svg';
 
-export type GLOBAL_ELEMENTS = 'wind' | 'water' | 'fire' | 'earth' | 'home';
+export type GLOBAL_ELEMENTS = 'wind' | 'water' | 'fire' | 'earth';
 export const DEFAULT_ICON: elementsIconsDetailProps = {
   icon: <SiNasa className="text-nasa-white size-8" />,
   title: 'NASA',
@@ -82,14 +87,14 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
 ];
 
 export const MENU_ELEMENTS: MenuItem[] = [
-  {
-    id: 'home',
-    icon: <FaHome />,
-    color: 'text-orange-500',
-    bg: 'bg-orange-500',
-    border: 'border-orange-500',
-    label: 'Home',
-  },
+  // {
+  //   id: 'home',
+  //   icon: <FaHome />,
+  //   color: 'text-orange-500',
+  //   bg: 'bg-orange-500',
+  //   border: 'border-orange-500',
+  //   label: 'Home',
+  // },
   {
     id: 'fire',
     icon: <FaFireAlt />,
@@ -127,3 +132,74 @@ export const MENU_ELEMENTS: MenuItem[] = [
     collection: earths,
   },
 ];
+
+export const ELEMENTS_MAIN_MSG: string =
+  'Advanced geospatial intelligence platform integrating Earth observation data with urban planning methodologies for sustainable city development.';
+export const ELEMENTS_BANNER: elementsBannerProps[] = [
+  {
+    element: 'wind',
+    subtitle: 'Ground Analysis',
+    className: 'text-blue-400',
+  },
+  {
+    element: 'water',
+    subtitle: 'Hydrological Systems',
+    className: 'text-green-400',
+  },
+  {
+    element: 'fire',
+    subtitle: 'Risk Assessment',
+    className: 'text-orange-400',
+  },
+  {
+    element: 'earth',
+    subtitle: 'Risk Assessment',
+    className: 'text-cyan-400',
+  },
+];
+
+export const ELEMENTS_SECTIONS: elementsSectionProps[] = [
+  {
+    element: 'wind',
+    summary:
+      'NASA wind and air-quality data reveal pollution and airflow patterns, enabling cleaner cities through renewable energy and ventilation-aware design.',
+    problem: 'Air pollution',
+    goal: 'Cleaner environment',
+    solution: 'Renewable energy',
+    video: '/videos/wind.mp4',
+  },
+  {
+    element: 'water',
+    summary:
+      'Using NASA water data, we target scarce sources and seasonal risks, creating smart systems for safe and resilient supply in vulnerable settlements.',
+    problem: 'Scarce clean sources',
+    goal: 'Ensure safe supply',
+    solution: 'Smart water systems',
+    video: '/videos/water.mp4',
+  },
+  {
+    element: 'fire',
+    summary:
+      'By applying NASA fire and drought monitoring, we enable early detection and community-focused strategies to reduce wildfire risks near settlements.',
+    problem: 'Wildfire risks',
+    goal: 'Risk reduction',
+    solution: 'Early detection',
+    video: '/videos/fire.mp4',
+  },
+  {
+    element: 'earth',
+    summary:
+      'With NASA land and soil insights, we guide sustainable zoning and growth, preventing overuse and supporting resilient urban planning.',
+    problem: 'Land overuse',
+    goal: 'Sustainable growth',
+    solution: 'Geo-data planning',
+    video: '/videos/earth.mp4',
+  },
+];
+
+export const elementsSvg: Record<GLOBAL_ELEMENTS, string> = {
+  wind: SVG_WIND,
+  water: SVG_WATER,
+  fire: SVG_FIRE,
+  earth: SVG_EARTH,
+};

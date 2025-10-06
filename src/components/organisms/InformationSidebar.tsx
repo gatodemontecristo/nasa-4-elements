@@ -1,5 +1,5 @@
 'use client';
-import { useAverageAirValues, useStreetView } from '@/hooks';
+import { useAverageAirValues, useCompleteEarthData, useStreetView } from '@/hooks';
 import Image from 'next/image';
 import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
@@ -22,7 +22,10 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
   const streetViewData = useStreetView(activeSubItem?.lat || 0, activeSubItem?.lng || 0, {
     size: '800x400',
   });
-
+  const { data: completeEarthData } = useCompleteEarthData(
+    activeSubItem ? { lat: activeSubItem.lat, lon: activeSubItem.lng } : { lat: 0, lon: 0 },
+    !!activeSubItem
+  );
   const { data: averageAirValues } = useAverageAirValues(
     activeSubItem
       ? { latitude: activeSubItem.lat, longitude: activeSubItem.lng }
@@ -201,6 +204,147 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                     <div className="h-48">
                       <Doughnut data={chartData} options={chartOptions} />
                     </div>
+                  </div>
+
+                  {/* Earth Quality Analysis */}
+                  <div className="rounded-lg bg-gray-900/50 p-4">
+                    <h3 className="mb-4 text-sm font-semibold text-white">
+                      Urban Development Analysis
+                    </h3>
+
+                    {completeEarthData ? (
+                      <div className="space-y-4">
+                        {/* Prediction Card */}
+                        <div
+                          className="rounded-lg border-l-4 bg-black/40 p-3"
+                          style={{ borderLeftColor: completeEarthData.prediction.riskLevel.color }}
+                        >
+                          <div className="mb-2 flex items-center justify-between">
+                            <h4 className="font-nasalization text-xs tracking-wide text-white uppercase">
+                              Risk Assessment
+                            </h4>
+                            <span
+                              className="font-jetbrains rounded-full px-2 py-1 text-xs text-white"
+                              style={{
+                                backgroundColor: completeEarthData.prediction.riskLevel.color,
+                              }}
+                            >
+                              {completeEarthData.prediction.riskLevel.level}
+                            </span>
+                          </div>
+                          <div className="space-y-1">
+                            <div className="flex justify-between">
+                              <span className="text-xs text-gray-400">Probability:</span>
+                              <span className="font-mono text-xs text-white">
+                                {(completeEarthData.prediction.probabilidad * 100).toFixed(1)}%
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-xs text-gray-400">Classification:</span>
+                              <span className="text-xs text-white capitalize">
+                                {completeEarthData.prediction.clase}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-xs text-gray-300">
+                              {completeEarthData.prediction.riskLevel.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Environmental Features Grid */}
+                        <div className="grid grid-cols-1 gap-3">
+                          {/* NDVI Card */}
+                          <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-3">
+                            <div className="mb-2 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div className="h-2 w-2 rounded-full bg-green-400"></div>
+                                <h5 className="font-jetbrains text-xs text-green-400 uppercase">
+                                  NDVI
+                                </h5>
+                              </div>
+                              <span className="font-mono text-xs text-white">
+                                {completeEarthData.features.ndvi.value.toFixed(3)}
+                              </span>
+                            </div>
+                            <div className="space-y-1">
+                              <p className="text-xs font-medium text-green-200">
+                                {completeEarthData.features.ndvi.interpretation.status}
+                              </p>
+                              <p className="text-xs text-gray-300">
+                                {completeEarthData.features.ndvi.interpretation.description}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* NTL Card */}
+                          <div className="rounded-lg border border-yellow-500/30 bg-yellow-900/20 p-3">
+                            <div className="mb-2 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div className="h-2 w-2 rounded-full bg-yellow-400"></div>
+                                <h5 className="font-jetbrains text-xs text-yellow-400 uppercase">
+                                  NTL
+                                </h5>
+                              </div>
+                              <span className="font-mono text-xs text-white">
+                                {completeEarthData.features.ntl.value.toFixed(3)}
+                              </span>
+                            </div>
+                            <div className="space-y-1">
+                              <p className="text-xs font-medium text-yellow-200">
+                                {completeEarthData.features.ntl.interpretation.status}
+                              </p>
+                              <p className="text-xs text-gray-300">
+                                {completeEarthData.features.ntl.interpretation.description}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Slope Card */}
+                          <div className="rounded-lg border border-blue-500/30 bg-blue-900/20 p-3">
+                            <div className="mb-2 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div className="h-2 w-2 rounded-full bg-blue-400"></div>
+                                <h5 className="font-jetbrains text-xs text-blue-400 uppercase">
+                                  SLOPE
+                                </h5>
+                              </div>
+                              <span className="font-mono text-xs text-white">
+                                {completeEarthData.features.slope.value.toFixed(1)}°
+                              </span>
+                            </div>
+                            <div className="space-y-1">
+                              <p className="text-xs font-medium text-blue-200">
+                                {completeEarthData.features.slope.interpretation.status}
+                              </p>
+                              <p className="text-xs text-gray-300">
+                                {completeEarthData.features.slope.interpretation.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Summary Footer */}
+                        <div className="mt-4 border-t border-gray-700 pt-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-gray-400">Coordinates:</span>
+                            <span className="font-mono text-xs text-gray-300">
+                              {completeEarthData.coordinates.lat.toFixed(4)},{' '}
+                              {completeEarthData.coordinates.lon.toFixed(4)}
+                            </span>
+                          </div>
+                          <p className="mt-2 text-xs text-gray-500">
+                            Analysis based on satellite imagery and machine learning predictions
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex h-32 items-center justify-center">
+                        <div className="text-center">
+                          <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2 border-white"></div>
+                          <p className="text-xs text-gray-400">Loading earth analysis...</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Location Info */}

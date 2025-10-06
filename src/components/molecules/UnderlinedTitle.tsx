@@ -18,7 +18,7 @@ export const UnderlinedTitle = ({
 }: UnderlinedTitleProps) => {
   return (
     <div className="mb-6">
-      <h3 className={`mb-2 flex items-center text-lg font-bold ${textColor}`}>
+      <h3 className={`font-orbitron mb-2 flex items-center text-lg font-bold ${textColor}`}>
         <span className={`mr-3 ${iconColor}`}>{icon ? icon : <FaLocationArrow />}</span>
         {title}
       </h3>

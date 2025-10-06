@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
 import { GoGoal } from 'react-icons/go';
 import { GrLocationPin } from 'react-icons/gr';
@@ -8,21 +7,22 @@ import { FaStreetView } from 'react-icons/fa';
 import { DashboardSidebar, Markers, StreetViewModal, TextIcon, TextLoading } from '@/components';
 
 import { usePrefetchStreetView, useReverseGeocode, useStreetView } from '@/hooks';
-import { useSidebarStore } from '@/store';
+import { useCoordinatesStore, useSidebarStore } from '@/store';
 
 export default function Intro() {
-  //URL: https://www.google.com/maps/place/Comunidad+Urbana+Autogestionaria+de+Huayc%C3%A1n,+Ate+15483/@-12.029715,-76.8401525,14.38z/data=!4m6!3m5!1s0x9105b6300b679ae5:0x3dbad2cd0e12330!8m2!3d-12.0201464!4d-76.8175454!16s%2Fm%2F09v1g_0?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D
-  // Coordenadas de Comunidad Urbana Autogestionaria de Huaycán, Ate, Lima, Perú
-  const position = { lat: -12.0201464, lng: -76.8175454 };
-  const [open, setOpen] = useState(false);
-  const [currentZoom, setCurrentZoom] = useState(15);
-  const [currentCenter, setCurrentCenter] = useState(position);
-  const [streetViewOpen, setStreetViewOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState({
-    lat: 0,
-    lng: 0,
-    name: '',
-  });
+  const {
+    position,
+    open,
+    setOpen,
+    currentZoom,
+    setCurrentZoom,
+    currentCenter,
+    setCurrentCenter,
+    streetViewOpen,
+    setStreetViewOpen,
+    selectedLocation,
+    setSelectedLocation,
+  } = useCoordinatesStore();
 
   // Hooks de React Query
   const streetViewData = useStreetView(selectedLocation.lat, selectedLocation.lng, {
@@ -37,7 +37,6 @@ export default function Intro() {
   const openStreetView = (lat: number, lng: number, name: string) => {
     setSelectedLocation({ lat, lng, name });
     setStreetViewOpen(true);
-    // Precargar datos cuando se abre
     prefetchAvailability(lat, lng);
   };
   const { activeItem } = useSidebarStore();
@@ -75,6 +74,7 @@ export default function Intro() {
           streetViewControl={false}
           mapTypeControl={false}
           onCameraChanged={ev => {
+            console.log('Camera changed:', ev.detail);
             setCurrentZoom(ev.detail.zoom);
             setCurrentCenter(ev.detail.center);
           }}

@@ -53,21 +53,21 @@ export class NasaEarthService {
   static getRiskLevel(probabilidad: number): { level: string; color: string; description: string } {
     if (probabilidad >= 0.7) {
       return {
-        level: 'Alto',
+        level: 'High',
         color: '#EF4444', // red-500
-        description: 'Alta probabilidad de desarrollo urbano',
+        description: 'High probability of urban development',
       };
     } else if (probabilidad >= 0.4) {
       return {
-        level: 'Medio',
+        level: 'Medium',
         color: '#F59E0B', // amber-500
-        description: 'Probabilidad moderada de desarrollo urbano',
+        description: 'Moderate probability of urban development',
       };
     } else {
       return {
-        level: 'Bajo',
+        level: 'Low',
         color: '#10B981', // emerald-500
-        description: 'Baja probabilidad de desarrollo urbano',
+        description: 'Low probability of urban development',
       };
     }
   }
@@ -78,18 +78,18 @@ export class NasaEarthService {
   static interpretNDVI(ndvi: number): { status: string; description: string } {
     if (ndvi > 0.5) {
       return {
-        status: 'Vegetación densa',
-        description: 'Área con alta cobertura vegetal',
+        status: 'Dense vegetation',
+        description: 'Area with high vegetation coverage',
       };
     } else if (ndvi > 0.2) {
       return {
-        status: 'Vegetación moderada',
-        description: 'Área con cobertura vegetal moderada',
+        status: 'Moderate vegetation',
+        description: 'Area with moderate vegetation coverage',
       };
     } else {
       return {
-        status: 'Poca vegetación',
-        description: 'Área con poca o nula cobertura vegetal',
+        status: 'Sparse vegetation',
+        description: 'Area with little or no vegetation coverage',
       };
     }
   }
@@ -100,18 +100,18 @@ export class NasaEarthService {
   static interpretNTL(ntl: number): { status: string; description: string } {
     if (ntl > 0.5) {
       return {
-        status: 'Alta actividad urbana',
-        description: 'Zona con alta actividad nocturna',
+        status: 'High urban activity',
+        description: 'Zone with high nighttime activity',
       };
     } else if (ntl > 0.1) {
       return {
-        status: 'Actividad urbana moderada',
-        description: 'Zona con actividad nocturna moderada',
+        status: 'Moderate urban activity',
+        description: 'Zone with moderate nighttime activity',
       };
     } else {
       return {
-        status: 'Baja actividad urbana',
-        description: 'Zona con poca actividad nocturna',
+        status: 'Low urban activity',
+        description: 'Zone with low nighttime activity',
       };
     }
   }
@@ -122,18 +122,18 @@ export class NasaEarthService {
   static interpretSlope(slope: number): { status: string; description: string } {
     if (slope > 30) {
       return {
-        status: 'Terreno muy inclinado',
-        description: 'Difícil para desarrollo urbano',
+        status: 'Very steep terrain',
+        description: 'Difficult for urban development',
       };
     } else if (slope > 15) {
       return {
-        status: 'Terreno moderadamente inclinado',
-        description: 'Requiere planificación especial',
+        status: 'Moderately steep terrain',
+        description: 'Requires special planning',
       };
     } else {
       return {
-        status: 'Terreno plano/suave',
-        description: 'Favorable para desarrollo urbano',
+        status: 'Flat/gentle terrain',
+        description: 'Favorable for urban development',
       };
     }
   }

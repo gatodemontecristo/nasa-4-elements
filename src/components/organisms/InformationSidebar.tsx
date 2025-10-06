@@ -23,7 +23,9 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
     size: '800x400',
   });
   const { data: completeEarthData } = useCompleteEarthData(
-    activeSubItem ? { lat: activeSubItem.lat, lon: activeSubItem.lng } : { lat: 0, lon: 0 },
+    activeSubItem
+      ? { lat: Number(activeSubItem.lat.toFixed(4)), lon: Number(activeSubItem.lng.toFixed(4)) }
+      : { lat: 0, lon: 0 },
     !!activeSubItem
   );
   const { data: averageAirValues } = useAverageAirValues(

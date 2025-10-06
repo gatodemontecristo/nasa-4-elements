@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import React from 'react';
 import { AccordionButton, SectionButton } from '../atoms';
-import { useSidebarStore } from '../../store';
-import { MarkNasaItem } from '../../data';
+import { useCoordinatesStore, useSidebarStore } from '../../store';
+import { MarkNasa, MarkNasaItem } from '../../data';
 
 interface AccordionSectionProps {
   mark: MarkNasaItem;
@@ -11,7 +11,14 @@ interface AccordionSectionProps {
 }
 export const AccordionSection = ({ mark, isOpen, onClick }: AccordionSectionProps) => {
   const { activeItem, handleSubItemClick } = useSidebarStore();
-
+  const { setCurrentCenter, setCurrentZoom } = useCoordinatesStore();
+  const goToLocation = (subItem: MarkNasa) => {
+    handleSubItemClick(subItem);
+    const { lat, lng } = subItem;
+    if (!lat || !lng) return;
+    setCurrentCenter({ lat, lng: lng - 0.002 }); // Ajuste para centrar mejor el marcador
+    setCurrentZoom(17);
+  };
   return (
     <div
       className={clsx(
@@ -30,7 +37,7 @@ export const AccordionSection = ({ mark, isOpen, onClick }: AccordionSectionProp
           {mark.marks.map(subItem => (
             <AccordionButton
               key={subItem.key}
-              onClick={() => handleSubItemClick(subItem)}
+              onClick={() => goToLocation(subItem)}
               subItem={subItem}
             />
           ))}

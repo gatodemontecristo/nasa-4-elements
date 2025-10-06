@@ -9,9 +9,10 @@ import { UnderlinedTitle } from '../molecules';
 import { useSidebarStore } from '@/store';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // Registrar componentes de Chart.js
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export interface InformationSidebarProps {
   onClose?: () => void;
@@ -28,7 +29,6 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
       : { latitude: 0, longitude: 0 },
     !!activeSubItem
   );
-  console.log('Average Air Values:', averageAirValues);
 
   // Configuración del gráfico de dona
   const chartData = {
@@ -63,6 +63,13 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      datalabels: {
+        color: '#fff', // color del texto
+        formatter: (value: number) => value.toFixed(2), // qué mostrar (puede ser value o porcentaje)
+        font: {
+          size: 14,
+        },
+      },
       legend: {
         position: 'top',
         labels: {
@@ -112,7 +119,7 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
   if (!activeSubItem) return null;
   const elementIcon = getElementIcon(activeItem.id, activeSubItem.type);
   return (
-    <div className="bg-nasa-black animate-in slide-in-from-right-5 fade-in-0 ml-2 h-full w-80 transform overflow-hidden rounded-md shadow-2xl transition-all duration-500 ease-in-out">
+    <div className="bg-nasa-black animate-in slide-in-from-right-5 fade-in-0 ml-2 h-full w-100 transform overflow-hidden rounded-md shadow-2xl transition-all duration-500 ease-in-out">
       <div className="custom-scroll relative h-full overflow-y-auto p-6">
         {(() => {
           return (
@@ -169,16 +176,7 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                     )}
                   </div>
 
-                  {/* Air Quality Chart */}
-                  <div className="rounded-lg bg-gray-900/50 p-4">
-                    <h3 className="mb-3 text-sm font-semibold text-white">Air Quality Analysis</h3>
-                    <div className="h-48">
-                      <Doughnut data={chartData} options={chartOptions} />
-                    </div>
-                  </div>
-
-                  {/* Location Info */}
-                  <div className="text-nasa-grey text-sm">
+                  <div className="text-nasa-grey px-2 text-[12px]">
                     <div className="flex flex-row">
                       <span className="flex items-center gap-1">
                         <GrLocationPin /> <p>Lat: {activeSubItem.lat.toFixed(4)}, </p>
@@ -187,17 +185,25 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                         <GrLocationPin /> <p>Lng: {activeSubItem.lng.toFixed(4)}</p>
                       </span>
                     </div>
-
                     {isAvailable !== undefined && (
                       <p className={`mt-1 ${isAvailable ? 'text-green-500' : 'text-yellow-400'}`}>
                         State: {isAvailable ? 'Street View available' : 'Street View not available'}
                       </p>
                     )}
-
-                    <p className="text-nasa-grey mt-2 text-[10px]">
+                    <p className="text-nasa-grey text-[10px]">
                       Street View images are provided by the Google Maps API
                     </p>
                   </div>
+
+                  {/* Air Quality Chart */}
+                  <div className="rounded-lg bg-gray-900/50 p-2">
+                    <h3 className="mb-3 text-sm font-semibold text-white">Air Quality Analysis</h3>
+                    <div className="h-48">
+                      <Doughnut data={chartData} options={chartOptions} />
+                    </div>
+                  </div>
+
+                  {/* Location Info */}
                 </div>
               )}
             </>

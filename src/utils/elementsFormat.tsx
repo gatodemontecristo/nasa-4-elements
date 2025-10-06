@@ -1,8 +1,8 @@
-import { DEFAULT_ICON, elementsIcons, GLOBAL_ELEMENTS } from '@/constants';
+import { DEFAULT_ICON, elementsIcons } from '@/constants';
 import { elementsIconsDetailProps } from '@/types';
 
 export const getElementIcon = (
-  element: GLOBAL_ELEMENTS,
+  element: string,
   type: string,
   className?: string
 ): elementsIconsDetailProps => {

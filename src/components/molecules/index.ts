@@ -5,3 +5,4 @@ export * from './SidebarFullButton';
 export * from './AccordionSection';
 export * from './HeaderSection';
 export * from './section';
+export * from './chart';

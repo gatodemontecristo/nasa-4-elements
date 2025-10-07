@@ -87,14 +87,6 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
 ];
 
 export const MENU_ELEMENTS: MenuItem[] = [
-  // {
-  //   id: 'home',
-  //   icon: <FaHome />,
-  //   color: 'text-orange-500',
-  //   bg: 'bg-orange-500',
-  //   border: 'border-orange-500',
-  //   label: 'Home',
-  // },
   {
     id: 'fire',
     icon: <FaFireAlt />,
@@ -203,3 +195,13 @@ export const elementsSvg: Record<GLOBAL_ELEMENTS, string> = {
   fire: SVG_FIRE,
   earth: SVG_EARTH,
 };
+
+export const GASEOUS_POLLUTANTS_COLORS = [
+  '#FF6384', // PM10 - Rojo
+  '#36A2EB', // PM2.5 - Azul
+  '#FFCE56', // CO₂ - Amarillo
+  '#4BC0C0', // NO₂ - Verde azulado
+  '#9966FF', // CH₄ - Púrpura
+];
+
+export const GASEOUS_POLLUTANTS_LABELS = ['PM10', 'PM2.5', 'CO₂', 'NO₂', 'CH₄'];

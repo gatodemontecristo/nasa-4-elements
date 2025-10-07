@@ -8,7 +8,10 @@ import { DashboardSidebar, Markers, StreetViewModal, TextIcon, TextLoading } fro
 
 import { usePrefetchStreetView, useReverseGeocode, useStreetView } from '@/hooks';
 import { useCoordinatesStore, useSidebarStore } from '@/store';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 export default function Intro() {
   const {
     position,
@@ -74,7 +77,6 @@ export default function Intro() {
           streetViewControl={false}
           mapTypeControl={false}
           onCameraChanged={ev => {
-            console.log('Camera changed:', ev.detail);
             setCurrentZoom(ev.detail.zoom);
             setCurrentCenter(ev.detail.center);
           }}

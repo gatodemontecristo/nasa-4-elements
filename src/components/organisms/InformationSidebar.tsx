@@ -5,14 +5,8 @@ import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
 import { CloseSidebar, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
-import { UnderlinedTitle } from '../molecules';
+import { DoughnutNasa, UnderlinedTitle } from '../molecules';
 import { useSidebarStore } from '@/store';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-// Registrar componentes de Chart.js
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export interface InformationSidebarProps {
   onClose?: () => void;
@@ -34,90 +28,6 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
       : { latitude: 0, longitude: 0 },
     !!activeSubItem
   );
-
-  // Configuración del gráfico de dona
-  const chartData = {
-    labels: ['PM10', 'PM2.5', 'CO₂', 'NO₂', 'CH₄'],
-    datasets: [
-      {
-        label: 'Air Quality Pollutants',
-        data: averageAirValues
-          ? [
-              averageAirValues.pm10 || 0,
-              averageAirValues.pm2_5 || 0,
-              (averageAirValues.carbon_dioxide || 0) / 10, // Escalar CO₂ para visualización
-              averageAirValues.nitrogen_dioxide || 0,
-              (averageAirValues.methane || 0) / 100, // Escalar metano para visualización
-            ]
-          : [25, 15, 45, 20, 30], // Datos de ejemplo
-        backgroundColor: [
-          '#FF6384', // PM10 - Rojo
-          '#36A2EB', // PM2.5 - Azul
-          '#FFCE56', // CO₂ - Amarillo
-          '#4BC0C0', // NO₂ - Verde azulado
-          '#9966FF', // CH₄ - Púrpura
-        ],
-        borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-        borderWidth: 2,
-        hoverOffset: 8,
-      },
-    ],
-  };
-
-  const chartOptions: ChartOptions<'doughnut'> = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      datalabels: {
-        color: '#fff', // color del texto
-        formatter: (value: number) => value.toFixed(2), // qué mostrar (puede ser value o porcentaje)
-        font: {
-          size: 14,
-        },
-      },
-      legend: {
-        position: 'top',
-        labels: {
-          color: '#ffffff',
-          font: {
-            size: 11,
-          },
-          padding: 5,
-        },
-      },
-      tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        titleColor: '#ffffff',
-        bodyColor: '#ffffff',
-        borderColor: '#333333',
-        borderWidth: 1,
-        callbacks: {
-          label: function (context) {
-            const label = context.label || '';
-            const value = context.raw as number;
-            let unit = '';
-
-            switch (label) {
-              case 'PM10':
-              case 'PM2.5':
-              case 'NO₂':
-                unit = ' μg/m³';
-                break;
-              case 'CO₂':
-                unit = ' ppm';
-                break;
-              case 'CH₄':
-                unit = ' μg/m³';
-                break;
-            }
-
-            return `${label}: ${value.toFixed(2)}${unit}`;
-          },
-        },
-      },
-    },
-    cutout: '60%',
-  };
 
   if (!activeItem) return null;
   const { url, isAvailable, isLoading, error } = streetViewData;
@@ -203,9 +113,21 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                   {/* Air Quality Chart */}
                   <div className="rounded-lg bg-gray-900/50 p-2">
                     <h3 className="mb-3 text-sm font-semibold text-white">Air Quality Analysis</h3>
-                    <div className="h-48">
-                      <Doughnut data={chartData} options={chartOptions} />
-                    </div>
+                    <DoughnutNasa
+                      data={
+                        averageAirValues
+                          ? [
+                              averageAirValues.pm10 || 0,
+                              averageAirValues.pm2_5 || 0,
+                              (averageAirValues.carbon_dioxide || 0) / 10,
+                              averageAirValues.nitrogen_dioxide || 0,
+                              (averageAirValues.methane || 0) / 100,
+                            ]
+                          : [25, 15, 45, 20, 30]
+                      }
+                      label="Air Quality Pollutants"
+                      height="h-50"
+                    ></DoughnutNasa>
                   </div>
 
                   {/* Earth Quality Analysis */}

@@ -5,7 +5,7 @@ import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
 import { CloseSidebar, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
-import { DoughnutNasa, UnderlinedTitle } from '../molecules';
+import { CardMainInfo, DoughnutNasa, UnderlinedTitle } from '../molecules';
 import { useSidebarStore } from '@/store';
 
 export interface InformationSidebarProps {
@@ -91,24 +91,36 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                     )}
                   </div>
 
-                  <div className="text-nasa-grey px-2 text-[12px]">
-                    <div className="flex flex-row">
-                      <span className="flex items-center gap-1">
-                        <GrLocationPin /> <p>Lat: {activeSubItem.lat.toFixed(4)}, </p>
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <GrLocationPin /> <p>Lng: {activeSubItem.lng.toFixed(4)}</p>
-                      </span>
-                    </div>
-                    {isAvailable !== undefined && (
-                      <p className={`mt-1 ${isAvailable ? 'text-green-500' : 'text-yellow-400'}`}>
-                        State: {isAvailable ? 'Street View available' : 'Street View not available'}
-                      </p>
-                    )}
-                    <p className="text-nasa-grey text-[10px]">
-                      Street View images are provided by the Google Maps API
-                    </p>
-                  </div>
+                  <CardMainInfo
+                    riskLevelColor={isAvailable ? 'text-green-600' : 'text-nasa-orange'}
+                  >
+                    <CardMainInfo.Title
+                      title={'Street view status'}
+                      color={isAvailable ? 'bg-green-600' : 'bg-nasa-orange'}
+                      level={isAvailable ? 'Available' : 'Not Available'}
+                    />
+                    <CardMainInfo.Info
+                      items={[
+                        {
+                          title: 'Latitude',
+                          children: (
+                            <>
+                              <GrLocationPin /> <p>Lat: {activeSubItem.lat.toFixed(4)} </p>
+                            </>
+                          ),
+                        },
+                        {
+                          title: 'Longitude',
+                          children: (
+                            <>
+                              <GrLocationPin /> <p>Lng: {activeSubItem.lng.toFixed(4)}</p>
+                            </>
+                          ),
+                        },
+                      ]}
+                      footer="Street View images are provided by the Google Maps API"
+                    />
+                  </CardMainInfo>
 
                   {/* Air Quality Chart */}
                   <div className="rounded-lg bg-gray-900/50 p-2">
@@ -138,7 +150,6 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
 
                     {completeEarthData ? (
                       <div className="space-y-4">
-                        {/* Prediction Card */}
                         <div
                           className="rounded-lg border-l-4 bg-black/40 p-3"
                           style={{ borderLeftColor: completeEarthData.prediction.riskLevel.color }}

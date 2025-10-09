@@ -9,3 +9,8 @@ export interface MenuItem {
   border: string;
   collection?: TypeMark[];
 }
+
+export interface CardOtherInfoProps {
+  title: string;
+  children: React.ReactNode;
+}

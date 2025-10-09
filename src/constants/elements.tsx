@@ -17,6 +17,7 @@ import { winds, earths, waters, fires } from '@/data';
 import { SVG_EARTH, SVG_FIRE, SVG_WATER, SVG_WIND } from './svg';
 
 export type GLOBAL_ELEMENTS = 'wind' | 'water' | 'fire' | 'earth';
+export type CARD_COLOURS = 'green' | 'yellow' | 'blue';
 export const DEFAULT_ICON: elementsIconsDetailProps = {
   icon: <SiNasa className="text-nasa-white size-8" />,
   title: 'NASA',
@@ -205,3 +206,32 @@ export const GASEOUS_POLLUTANTS_COLORS = [
 ];
 
 export const GASEOUS_POLLUTANTS_LABELS = ['PM10', 'PM2.5', 'CO₂', 'NO₂', 'CH₄'];
+
+interface CardColoursProps {
+  formatShadow: string;
+  bg: string;
+
+  title: string;
+  subtitle: string;
+}
+
+export const cardColoursStyles: Record<CARD_COLOURS, CardColoursProps> = {
+  green: {
+    formatShadow: 'border-green-500/30 bg-green-900/20',
+    bg: 'bg-green-400',
+    title: 'text-green-400',
+    subtitle: 'text-green-200',
+  },
+  blue: {
+    formatShadow: 'border-blue-500/30 bg-blue-900/20 ',
+    bg: 'bg-blue-400',
+    title: 'text-blue-400',
+    subtitle: 'text-blue-200',
+  },
+  yellow: {
+    formatShadow: 'border-yellow-500/30 bg-yellow-900/20',
+    bg: 'bg-yellow-400',
+    title: 'text-yellow-400',
+    subtitle: 'text-yellow-200',
+  },
+};

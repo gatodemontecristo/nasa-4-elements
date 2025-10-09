@@ -7,3 +7,4 @@ export * from './HeaderSection';
 export * from './section';
 export * from './chart';
 export * from './CardMainInfo';
+export * from './CardFooter';

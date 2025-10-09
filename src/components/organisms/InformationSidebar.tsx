@@ -5,7 +5,13 @@ import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
 import { CloseSidebar, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
-import { CardMainInfo, DoughnutNasa, UnderlinedTitle } from '../molecules';
+import {
+  CardFooter,
+  CardInfoSection,
+  CardMainInfo,
+  DoughnutNasa,
+  UnderlinedTitle,
+} from '../molecules';
 import { useSidebarStore } from '@/store';
 
 export interface InformationSidebarProps {
@@ -150,127 +156,60 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
 
                     {completeEarthData ? (
                       <div className="space-y-4">
-                        <div
-                          className="rounded-lg border-l-4 bg-black/40 p-3"
-                          style={{ borderLeftColor: completeEarthData.prediction.riskLevel.color }}
-                        >
-                          <div className="mb-2 flex items-center justify-between">
-                            <h4 className="font-nasalization text-xs tracking-wide text-white uppercase">
-                              Risk Assessment
-                            </h4>
-                            <span
-                              className="font-jetbrains rounded-full px-2 py-1 text-xs text-white"
-                              style={{
-                                backgroundColor: completeEarthData.prediction.riskLevel.color,
-                              }}
-                            >
-                              {completeEarthData.prediction.riskLevel.level}
-                            </span>
-                          </div>
-                          <div className="space-y-1">
-                            <div className="flex justify-between">
-                              <span className="text-xs text-gray-400">Probability:</span>
-                              <span className="font-mono text-xs text-white">
-                                {(completeEarthData.prediction.probabilidad * 100).toFixed(1)}%
-                              </span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-xs text-gray-400">Classification:</span>
-                              <span className="text-xs text-white capitalize">
-                                {completeEarthData.prediction.clase}
-                              </span>
-                            </div>
-                            <p className="mt-2 text-xs text-gray-300">
-                              {completeEarthData.prediction.riskLevel.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Environmental Features Grid */}
+                        <CardMainInfo riskLevelColor={completeEarthData.prediction.riskLevel.color}>
+                          <CardMainInfo.Title
+                            title={'Risk Assessment'}
+                            color={completeEarthData.prediction.riskLevel.bg}
+                            level={completeEarthData.prediction.riskLevel.level}
+                          />
+                          <CardMainInfo.Info
+                            items={[
+                              {
+                                title: 'Probability:',
+                                children: (
+                                  <p>
+                                    {(completeEarthData.prediction.probabilidad * 100).toFixed(1)}%
+                                  </p>
+                                ),
+                              },
+                              {
+                                title: 'Classification:',
+                                children: <p> {` ${completeEarthData.prediction.clase} `}</p>,
+                              },
+                            ]}
+                            footer={completeEarthData.prediction.riskLevel.description}
+                          />
+                        </CardMainInfo>
                         <div className="grid grid-cols-1 gap-3">
-                          {/* NDVI Card */}
-                          <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-3">
-                            <div className="mb-2 flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <div className="h-2 w-2 rounded-full bg-green-400"></div>
-                                <h5 className="font-jetbrains text-xs text-green-400 uppercase">
-                                  NDVI
-                                </h5>
-                              </div>
-                              <span className="font-mono text-xs text-white">
-                                {completeEarthData.features.ndvi.value.toFixed(3)}
-                              </span>
-                            </div>
-                            <div className="space-y-1">
-                              <p className="text-xs font-medium text-green-200">
-                                {completeEarthData.features.ndvi.interpretation.status}
-                              </p>
-                              <p className="text-xs text-gray-300">
-                                {completeEarthData.features.ndvi.interpretation.description}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* NTL Card */}
-                          <div className="rounded-lg border border-yellow-500/30 bg-yellow-900/20 p-3">
-                            <div className="mb-2 flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <div className="h-2 w-2 rounded-full bg-yellow-400"></div>
-                                <h5 className="font-jetbrains text-xs text-yellow-400 uppercase">
-                                  NTL
-                                </h5>
-                              </div>
-                              <span className="font-mono text-xs text-white">
-                                {completeEarthData.features.ntl.value.toFixed(3)}
-                              </span>
-                            </div>
-                            <div className="space-y-1">
-                              <p className="text-xs font-medium text-yellow-200">
-                                {completeEarthData.features.ntl.interpretation.status}
-                              </p>
-                              <p className="text-xs text-gray-300">
-                                {completeEarthData.features.ntl.interpretation.description}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Slope Card */}
-                          <div className="rounded-lg border border-blue-500/30 bg-blue-900/20 p-3">
-                            <div className="mb-2 flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <div className="h-2 w-2 rounded-full bg-blue-400"></div>
-                                <h5 className="font-jetbrains text-xs text-blue-400 uppercase">
-                                  SLOPE
-                                </h5>
-                              </div>
-                              <span className="font-mono text-xs text-white">
-                                {completeEarthData.features.slope.value.toFixed(1)}°
-                              </span>
-                            </div>
-                            <div className="space-y-1">
-                              <p className="text-xs font-medium text-blue-200">
-                                {completeEarthData.features.slope.interpretation.status}
-                              </p>
-                              <p className="text-xs text-gray-300">
-                                {completeEarthData.features.slope.interpretation.description}
-                              </p>
-                            </div>
-                          </div>
+                          <CardInfoSection
+                            title="NDVI"
+                            value={completeEarthData.features.ndvi.value.toFixed(3)}
+                            status={completeEarthData.features.ndvi.interpretation.status}
+                            description={completeEarthData.features.ndvi.interpretation.description}
+                            color="green"
+                          ></CardInfoSection>
+                          <CardInfoSection
+                            title="NTL"
+                            value={completeEarthData.features.ntl.value.toFixed(3)}
+                            status={completeEarthData.features.ntl.interpretation.status}
+                            description={completeEarthData.features.ntl.interpretation.description}
+                            color="yellow"
+                          ></CardInfoSection>
+                          <CardInfoSection
+                            title="SLOPE"
+                            value={`${completeEarthData.features.slope.value.toFixed(1)}°`}
+                            status={completeEarthData.features.slope.interpretation.status}
+                            description={
+                              completeEarthData.features.slope.interpretation.description
+                            }
+                            color="blue"
+                          ></CardInfoSection>
                         </div>
-
-                        {/* Summary Footer */}
-                        <div className="mt-4 border-t border-gray-700 pt-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-400">Coordinates:</span>
-                            <span className="font-mono text-xs text-gray-300">
-                              {completeEarthData.coordinates.lat.toFixed(4)},{' '}
-                              {completeEarthData.coordinates.lon.toFixed(4)}
-                            </span>
-                          </div>
-                          <p className="mt-2 text-xs text-gray-500">
-                            Analysis based on satellite imagery and machine learning predictions
-                          </p>
-                        </div>
+                        <CardFooter
+                          title="Coordinates:"
+                          description={`${completeEarthData.coordinates.lat.toFixed(4)}, ${completeEarthData.coordinates.lon.toFixed(4)}`}
+                          final="Analysis based on satellite imagery and machine learning predictions"
+                        ></CardFooter>
                       </div>
                     ) : (
                       <div className="flex h-32 items-center justify-center">

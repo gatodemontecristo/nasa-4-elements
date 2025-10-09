@@ -50,23 +50,31 @@ export class NasaEarthService {
   /**
    * Clasifica el nivel de riesgo basado en la probabilidad
    */
-  static getRiskLevel(probabilidad: number): { level: string; color: string; description: string } {
+  static getRiskLevel(probabilidad: number): {
+    level: string;
+    bg: string;
+    color: string;
+    description: string;
+  } {
     if (probabilidad >= 0.7) {
       return {
         level: 'High',
-        color: '#EF4444', // red-500
+        bg: 'bg-red-500',
+        color: 'text-red-500',
         description: 'High probability of urban development',
       };
     } else if (probabilidad >= 0.4) {
       return {
         level: 'Medium',
-        color: '#F59E0B', // amber-500
+        bg: 'bg-amber-500',
+        color: 'text-amber-500',
         description: 'Moderate probability of urban development',
       };
     } else {
       return {
         level: 'Low',
-        color: '#10B981', // emerald-500
+        bg: 'bg-emerald-500',
+        color: 'text-emerald-500',
         description: 'Low probability of urban development',
       };
     }

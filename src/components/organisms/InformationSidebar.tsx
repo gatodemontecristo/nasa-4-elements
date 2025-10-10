@@ -1,18 +1,13 @@
 'use client';
-import { useAverageAirValues, useCompleteEarthData, useStreetView } from '@/hooks';
+import { useStreetView } from '@/hooks';
 import Image from 'next/image';
 import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
 import { CloseSidebar, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
-import {
-  CardFooter,
-  CardInfoSection,
-  CardMainInfo,
-  DoughnutNasa,
-  UnderlinedTitle,
-} from '../molecules';
+import { CardMainInfo, DoughnutNasa, UnderlinedTitle } from '../molecules';
 import { useSidebarStore } from '@/store';
+import { UrbanFormComplete } from './UrbanFormComplete';
 
 export interface InformationSidebarProps {
   onClose?: () => void;
@@ -22,18 +17,6 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
   const streetViewData = useStreetView(activeSubItem?.lat || 0, activeSubItem?.lng || 0, {
     size: '800x400',
   });
-  const { data: completeEarthData } = useCompleteEarthData(
-    activeSubItem
-      ? { lat: Number(activeSubItem.lat.toFixed(4)), lon: Number(activeSubItem.lng.toFixed(4)) }
-      : { lat: 0, lon: 0 },
-    !!activeSubItem
-  );
-  const { data: averageAirValues } = useAverageAirValues(
-    activeSubItem
-      ? { latitude: activeSubItem.lat, longitude: activeSubItem.lng }
-      : { latitude: 0, longitude: 0 },
-    !!activeSubItem
-  );
 
   if (!activeItem) return null;
   const { url, isAvailable, isLoading, error } = streetViewData;
@@ -132,19 +115,9 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                   <div className="rounded-lg bg-gray-900/50 p-2">
                     <h3 className="mb-3 text-sm font-semibold text-white">Air Quality Analysis</h3>
                     <DoughnutNasa
-                      data={
-                        averageAirValues
-                          ? [
-                              averageAirValues.pm10 || 0,
-                              averageAirValues.pm2_5 || 0,
-                              (averageAirValues.carbon_dioxide || 0) / 10,
-                              averageAirValues.nitrogen_dioxide || 0,
-                              (averageAirValues.methane || 0) / 100,
-                            ]
-                          : [25, 15, 45, 20, 30]
-                      }
                       label="Air Quality Pollutants"
                       height="h-50"
+                      activeSubItem={activeSubItem}
                     ></DoughnutNasa>
                   </div>
 
@@ -153,72 +126,7 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                     <h3 className="mb-4 text-sm font-semibold text-white">
                       Urban Development Analysis
                     </h3>
-
-                    {completeEarthData ? (
-                      <div className="space-y-4">
-                        <CardMainInfo riskLevelColor={completeEarthData.prediction.riskLevel.color}>
-                          <CardMainInfo.Title
-                            title={'Risk Assessment'}
-                            color={completeEarthData.prediction.riskLevel.bg}
-                            level={completeEarthData.prediction.riskLevel.level}
-                          />
-                          <CardMainInfo.Info
-                            items={[
-                              {
-                                title: 'Probability:',
-                                children: (
-                                  <p>
-                                    {(completeEarthData.prediction.probabilidad * 100).toFixed(1)}%
-                                  </p>
-                                ),
-                              },
-                              {
-                                title: 'Classification:',
-                                children: <p> {` ${completeEarthData.prediction.clase} `}</p>,
-                              },
-                            ]}
-                            footer={completeEarthData.prediction.riskLevel.description}
-                          />
-                        </CardMainInfo>
-                        <div className="grid grid-cols-1 gap-3">
-                          <CardInfoSection
-                            title="NDVI"
-                            value={completeEarthData.features.ndvi.value.toFixed(3)}
-                            status={completeEarthData.features.ndvi.interpretation.status}
-                            description={completeEarthData.features.ndvi.interpretation.description}
-                            color="green"
-                          ></CardInfoSection>
-                          <CardInfoSection
-                            title="NTL"
-                            value={completeEarthData.features.ntl.value.toFixed(3)}
-                            status={completeEarthData.features.ntl.interpretation.status}
-                            description={completeEarthData.features.ntl.interpretation.description}
-                            color="yellow"
-                          ></CardInfoSection>
-                          <CardInfoSection
-                            title="SLOPE"
-                            value={`${completeEarthData.features.slope.value.toFixed(1)}°`}
-                            status={completeEarthData.features.slope.interpretation.status}
-                            description={
-                              completeEarthData.features.slope.interpretation.description
-                            }
-                            color="blue"
-                          ></CardInfoSection>
-                        </div>
-                        <CardFooter
-                          title="Coordinates:"
-                          description={`${completeEarthData.coordinates.lat.toFixed(4)}, ${completeEarthData.coordinates.lon.toFixed(4)}`}
-                          final="Analysis based on satellite imagery and machine learning predictions"
-                        ></CardFooter>
-                      </div>
-                    ) : (
-                      <div className="flex h-32 items-center justify-center">
-                        <div className="text-center">
-                          <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2 border-white"></div>
-                          <p className="text-xs text-gray-400">Loading earth analysis...</p>
-                        </div>
-                      </div>
-                    )}
+                    <UrbanFormComplete activeSubItem={activeSubItem}></UrbanFormComplete>
                   </div>
 
                   {/* Location Info */}

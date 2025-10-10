@@ -1,0 +1,3 @@
+export const STALE_TIME_TANSTACK = 30 * 60 * 1000; // 30 MINUTES
+export const GC_TIME_TANSTACK = 45 * 60 * 1000; // 45 MINUTES
+export const RETRY_TANSTACK = 1; // 1 TIME

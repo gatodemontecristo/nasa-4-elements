@@ -4,6 +4,7 @@ import { MarkNasa } from '../../../data';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
 import { LoadSpinner, NotFound } from '../../atoms';
+import { ChartData } from 'chart.js';
 
 interface LineStockNasaProps {
   activeSubItem: MarkNasa;
@@ -140,14 +141,18 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
       },
     },
   };
-  const createStockChart = () => {
-    if (!rawData?.hourly) return null;
+  const createStockChart = (): ChartData<'line'> => {
+    if (!rawData?.hourly) {
+      return {
+        labels: [],
+        datasets: [],
+      };
+    }
 
     const hourlyData = rawData.hourly;
-    const timeLabels = hourlyData.time.slice(0, 24); // Últimas 24 horas
+    const timeLabels = hourlyData.time.slice(0, 24);
     const dataLength = timeLabels.length;
 
-    // Configuración de animación progresiva
     const totalDuration = 8000;
     const delayBetweenPoints = totalDuration / dataLength;
     const previousY = (ctx: any) =>
@@ -162,9 +167,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
         duration: delayBetweenPoints,
         from: NaN,
         delay(ctx: any) {
-          if (ctx.type !== 'data' || ctx.xStarted) {
-            return 0;
-          }
+          if (ctx.type !== 'data' || ctx.xStarted) return 0;
           ctx.xStarted = true;
           return ctx.index * delayBetweenPoints;
         },
@@ -175,9 +178,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
         duration: delayBetweenPoints,
         from: previousY,
         delay(ctx: any) {
-          if (ctx.type !== 'data' || ctx.yStarted) {
-            return 0;
-          }
+          if (ctx.type !== 'data' || ctx.yStarted) return 0;
           ctx.yStarted = true;
           return ctx.index * delayBetweenPoints;
         },
@@ -205,7 +206,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
           pointHoverBorderWidth: 3,
           fill: false,
           tension: 0.4,
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
         {
           label: 'PM2.5',
@@ -220,7 +221,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
           pointHoverBorderWidth: 3,
           fill: false,
           tension: 0.4,
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
         {
           label: 'NO₂',
@@ -235,7 +236,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
           pointHoverBorderWidth: 3,
           fill: false,
           tension: 0.4,
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
         {
           label: 'CO₂',
@@ -251,12 +252,14 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
           fill: false,
           tension: 0.4,
           yAxisID: 'y1',
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
       ],
     };
   };
+
   const chartData = createStockChart();
+
   return (
     <div className={`w-2/4 bg-gray-900/50 p-4 ${className}`}>
       <div className="mb-2">
@@ -265,7 +268,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
         </h2>
       </div>
       <div className="h-[80%] rounded-xl border border-gray-700 bg-black/60 p-4 backdrop-blur-sm">
-        <Line data={chartData} options={stockChartOptions} />
+        {chartData ? <Line data={chartData} options={stockChartOptions} /> : <NotFound />}
       </div>
     </div>
   );

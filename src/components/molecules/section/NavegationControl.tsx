@@ -6,12 +6,13 @@ import { useReverseGeocode } from '../../../hooks';
 
 interface NavegationControlProps {
   onClick?: () => void;
+  className?: string;
 }
-export const NavegationControl = ({ onClick }: NavegationControlProps) => {
+export const NavegationControl = ({ onClick, className }: NavegationControlProps) => {
   const { currentZoom, currentCenter } = useCoordinatesStore();
   const addressData = useReverseGeocode(currentCenter.lat, currentCenter.lng);
   return (
-    <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
+    <div className={`absolute top-4 right-4 z-10 flex flex-col gap-2 ${className}`}>
       <div className="bg-nasa-black rounded-md p-2 shadow-lg">
         <div className="text-nasa-grey space-y-1 text-xs">
           <TextIcon icon={<GoGoal />} text={`Zoom: ${currentZoom.toFixed(4)}`} />

@@ -4,3 +4,4 @@ export * from './AccordionButton';
 export * from './SectionButton';
 export * from './MainLink';
 export * from './StreetviewButton';
+export * from './ExpandedButton';

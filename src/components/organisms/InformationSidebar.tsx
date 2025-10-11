@@ -3,7 +3,7 @@ import { useStreetView } from '@/hooks';
 import Image from 'next/image';
 import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
-import { CloseSidebar, InfoSkeleton } from '../atoms';
+import { CloseSidebar, ExpandedButton, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
 import { CardMainInfo, DoughnutNasa, UnderlinedTitle } from '../molecules';
 import { useSidebarStore } from '@/store';
@@ -129,7 +129,11 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                     <UrbanFormComplete activeSubItem={activeSubItem}></UrbanFormComplete>
                   </div>
 
-                  {/* Location Info */}
+                  <ExpandedButton
+                    icon={activeItem.icon}
+                    color={activeItem.bg}
+                    text={'More Details'}
+                  />
                 </div>
               )}
             </>

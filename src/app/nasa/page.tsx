@@ -1,5 +1,11 @@
 import React from 'react';
-import { ElementSection, HeaderSection, MainBanner, MainLink } from '../../components';
+import {
+  ElementSection,
+  HeaderSection,
+  MainBanner,
+  MainLink,
+  MembersCollection,
+} from '../../components';
 import { ELEMENTS_SECTIONS } from '../../constants';
 import { nanoid } from 'nanoid';
 import ParticleNetworkComponent from '../../components/templates/ParticleNetworkComponent';
@@ -40,7 +46,7 @@ export default function MainPage() {
             <h1 className="font-nasalization mb-6 text-6xl font-light text-white lg:text-8xl">
               NASA
               <br />
-              <span className="font-orbitron font-extralight tracking-tight">4 ELEMENTS</span>
+              <span className="font-orbitron font-extralight tracking-tight">4 ELEMENTORS</span>
             </h1>
 
             <MainBanner></MainBanner>
@@ -105,6 +111,7 @@ export default function MainPage() {
       {ELEMENTS_SECTIONS.map(element => (
         <ElementSection key={nanoid()} element={element}></ElementSection>
       ))}
+      <MembersCollection></MembersCollection>
 
       {/* Footer */}
       <div className="absolute right-8 bottom-8 left-8 z-30">

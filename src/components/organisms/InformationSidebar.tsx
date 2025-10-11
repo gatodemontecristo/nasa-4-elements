@@ -5,7 +5,7 @@ import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
 import { CloseSidebar, ExpandedButton, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
-import { CardMainInfo, DoughnutNasa, UnderlinedTitle } from '../molecules';
+import { CardMainInfo, DoughnutNasa, SedapalNumbers, UnderlinedTitle } from '../molecules';
 import { useSidebarStore } from '@/store';
 import { UrbanFormComplete } from './UrbanFormComplete';
 
@@ -127,6 +127,13 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                       Urban Development Analysis
                     </h3>
                     <UrbanFormComplete activeSubItem={activeSubItem}></UrbanFormComplete>
+                  </div>
+
+                  <div className="rounded-lg bg-gray-900/50 p-4">
+                    <h3 className="mb-4 text-sm font-semibold text-white">
+                      Sedapal Development Analysis
+                    </h3>
+                    <SedapalNumbers></SedapalNumbers>
                   </div>
 
                   <ExpandedButton

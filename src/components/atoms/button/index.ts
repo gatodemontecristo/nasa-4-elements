@@ -6,3 +6,4 @@ export * from './MainLink';
 export * from './StreetviewButton';
 export * from './ExpandedButton';
 export * from './ReturnButton';
+export * from './SocialButton';

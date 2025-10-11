@@ -26,6 +26,8 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import clsx from 'clsx';
+// import Image from 'next/image';
+import { SystemAlerts } from '../../../components/molecules/SystemAlerts';
 
 ChartJS.register(
   ArcElement,
@@ -137,7 +139,12 @@ export default function Intro() {
           </div>
           {expanded && (
             <div className={clsx('relative flex h-[50%] w-full flex-row')}>
-              {expandedItem && <LineStockNasa className="h-full" activeSubItem={expandedItem} />}
+              {expandedItem && (
+                <LineStockNasa className="h-full w-2/4" activeSubItem={expandedItem} />
+              )}
+              <div className="w-1/4 rounded-lg bg-gray-900/50 p-4">
+                <SystemAlerts />
+              </div>
             </div>
           )}
           {/* Modal de Street View */}
@@ -153,4 +160,27 @@ export default function Intro() {
       </div>
     </APIProvider>
   );
+}
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//             <div className="flex flex-col items-center justify-center">
+//               <p className="font-orbitron font-bold text-blue-500">52,529</p>
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//             <div className="flex flex-col items-center justify-center">
+//               <p className="font-orbitron font-bold text-blue-500">52,529</p>
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//             <div className="flex flex-col items-center justify-center">
+//               <p className="font-orbitron font-bold text-blue-500">2,529</p>
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// )}
+{
+  /* Modal de Street View */
 }

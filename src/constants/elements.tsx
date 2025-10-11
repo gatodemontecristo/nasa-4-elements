@@ -17,6 +17,7 @@ import { winds, earths, waters, fires } from '@/data';
 import { SVG_EARTH, SVG_FIRE, SVG_WATER, SVG_WIND } from './svg';
 
 export type GLOBAL_ELEMENTS = 'wind' | 'water' | 'fire' | 'earth';
+export type CARD_COLOURS = 'green' | 'yellow' | 'blue';
 export const DEFAULT_ICON: elementsIconsDetailProps = {
   icon: <SiNasa className="text-nasa-white size-8" />,
   title: 'NASA',
@@ -87,14 +88,6 @@ export const elementsIcons = (className?: string): elementsIconsProps[] => [
 ];
 
 export const MENU_ELEMENTS: MenuItem[] = [
-  // {
-  //   id: 'home',
-  //   icon: <FaHome />,
-  //   color: 'text-orange-500',
-  //   bg: 'bg-orange-500',
-  //   border: 'border-orange-500',
-  //   label: 'Home',
-  // },
   {
     id: 'fire',
     icon: <FaFireAlt />,
@@ -202,4 +195,43 @@ export const elementsSvg: Record<GLOBAL_ELEMENTS, string> = {
   water: SVG_WATER,
   fire: SVG_FIRE,
   earth: SVG_EARTH,
+};
+
+export const GASEOUS_POLLUTANTS_COLORS = [
+  '#FF6384', // PM10 - Rojo
+  '#36A2EB', // PM2.5 - Azul
+  '#FFCE56', // CO₂ - Amarillo
+  '#4BC0C0', // NO₂ - Verde azulado
+  '#9966FF', // CH₄ - Púrpura
+];
+
+export const GASEOUS_POLLUTANTS_LABELS = ['PM10', 'PM2.5', 'CO₂', 'NO₂', 'CH₄'];
+
+interface CardColoursProps {
+  formatShadow: string;
+  bg: string;
+
+  title: string;
+  subtitle: string;
+}
+
+export const cardColoursStyles: Record<CARD_COLOURS, CardColoursProps> = {
+  green: {
+    formatShadow: 'border-green-500/30 bg-green-900/20',
+    bg: 'bg-green-400',
+    title: 'text-green-400',
+    subtitle: 'text-green-200',
+  },
+  blue: {
+    formatShadow: 'border-blue-500/30 bg-blue-900/20 ',
+    bg: 'bg-blue-400',
+    title: 'text-blue-400',
+    subtitle: 'text-blue-200',
+  },
+  yellow: {
+    formatShadow: 'border-yellow-500/30 bg-yellow-900/20',
+    bg: 'bg-yellow-400',
+    title: 'text-yellow-400',
+    subtitle: 'text-yellow-200',
+  },
 };

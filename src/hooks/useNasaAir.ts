@@ -1,28 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
 import { NasaAirService, AirQualityParams } from '@/services/nasaair.service';
+import { GC_TIME_TANSTACK, RETRY_TANSTACK, STALE_TIME_TANSTACK } from '../constants';
 
-// Query keys para React Query
+// Query keys for React Query
 export const QUERY_KEYS = {
   AIR_QUALITY: 'air-quality',
 } as const;
 
 /**
- * Hook para obtener datos de calidad del aire
+ * Hook to get air quality data
  */
 export const useAirQuality = (params: AirQualityParams, enabled: boolean = true) => {
   return useQuery({
     queryKey: [QUERY_KEYS.AIR_QUALITY, params.latitude, params.longitude],
     queryFn: () => NasaAirService.getAirQuality(params),
     enabled: enabled && !!params.latitude && !!params.longitude,
-    staleTime: 5 * 60 * 1000, // 5 minutos
-    gcTime: 10 * 60 * 1000, // 10 minutos (antes cacheTime)
-    retry: 3,
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
+    staleTime: STALE_TIME_TANSTACK,
+    gcTime: GC_TIME_TANSTACK,
+    retry: RETRY_TANSTACK,
   });
 };
 
 /**
- * Hook para obtener los últimos valores de contaminantes
+ * Hook to get the latest pollutant values
  */
 export const useLatestAirValues = (params: AirQualityParams, enabled: boolean = true) => {
   const { data, isLoading, error, isError } = useAirQuality(params, enabled);
@@ -39,7 +39,7 @@ export const useLatestAirValues = (params: AirQualityParams, enabled: boolean = 
 };
 
 /**
- * Hook para obtener los valores promedio de contaminantes
+ * Hook to get average pollutant values
  */
 export const useAverageAirValues = (params: AirQualityParams, enabled: boolean = true) => {
   const { data, isLoading, error, isError } = useAirQuality(params, enabled);
@@ -56,7 +56,7 @@ export const useAverageAirValues = (params: AirQualityParams, enabled: boolean =
 };
 
 /**
- * Hook combinado que devuelve tanto los últimos valores como los promedios
+ * Combined hook that returns both latest values and averages
  */
 export const useAirQualityAnalysis = (params: AirQualityParams, enabled: boolean = true) => {
   const { data, isLoading, error, isError } = useAirQuality(params, enabled);

@@ -5,3 +5,5 @@ export * from './skeleton';
 export * from './text';
 export * from './elements';
 export * from './header';
+export * from './not-found';
+export * from './load-spinner';

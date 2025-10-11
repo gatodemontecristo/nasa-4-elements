@@ -8,66 +8,71 @@ import {
   getStreetViewImageUrl,
   reverseGeocode,
 } from '@/services';
+import { GC_TIME_TANSTACK, STALE_TIME_TANSTACK } from '../constants';
 
-// Hook para generar URL de Street View (no necesita query ya que es síncrono)
+// Hook to generate Street View URL (doesn't need query since it's synchronous)
 export const useStreetViewUrl = (lat: number, lng: number, options?: StreetViewOptions) => {
   return getStreetViewImageUrl(lat, lng, options);
 };
 
-// Hook para verificar disponibilidad de Street View
+// Hook to verify Street View availability
 export const useStreetViewAvailability = (lat: number, lng: number) => {
   return useQuery({
     queryKey: ['streetViewAvailability', lat, lng],
     queryFn: () => checkStreetViewAvailability(lat, lng),
     enabled: !!(lat && lng),
-    staleTime: 10 * 60 * 1000, // 10 minutos
+    staleTime: STALE_TIME_TANSTACK,
+    gcTime: GC_TIME_TANSTACK,
   });
 };
 
-// Hook para geocodificación
+// Hook for geocoding
 export const useGeocode = (address: string) => {
   return useQuery({
     queryKey: ['geocode', address],
     queryFn: () => geocodeAddress(address),
     enabled: !!address && address.length > 3,
-    staleTime: 15 * 60 * 1000, // 15 minutos
+    staleTime: STALE_TIME_TANSTACK,
+    gcTime: GC_TIME_TANSTACK,
   });
 };
 
-// Hook para geocodificación inversa
+// Hook for reverse geocoding
 export const useReverseGeocode = (lat: number, lng: number) => {
   return useQuery({
     queryKey: ['reverseGeocode', lat, lng],
     queryFn: () => reverseGeocode(lat, lng),
     enabled: !!(lat && lng),
-    staleTime: 15 * 60 * 1000, // 15 minutos
+    staleTime: STALE_TIME_TANSTACK,
+    gcTime: GC_TIME_TANSTACK,
   });
 };
 
-// Hook para detalles de lugar
+// Hook for place details
 export const usePlaceDetails = (placeId: string) => {
   return useQuery({
     queryKey: ['placeDetails', placeId],
     queryFn: () => getPlaceDetails(placeId),
     enabled: !!placeId,
-    staleTime: 30 * 60 * 1000, // 30 minutos
+    staleTime: STALE_TIME_TANSTACK,
+    gcTime: GC_TIME_TANSTACK,
   });
 };
 
-// Hook para mutation de geocodificación (útil para búsquedas)
+// Hook for geocoding mutation (useful for searches)
 export const useGeocodeMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: geocodeAddress,
     onSuccess: (data, address) => {
-      // Cache el resultado para futuros usos
+      // Cache the result for future use
       queryClient.setQueryData(['geocode', address], data);
     },
   });
 };
 
-// Hook personalizado que combina Street View URL y disponibilidad
+// Custom hook that combines Street View URL and availability
 export const useStreetView = (lat: number, lng: number, options?: StreetViewOptions) => {
   const url = useStreetViewUrl(lat, lng, options);
   const availability = useStreetViewAvailability(lat, lng);
@@ -80,7 +85,7 @@ export const useStreetView = (lat: number, lng: number, options?: StreetViewOpti
   };
 };
 
-// Hook para precargar datos de Street View
+// Hook to preload Street View data
 export const usePrefetchStreetView = () => {
   const queryClient = useQueryClient();
 
@@ -88,7 +93,8 @@ export const usePrefetchStreetView = () => {
     queryClient.prefetchQuery({
       queryKey: ['streetViewAvailability', lat, lng],
       queryFn: () => checkStreetViewAvailability(lat, lng),
-      staleTime: 10 * 60 * 1000,
+      staleTime: STALE_TIME_TANSTACK,
+      gcTime: GC_TIME_TANSTACK,
     });
   };
 
@@ -96,7 +102,8 @@ export const usePrefetchStreetView = () => {
     queryClient.prefetchQuery({
       queryKey: ['reverseGeocode', lat, lng],
       queryFn: () => reverseGeocode(lat, lng),
-      staleTime: 15 * 60 * 1000,
+      staleTime: STALE_TIME_TANSTACK,
+      gcTime: GC_TIME_TANSTACK,
     });
   };
 

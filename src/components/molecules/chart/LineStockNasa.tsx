@@ -4,11 +4,13 @@ import { MarkNasa } from '../../../data';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
 import { LoadSpinner, NotFound } from '../../atoms';
+import { ChartData } from 'chart.js';
 
 interface LineStockNasaProps {
   activeSubItem: MarkNasa;
+  className?: string;
 }
-export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
+export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) => {
   const { rawData, isLoading, isError } = useAirQualityAnalysis(
     activeSubItem
       ? { latitude: activeSubItem.lat, longitude: activeSubItem.lng }
@@ -21,7 +23,6 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
     responsive: true,
     maintainAspectRatio: false,
     interaction: {
-      mode: 'index',
       intersect: false,
     },
     scales: {
@@ -140,14 +141,18 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
       },
     },
   };
-  const createStockChart = () => {
-    if (!rawData?.hourly) return null;
+  const createStockChart = (): ChartData<'line'> => {
+    if (!rawData?.hourly) {
+      return {
+        labels: [],
+        datasets: [],
+      };
+    }
 
     const hourlyData = rawData.hourly;
-    const timeLabels = hourlyData.time.slice(0, 24); // Últimas 24 horas
+    const timeLabels = hourlyData.time.slice(0, 24);
     const dataLength = timeLabels.length;
 
-    // Configuración de animación progresiva
     const totalDuration = 8000;
     const delayBetweenPoints = totalDuration / dataLength;
     const previousY = (ctx: any) =>
@@ -162,9 +167,7 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
         duration: delayBetweenPoints,
         from: NaN,
         delay(ctx: any) {
-          if (ctx.type !== 'data' || ctx.xStarted) {
-            return 0;
-          }
+          if (ctx.type !== 'data' || ctx.xStarted) return 0;
           ctx.xStarted = true;
           return ctx.index * delayBetweenPoints;
         },
@@ -175,9 +178,7 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
         duration: delayBetweenPoints,
         from: previousY,
         delay(ctx: any) {
-          if (ctx.type !== 'data' || ctx.yStarted) {
-            return 0;
-          }
+          if (ctx.type !== 'data' || ctx.yStarted) return 0;
           ctx.yStarted = true;
           return ctx.index * delayBetweenPoints;
         },
@@ -205,7 +206,7 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
           pointHoverBorderWidth: 3,
           fill: false,
           tension: 0.4,
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
         {
           label: 'PM2.5',
@@ -220,7 +221,7 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
           pointHoverBorderWidth: 3,
           fill: false,
           tension: 0.4,
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
         {
           label: 'NO₂',
@@ -235,7 +236,7 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
           pointHoverBorderWidth: 3,
           fill: false,
           tension: 0.4,
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
         {
           label: 'CO₂',
@@ -251,45 +252,23 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
           fill: false,
           tension: 0.4,
           yAxisID: 'y1',
-          animation,
+          animation: animation as any, // 👈 truco seguro
         },
       ],
     };
   };
+
   const chartData = createStockChart();
+
   return (
-    <div className="w-1/2 bg-gray-900 p-6">
-      <div className="mb-4">
+    <div className={`w-2/4 bg-gray-900/50 p-4 ${className}`}>
+      <div className="mb-2">
         <h2 className="font-nasalization mb-1 text-2xl tracking-wider text-white">
           AIR QUALITY MARKET
         </h2>
-        <p className="font-jetbrains text-sm text-gray-400">
-          Real-time pollutant trading data • Last 24 hours
-        </p>
-        <div className="mt-3 flex items-center gap-4 text-xs">
-          <span className="flex items-center gap-1">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
-            <span className="font-jetbrains text-green-400">LIVE FEED</span>
-          </span>
-          <span className="font-jetbrains text-gray-500">LAT: {activeSubItem.lat.toFixed(4)}</span>
-          <span className="font-jetbrains text-gray-500">LNG: {activeSubItem.lng.toFixed(4)}</span>
-        </div>
       </div>
-
-      <div className="h-96 rounded-xl border border-gray-700 bg-black/60 p-6 backdrop-blur-sm">
-        {chartData ? (
-          <Line data={chartData} options={stockChartOptions} />
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-center">
-              <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-blue-500"></div>
-              <p className="font-jetbrains text-sm text-gray-400">Loading market data...</p>
-              <p className="font-jetbrains mt-1 text-xs text-gray-600">
-                Connecting to NASA satellites...
-              </p>
-            </div>
-          </div>
-        )}
+      <div className="h-[80%] rounded-xl border border-gray-700 bg-black/60 p-4 backdrop-blur-sm">
+        {chartData ? <Line data={chartData} options={stockChartOptions} /> : <NotFound />}
       </div>
     </div>
   );

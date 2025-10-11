@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardFooter, CardInfoSection, CardMainInfo } from '../molecules';
+import { CardFooter, CardMainInfo } from '../molecules';
 import { useCompleteEarthData } from '../../hooks';
 import { LoadSpinner, NotFound } from '../atoms';
 import { MarkNasa } from '../../data';
@@ -43,29 +43,6 @@ export const UrbanFormComplete = ({ activeSubItem }: UrbanFormCompleteProps) => 
           footer={completeEarthData.prediction.riskLevel.description}
         />
       </CardMainInfo>
-      <div className="grid grid-cols-1 gap-3">
-        <CardInfoSection
-          title="NDVI"
-          value={completeEarthData.features.ndvi.value.toFixed(3)}
-          status={completeEarthData.features.ndvi.interpretation.status}
-          description={completeEarthData.features.ndvi.interpretation.description}
-          color="green"
-        ></CardInfoSection>
-        <CardInfoSection
-          title="NTL"
-          value={completeEarthData.features.ntl.value.toFixed(3)}
-          status={completeEarthData.features.ntl.interpretation.status}
-          description={completeEarthData.features.ntl.interpretation.description}
-          color="yellow"
-        ></CardInfoSection>
-        <CardInfoSection
-          title="SLOPE"
-          value={`${completeEarthData.features.slope.value.toFixed(1)}°`}
-          status={completeEarthData.features.slope.interpretation.status}
-          description={completeEarthData.features.slope.interpretation.description}
-          color="blue"
-        ></CardInfoSection>
-      </div>
       <CardFooter
         title="Coordinates:"
         description={`${completeEarthData.coordinates.lat.toFixed(4)}, ${completeEarthData.coordinates.lon.toFixed(4)}`}

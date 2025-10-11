@@ -5,3 +5,4 @@ export * from './SubmenuSidebar';
 export * from './MainBanner';
 export * from './ElementSection';
 export * from './UrbanFormComplete';
+export * from './UrbanFormExtended';

@@ -3,10 +3,12 @@
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
 import {
   DashboardSidebar,
-  // LineStockNasa,
+  LineStockNasa,
   Markers,
   NavegationControl,
+  ReturnButton,
   StreetViewModal,
+  UrbanFormExtended,
 } from '@/components';
 import { usePrefetchStreetView, useStreetView } from '@/hooks';
 import { useCoordinatesStore, useExpandedStore, useSidebarStore } from '@/store';
@@ -52,7 +54,7 @@ export default function Intro() {
     setSelectedLocation,
   } = useCoordinatesStore();
 
-  const { expanded } = useExpandedStore();
+  const { expanded, expandedItem } = useExpandedStore();
 
   // Hooks de React Query
   const streetViewData = useStreetView(selectedLocation.lat, selectedLocation.lng, {
@@ -72,7 +74,10 @@ export default function Intro() {
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <div className="flex h-screen">
-        <div className="relative h-full w-full">
+        <div className="relative flex h-full w-full flex-col">
+          <div className="absolute top-4 left-4 z-50">
+            <ReturnButton></ReturnButton>
+          </div>
           <DashboardSidebar />
           <NavegationControl
             onClick={() => openStreetView(currentCenter.lat, currentCenter.lng, 'Current view')}
@@ -83,44 +88,58 @@ export default function Intro() {
                 : 'pointer-events-auto scale-100 opacity-100'
             )}
           />
-          <Map
-            className={clsx(
-              'transition-all duration-700 ease-in-out',
-              expanded ? 'h-[50%] w-[60%]' : 'h-full w-full'
-            )}
-            colorScheme="DARK"
-            zoom={currentZoom}
-            center={currentCenter}
-            mapId={process.env.NEXT_PUBLIC_MAP_ID}
-            streetViewControl={false}
-            mapTypeControl={false}
-            onCameraChanged={ev => {
-              setCurrentZoom(ev.detail.zoom);
-              setCurrentCenter(ev.detail.center);
-            }}
-          >
-            <Markers points={activeItem} />
+          <div className={clsx('relative flex w-full flex-row', expanded ? 'h-[50%]' : 'h-full')}>
+            <Map
+              className={clsx(
+                'h-full transition-all duration-700 ease-in-out',
+                expanded ? 'w-[60%]' : 'w-full'
+              )}
+              colorScheme="DARK"
+              zoom={currentZoom}
+              center={currentCenter}
+              mapId={process.env.NEXT_PUBLIC_MAP_ID}
+              streetViewControl={false}
+              mapTypeControl={false}
+              onCameraChanged={ev => {
+                setCurrentZoom(ev.detail.zoom);
+                setCurrentCenter(ev.detail.center);
+              }}
+            >
+              <Markers points={activeItem} />
 
-            <AdvancedMarker position={position}>
-              <div className="relative">
-                <img
-                  src="/naki_yoho.png" // 👈 desde /public
-                  alt="Marker"
-                  className="h-12 w-12 rounded-full border-2 border-white shadow-lg"
-                />
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
-                  <div className="h-0 w-0 border-t-[8px] border-r-[6px] border-l-[6px] border-t-white border-r-transparent border-l-transparent"></div>
+              <AdvancedMarker position={position}>
+                <div className="relative">
+                  <img
+                    src="/naki_yoho.png" // 👈 desde /public
+                    alt="Marker"
+                    className="h-12 w-12 rounded-full border-2 border-white shadow-lg"
+                  />
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
+                    <div className="h-0 w-0 border-t-[8px] border-r-[6px] border-l-[6px] border-t-white border-r-transparent border-l-transparent"></div>
+                  </div>
                 </div>
+              </AdvancedMarker>
+
+              {open && (
+                <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
+                  <p>Im in Hamburg</p>
+                </InfoWindow>
+              )}
+            </Map>
+            {expandedItem && (
+              <div className="h-full w-[40%] rounded-lg bg-gray-900/50 p-4">
+                <h3 className="mb-4 text-sm font-semibold text-white">
+                  Urban Development Analysis
+                </h3>
+                <UrbanFormExtended activeSubItem={expandedItem}></UrbanFormExtended>
               </div>
-            </AdvancedMarker>
-
-            {open && (
-              <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
-                <p>Im in Hamburg</p>
-              </InfoWindow>
             )}
-          </Map>
-
+          </div>
+          {expanded && (
+            <div className={clsx('relative flex h-[50%] w-full flex-row')}>
+              {expandedItem && <LineStockNasa className="h-full" activeSubItem={expandedItem} />}
+            </div>
+          )}
           {/* Modal de Street View */}
           {streetViewOpen && (
             <StreetViewModal
@@ -131,7 +150,6 @@ export default function Intro() {
             />
           )}
         </div>
-        {/* {activeSubItem && <LineStockNasa activeSubItem={activeSubItem} />} */}
       </div>
     </APIProvider>
   );

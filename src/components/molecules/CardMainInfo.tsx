@@ -5,10 +5,11 @@ import { CardOtherInfoProps } from '../../types';
 interface CardMainInfoProps {
   children?: React.ReactNode;
   riskLevelColor: string;
+  className?: string;
 }
-const CardMainInfoRoot = ({ children, riskLevelColor }: CardMainInfoProps) => {
+const CardMainInfoRoot = ({ children, riskLevelColor, className }: CardMainInfoProps) => {
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${className}`}>
       <div className={`rounded-lg border-l-4 bg-black/40 p-3 ${riskLevelColor}`}>{children}</div>
     </div>
   );

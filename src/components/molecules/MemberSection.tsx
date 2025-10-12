@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 
 export const MemberSection = ({ name, role, avatar, social_networks }: AvatarMembersProps) => {
   return (
-    <div className="z-10 flex w-1/5 flex-col items-center justify-start">
+    <div className="z-10 mt-10 flex h-[50%] w-1/5 flex-col items-center justify-start">
       <Image
         src={avatar || '/members/avatar.png'}
         alt={name}

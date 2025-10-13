@@ -112,7 +112,7 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                   </CardMainInfo>
 
                   {/* Air Quality Chart */}
-                  <div className="rounded-lg bg-gray-900/50 p-2">
+                  <div className="rounded-lg bg-black/40 p-4">
                     <h3 className="mb-3 text-sm font-semibold text-white">Air Quality Analysis</h3>
                     <DoughnutNasa
                       label="Air Quality Pollutants"
@@ -122,14 +122,14 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
                   </div>
 
                   {/* Earth Quality Analysis */}
-                  <div className="rounded-lg bg-gray-900/50 p-4">
+                  <div className="rounded-lg bg-black/40 p-4">
                     <h3 className="mb-4 text-sm font-semibold text-white">
                       Urban Development Analysis
                     </h3>
                     <UrbanFormComplete activeSubItem={activeSubItem}></UrbanFormComplete>
                   </div>
 
-                  <div className="rounded-lg bg-gray-900/50 p-4">
+                  <div className="rounded-lg bg-black/40 p-4">
                     <h3 className="mb-4 text-sm font-semibold text-white">
                       Sedapal Development Analysis
                     </h3>

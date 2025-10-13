@@ -76,7 +76,7 @@ export default function Intro() {
 
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <div className="flex h-screen">
+      <div className="flex h-screen bg-black/40">
         <div className="relative flex h-full w-full flex-col">
           <div className="absolute top-4 left-4 z-50">
             <ReturnButton></ReturnButton>
@@ -130,7 +130,7 @@ export default function Intro() {
               )}
             </Map>
             {expandedItem && (
-              <div className="h-full w-[40%] overflow-y-scroll rounded-lg bg-gray-900/50 p-4">
+              <div className="h-full w-[40%] overflow-y-scroll rounded-lg bg-black/40 p-4">
                 <h3 className="mb-4 text-sm font-semibold text-white">
                   Urban Development Analysis
                 </h3>
@@ -143,7 +143,7 @@ export default function Intro() {
               {expandedItem && (
                 <LineStockNasa className="h-full w-2/4" activeSubItem={expandedItem} />
               )}
-              <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-gray-900/50 p-3">
+              <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-black/40 p-3">
                 <SedapalNumbers></SedapalNumbers>
                 <SystemAlerts />
               </div>

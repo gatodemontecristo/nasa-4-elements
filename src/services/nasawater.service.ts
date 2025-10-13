@@ -35,7 +35,7 @@ export interface SystemAlert {
   originalMessage: string;
 }
 
-const BASE_URL = 'https://inadequate-wrennie-itcorp-1a11a9c7.koyeb.app/microzonas/resumen';
+const BASE_URL = process.env.NEXT_PUBLIC_NASA_WATER_URL;
 
 export class NasaWaterService {
   /**

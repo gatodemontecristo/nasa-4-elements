@@ -19,7 +19,7 @@ export interface NasaEarthParams {
   lon: number;
 }
 
-const BASE_URL = 'https://predictic-aahh-api-production.up.railway.app/predict';
+const BASE_URL = process.env.NEXT_PUBLIC_NASA_EARTH_URL;
 
 export class NasaEarthService {
   /**

@@ -7,6 +7,7 @@ import {
   Markers,
   NavegationControl,
   ReturnButton,
+  SedapalNumbers,
   StreetViewModal,
   UrbanFormExtended,
 } from '@/components';
@@ -26,6 +27,8 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import clsx from 'clsx';
+// import Image from 'next/image';
+import { SystemAlerts } from '../../../components/molecules/SystemAlerts';
 
 ChartJS.register(
   ArcElement,
@@ -73,7 +76,7 @@ export default function Intro() {
 
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <div className="flex h-screen">
+      <div className="flex h-screen bg-black/40">
         <div className="relative flex h-full w-full flex-col">
           <div className="absolute top-4 left-4 z-50">
             <ReturnButton></ReturnButton>
@@ -127,7 +130,7 @@ export default function Intro() {
               )}
             </Map>
             {expandedItem && (
-              <div className="h-full w-[40%] rounded-lg bg-gray-900/50 p-4">
+              <div className="h-full w-[40%] overflow-y-scroll rounded-lg bg-black/40 p-4">
                 <h3 className="mb-4 text-sm font-semibold text-white">
                   Urban Development Analysis
                 </h3>
@@ -137,7 +140,13 @@ export default function Intro() {
           </div>
           {expanded && (
             <div className={clsx('relative flex h-[50%] w-full flex-row')}>
-              {expandedItem && <LineStockNasa className="h-full" activeSubItem={expandedItem} />}
+              {expandedItem && (
+                <LineStockNasa className="h-full w-2/4" activeSubItem={expandedItem} />
+              )}
+              <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-black/40 p-3">
+                <SedapalNumbers></SedapalNumbers>
+                <SystemAlerts />
+              </div>
             </div>
           )}
           {/* Modal de Street View */}
@@ -153,4 +162,27 @@ export default function Intro() {
       </div>
     </APIProvider>
   );
+}
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//             <div className="flex flex-col items-center justify-center">
+//               <p className="font-orbitron font-bold text-blue-500">52,529</p>
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//             <div className="flex flex-col items-center justify-center">
+//               <p className="font-orbitron font-bold text-blue-500">52,529</p>
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//             <div className="flex flex-col items-center justify-center">
+//               <p className="font-orbitron font-bold text-blue-500">2,529</p>
+//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// )}
+{
+  /* Modal de Street View */
 }

@@ -126,6 +126,12 @@ export const MENU_ELEMENTS: MenuItem[] = [
   },
 ];
 
+export const MAIN_EXTRA: string = 'Urban Planning × Space Technology';
+export const MAIN_TITLE: string = 'NASA';
+export const MAIN_SUBTITLE: string = '4 ELEMENTORS';
+export const NASA_LOGO_LABEL: string = 'NASA.URBAN.OBSERVATORY';
+export const GITHUB_LOGO_LABEL: string = 'GITHUB.REPOSITORY';
+
 export const ELEMENTS_MAIN_MSG: string =
   'Advanced geospatial intelligence platform integrating Earth observation data with urban planning methodologies for sustainable city development.';
 export const ELEMENTS_BANNER: elementsBannerProps[] = [
@@ -235,3 +241,49 @@ export const cardColoursStyles: Record<CARD_COLOURS, CardColoursProps> = {
     subtitle: 'text-yellow-200',
   },
 };
+
+export interface ElementsGoalsProps {
+  tile: string;
+  description: string;
+  label: string;
+  styles: {
+    border: string;
+    bgDot: string;
+    text: string;
+  };
+}
+export const ELEMENTS_GOALS: ElementsGoalsProps[] = [
+  {
+    tile: 'METHODOLOGY',
+    description:
+      'Satellite imagery analysis combined with machine learning algorithms to identify urban development patterns and environmental impacts.',
+    label: 'ML.GEOSPATIAL.ANALYSIS',
+    styles: {
+      border: 'border-blue-400',
+      bgDot: 'bg-blue-400',
+      text: 'text-blue-400',
+    },
+  },
+  {
+    tile: 'TECHNOLOGY',
+    description:
+      'Real-time data processing from multiple NASA Earth observation satellites integrated with urban planning frameworks.',
+    label: 'SATELLITE.DATA.INTEGRATION',
+    styles: {
+      border: 'border-green-400',
+      bgDot: 'bg-green-400',
+      text: 'text-green-400',
+    },
+  },
+  {
+    tile: 'IMPACT',
+    description:
+      'Sustainable urban development strategies based on evidence-driven environmental analysis and predictive modeling systems.',
+    label: 'SUSTAINABLE.URBAN.DEVELOPMENT',
+    styles: {
+      border: 'border-orange-400',
+      bgDot: 'bg-orange-400',
+      text: 'text-orange-400',
+    },
+  },
+];

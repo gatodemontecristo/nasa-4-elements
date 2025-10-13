@@ -6,3 +6,5 @@ export * from './MainBanner';
 export * from './ElementSection';
 export * from './UrbanFormComplete';
 export * from './UrbanFormExtended';
+export * from './MembersCollection';
+export * from './MainTitle';

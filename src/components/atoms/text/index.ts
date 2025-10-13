@@ -5,3 +5,5 @@ export * from './TextSecondary';
 export * from './TextSecondary';
 export * from './TextBanner';
 export * from './TagStatus';
+export * from './TitleJetbrains';
+export * from './SedapalStats';

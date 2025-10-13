@@ -35,7 +35,7 @@ export interface AirQualityParams {
   longitude: number;
 }
 
-const BASE_URL = 'https://air-quality-api.open-meteo.com/v1/air-quality';
+const BASE_URL = process.env.NEXT_PUBLIC_NASA_AIR_URL;
 
 export class NasaAirService {
   /**

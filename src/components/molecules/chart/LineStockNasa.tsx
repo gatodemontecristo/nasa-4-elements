@@ -261,7 +261,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
   const chartData = createStockChart();
 
   return (
-    <div className={`w-2/4 bg-gray-900/50 p-4 ${className}`}>
+    <div className={`bg-black/40 p-4 ${className}`}>
       <div className="mb-2">
         <h2 className="font-nasalization mb-1 text-2xl tracking-wider text-white">
           AIR QUALITY MARKET

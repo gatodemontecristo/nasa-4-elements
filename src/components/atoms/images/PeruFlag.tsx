@@ -5,7 +5,7 @@ export const PeruFlag = () => {
   return (
     <Image
       src="/members/peru.png"
-      alt="Sedapal Development Analysis"
+      alt="Peru Flag"
       width={100}
       height={100}
       className="h-auto w-[30px] rounded-lg object-cover"

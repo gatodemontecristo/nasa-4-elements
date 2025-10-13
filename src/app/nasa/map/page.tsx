@@ -7,6 +7,7 @@ import {
   Markers,
   NavegationControl,
   ReturnButton,
+  SedapalNumbers,
   StreetViewModal,
   UrbanFormExtended,
 } from '@/components';
@@ -129,7 +130,7 @@ export default function Intro() {
               )}
             </Map>
             {expandedItem && (
-              <div className="h-full w-[40%] rounded-lg bg-gray-900/50 p-4">
+              <div className="h-full w-[40%] overflow-y-scroll rounded-lg bg-gray-900/50 p-4">
                 <h3 className="mb-4 text-sm font-semibold text-white">
                   Urban Development Analysis
                 </h3>
@@ -142,7 +143,8 @@ export default function Intro() {
               {expandedItem && (
                 <LineStockNasa className="h-full w-2/4" activeSubItem={expandedItem} />
               )}
-              <div className="w-1/4 rounded-lg bg-gray-900/50 p-4">
+              <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-gray-900/50 p-3">
+                <SedapalNumbers></SedapalNumbers>
                 <SystemAlerts />
               </div>
             </div>

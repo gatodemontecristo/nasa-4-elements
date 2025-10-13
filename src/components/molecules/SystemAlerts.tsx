@@ -15,15 +15,15 @@ export const SystemAlerts = ({ className = '' }: SystemAlertsProps) => {
 
   const getAlertIcon = (message: string) => {
     if (message.toLowerCase().includes('water')) {
-      return <FaDatabase className="h-4 w-4" />;
+      return <FaDatabase className="h-3 w-3" />;
     }
     if (message.toLowerCase().includes('sewage')) {
-      return <PiShareNetworkFill className="h-4 w-4" />;
+      return <PiShareNetworkFill className="h-3 w-3" />;
     }
     if (message.toLowerCase().includes('project')) {
-      return <MdNotificationsActive className="h-4 w-4" />;
+      return <MdNotificationsActive className="h-3 w-3" />;
     }
-    return <IoWarning className="h-4 w-4" />;
+    return <IoWarning className="h-3 w-3" />;
   };
 
   const getAlertColor = (index: number) => {
@@ -74,7 +74,7 @@ export const SystemAlerts = ({ className = '' }: SystemAlertsProps) => {
           <div className="h-2 w-2 animate-ping rounded-full bg-amber-400"></div>
         </div>
         <h3 className="font-nasalization text-sm tracking-wider text-white uppercase">
-          System Alerts
+          Water Alerts
         </h3>
         <div className="ml-auto">
           <span className="font-jetbrains rounded-full border border-amber-500/30 bg-amber-500/20 px-2 py-1 text-xs text-amber-400">
@@ -88,33 +88,16 @@ export const SystemAlerts = ({ className = '' }: SystemAlertsProps) => {
         {alerts.map((alert, index) => (
           <div
             key={index}
-            className={`rounded-lg border p-3 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${getAlertColor(index)}`}
+            className={`rounded-lg border p-2 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${getAlertColor(index)}`}
           >
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-2">
               <div className="mt-0.5">{getAlertIcon(alert.message)}</div>
               <div className="flex-1">
-                <p className="font-inter text-sm leading-relaxed">{alert.message}</p>
-                <div className="mt-2 flex items-center gap-2">
-                  <div className="h-1 w-1 rounded-full bg-current opacity-60"></div>
-                  <span className="font-jetbrains text-xs tracking-wide uppercase opacity-70">
-                    {alert.type}
-                  </span>
-                </div>
+                <p className="font-inter text-xs leading-relaxed">{alert.message}</p>
               </div>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Footer */}
-      <div className="mt-4 border-t border-gray-700 pt-3">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-jetbrains text-gray-400">REAL-TIME MONITORING</span>
-          <div className="flex items-center gap-1">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
-            <span className="font-jetbrains text-green-400">ACTIVE</span>
-          </div>
-        </div>
       </div>
     </div>
   );

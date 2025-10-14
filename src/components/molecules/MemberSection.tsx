@@ -12,7 +12,7 @@ export const MemberSection = ({ name, role, avatar, social_networks }: AvatarMem
         alt={name}
         width={200}
         height={200}
-        className="mb-2 h-auto w-2/3 rounded-full object-cover shadow-lg"
+        className="mb-2 aspect-square w-2/3 rounded-full object-cover shadow-lg"
         priority
       ></Image>
       <div className="mt-2 flex flex-row items-center justify-center gap-2">

@@ -17,10 +17,6 @@ export const MembersCollection = () => {
 
       <LineSeparator direction={'horizontal'} className="top-1/6"></LineSeparator>
       <LineSeparator direction={'horizontal'} className="bottom-1/6"></LineSeparator>
-      {/* <LineSeparator direction={'vertical'}></LineSeparator>
-      <LineSeparator direction={'vertical'}></LineSeparator>
-      <LineSeparator direction={'vertical'}></LineSeparator>
-      <LineSeparator direction={'vertical'}></LineSeparator> */}
     </div>
   );
 };

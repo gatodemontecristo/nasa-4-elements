@@ -8,6 +8,7 @@ import {
   NavegationControl,
   ReturnButton,
   SedapalNumbers,
+  SoilInfoNasa,
   StreetViewModal,
   UrbanFormExtended,
 } from '@/components';
@@ -146,6 +147,14 @@ export default function Intro() {
               <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-black/40 p-3">
                 <SedapalNumbers></SedapalNumbers>
                 <SystemAlerts />
+              </div>
+              <div className="h-full w-1/4 overflow-y-scroll rounded-lg bg-black/40 p-4">
+                <h3 className="mb-4 text-sm font-semibold text-white">
+                  General Information Report
+                </h3>
+                {expandedItem && (
+                  <SoilInfoNasa activeSubItem={expandedItem} extended={true}></SoilInfoNasa>
+                )}
               </div>
             </div>
           )}

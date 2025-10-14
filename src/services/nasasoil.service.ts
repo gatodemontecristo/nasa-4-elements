@@ -1,3 +1,5 @@
+import { SERVICE_TIMEOUT } from '../constants';
+
 // Interfaces para tipar la respuesta de la API
 export interface SoilMoistureUnits {
   time: string;
@@ -52,7 +54,7 @@ export class NasaSoilService {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(30000),
+        signal: AbortSignal.timeout(SERVICE_TIMEOUT),
       });
 
       if (!response.ok) {

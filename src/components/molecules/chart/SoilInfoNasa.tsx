@@ -13,12 +13,12 @@ interface SoilInfoNasaProps {
   extended?: boolean;
 }
 export const SoilInfoNasa = ({ activeSubItem, extended = false }: SoilInfoNasaProps) => {
-  const { data, isLoading, isError } = useSoilAnalysis(
+  const { data, isLoading, isError, error } = useSoilAnalysis(
     { latitude: activeSubItem.lat, longitude: activeSubItem.lng },
     !!activeSubItem
   );
-
-  if (isError) return <NotFound></NotFound>;
+  console.log('SoilInfoNasa data:', data, error, isError);
+  if (isError) return <NotFound extended={extended}></NotFound>;
   if (isLoading || !data) return <LoadSpinner></LoadSpinner>;
   return (
     <div className="flex w-full flex-col gap-3 p-3">

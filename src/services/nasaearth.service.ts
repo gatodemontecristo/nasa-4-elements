@@ -1,3 +1,5 @@
+import { SERVICE_TIMEOUT } from '../constants';
+
 // Interfaces para tipar la respuesta de la API
 export interface NasaEarthFeatures {
   ndvi: number;
@@ -33,7 +35,10 @@ export class NasaEarthService {
     url.searchParams.append('lon', params.lon.toString());
 
     try {
-      const response = await fetch(url.toString());
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        signal: AbortSignal.timeout(SERVICE_TIMEOUT),
+      });
 
       if (!response.ok) {
         throw new Error(`Error fetching NASA Earth prediction: ${response.status}`);

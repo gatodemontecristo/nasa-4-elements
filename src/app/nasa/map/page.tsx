@@ -114,7 +114,7 @@ export default function Intro() {
               <AdvancedMarker position={position}>
                 <div className="relative">
                   <img
-                    src="/naki_yoho.png" // 👈 desde /public
+                    src="/nasa.png"
                     alt="Marker"
                     className="h-12 w-12 rounded-full border-2 border-white shadow-lg"
                   />
@@ -142,7 +142,9 @@ export default function Intro() {
           {expanded && (
             <div className={clsx('relative flex h-[50%] w-full flex-row')}>
               {expandedItem && (
-                <LineStockNasa className="h-full w-2/4" activeSubItem={expandedItem} />
+                <div className={'h-full w-2/4 overflow-y-scroll bg-black/40 p-4'}>
+                  <LineStockNasa activeSubItem={expandedItem} />
+                </div>
               )}
               <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-black/40 p-3">
                 <SedapalNumbers></SedapalNumbers>
@@ -153,7 +155,7 @@ export default function Intro() {
                   General Information Report
                 </h3>
                 {expandedItem && (
-                  <SoilInfoNasa activeSubItem={expandedItem} extended={true}></SoilInfoNasa>
+                  <SoilInfoNasa activeSubItem={expandedItem} extended></SoilInfoNasa>
                 )}
               </div>
             </div>

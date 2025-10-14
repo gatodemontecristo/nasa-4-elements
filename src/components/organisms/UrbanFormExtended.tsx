@@ -18,7 +18,7 @@ export const UrbanFormExtended = ({ activeSubItem }: UrbanFormExtendedProps) => 
       : { lat: 0, lon: 0 },
     !!activeSubItem
   );
-  if (isError) return <NotFound></NotFound>;
+  if (isError) return <NotFound extended></NotFound>;
   if (isLoading || !completeEarthData) return <LoadSpinner></LoadSpinner>;
 
   return (

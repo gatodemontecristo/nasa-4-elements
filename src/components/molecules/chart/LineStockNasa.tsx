@@ -3,22 +3,22 @@ import { useAirQualityAnalysis } from '../../../hooks';
 import { MarkNasa } from '../../../data';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
-import { LoadSpinner, NotFound } from '../../atoms';
+import { LoadSpinner, NotFound, NotFoundChart } from '../../atoms';
 import { ChartData } from 'chart.js';
 
 interface LineStockNasaProps {
   activeSubItem: MarkNasa;
-  className?: string;
 }
-export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) => {
-  const { rawData, isLoading, isError } = useAirQualityAnalysis(
+export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
+  const { rawData, isLoading, isError, data } = useAirQualityAnalysis(
     activeSubItem
       ? { latitude: activeSubItem.lat, longitude: activeSubItem.lng }
       : { latitude: 0, longitude: 0 },
     !!activeSubItem
   );
+  if (isError) return <NotFoundChart></NotFoundChart>;
   if (isLoading || !rawData) return <LoadSpinner></LoadSpinner>;
-  if (isError) return <NotFound></NotFound>;
+
   const stockChartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -141,6 +141,7 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
       },
     },
   };
+
   const createStockChart = (): ChartData<'line'> => {
     if (!rawData?.hourly) {
       return {
@@ -261,15 +262,39 @@ export const LineStockNasa = ({ activeSubItem, className }: LineStockNasaProps) 
   const chartData = createStockChart();
 
   return (
-    <div className={`bg-black/40 p-4 ${className}`}>
-      <div className="mb-2">
-        <h2 className="font-nasalization mb-1 text-2xl tracking-wider text-white">
+    <>
+      <div className="mb-2 flex flex-row items-center justify-between">
+        <h2 className="font-nasalization mb-1 text-xl tracking-wider text-white">
           AIR QUALITY MARKET
         </h2>
+        {data && (
+          <div className="text-nasa-grey font-jetbrains flex flex-row gap-4 text-xs">
+            <div>
+              <div className="flex flex-row items-center justify-start gap-2 text-center">
+                <div className="h-2 w-2 bg-orange-500"></div>
+                <p>{`PM10: ${data.average.pm10.toFixed(2)} µg/m³`}</p>
+              </div>
+              <div className="flex flex-row items-center justify-start gap-2 text-center">
+                <div className="h-2 w-2 bg-blue-500"></div>
+                <p>{`PM2.5: ${data.average.pm2_5.toFixed(2)} µg/m³`}</p>
+              </div>
+            </div>
+            <div>
+              <div className="flex flex-row items-center justify-start gap-2 text-center">
+                <div className="h-2 w-2 bg-green-500"></div>
+                <p>{`NO₂: ${data.average.nitrogen_dioxide.toFixed(2)} µg/m³`}</p>
+              </div>
+              <div className="flex flex-row items-center justify-start gap-2 text-center">
+                <div className="h-2 w-2 bg-amber-500"></div>
+                <p>{`CO₂: ${data.average.carbon_dioxide.toFixed(2)} µg/m³`}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className="h-[80%] rounded-xl border border-gray-700 bg-black/60 p-4 backdrop-blur-sm">
         {chartData ? <Line data={chartData} options={stockChartOptions} /> : <NotFound />}
       </div>
-    </div>
+    </>
   );
 };

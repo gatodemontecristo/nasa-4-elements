@@ -1,3 +1,5 @@
+import { SERVICE_TIMEOUT } from '../constants';
+
 // Interfaces para tipar la respuesta de la API
 export interface ConnectionPercentiles {
   p10_conexiones: number;
@@ -48,7 +50,7 @@ export class NasaWaterService {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(30000), // 30 segundos timeout
+        signal: AbortSignal.timeout(SERVICE_TIMEOUT),
       });
 
       if (!response.ok) {

@@ -8,6 +8,7 @@ import {
   NavegationControl,
   ReturnButton,
   SedapalNumbers,
+  SoilInfoNasa,
   StreetViewModal,
   UrbanFormExtended,
 } from '@/components';
@@ -27,8 +28,6 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import clsx from 'clsx';
-// import Image from 'next/image';
-import { SystemAlerts } from '../../../components/molecules/SystemAlerts';
 
 ChartJS.register(
   ArcElement,
@@ -113,7 +112,7 @@ export default function Intro() {
               <AdvancedMarker position={position}>
                 <div className="relative">
                   <img
-                    src="/naki_yoho.png" // 👈 desde /public
+                    src="/nasa.png"
                     alt="Marker"
                     className="h-12 w-12 rounded-full border-2 border-white shadow-lg"
                   />
@@ -134,18 +133,27 @@ export default function Intro() {
                 <h3 className="mb-4 text-sm font-semibold text-white">
                   Urban Development Analysis
                 </h3>
-                <UrbanFormExtended activeSubItem={expandedItem}></UrbanFormExtended>
+                <UrbanFormExtended activeSubItem={expandedItem} extended></UrbanFormExtended>
               </div>
             )}
           </div>
           {expanded && (
             <div className={clsx('relative flex h-[50%] w-full flex-row')}>
               {expandedItem && (
-                <LineStockNasa className="h-full w-2/4" activeSubItem={expandedItem} />
+                <div className={'h-full w-2/4 overflow-y-scroll bg-black/40 p-4'}>
+                  <LineStockNasa activeSubItem={expandedItem} extended />
+                </div>
               )}
               <div className="mb-4 flex w-1/4 flex-col gap-3 overflow-y-scroll rounded-lg bg-black/40 p-3">
-                <SedapalNumbers></SedapalNumbers>
-                <SystemAlerts />
+                <SedapalNumbers extended></SedapalNumbers>
+              </div>
+              <div className="h-full w-1/4 overflow-y-scroll rounded-lg bg-black/40 p-4">
+                <h3 className="mb-4 text-sm font-semibold text-white">
+                  General Information Report
+                </h3>
+                {expandedItem && (
+                  <SoilInfoNasa activeSubItem={expandedItem} extended></SoilInfoNasa>
+                )}
               </div>
             </div>
           )}
@@ -162,27 +170,4 @@ export default function Intro() {
       </div>
     </APIProvider>
   );
-}
-//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
-//             </div>
-//             <div className="flex flex-col items-center justify-center">
-//               <p className="font-orbitron font-bold text-blue-500">52,529</p>
-//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
-//             </div>
-//             <div className="flex flex-col items-center justify-center">
-//               <p className="font-orbitron font-bold text-blue-500">52,529</p>
-//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
-//             </div>
-//             <div className="flex flex-col items-center justify-center">
-//               <p className="font-orbitron font-bold text-blue-500">2,529</p>
-//               <p className="text-nasa-whitesoft font-inter text-xs">10th Percentile</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// )}
-{
-  /* Modal de Street View */
 }

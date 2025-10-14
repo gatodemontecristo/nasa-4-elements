@@ -1,3 +1,5 @@
+import { SERVICE_TIMEOUT } from '../constants';
+
 // Interfaces para tipar la respuesta de la API
 export interface AirQualityUnits {
   time: string;
@@ -50,7 +52,10 @@ export class NasaAirService {
     url.searchParams.append('hourly', 'pm10,pm2_5,carbon_dioxide,nitrogen_dioxide,methane');
 
     try {
-      const response = await fetch(url.toString());
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        signal: AbortSignal.timeout(SERVICE_TIMEOUT),
+      });
 
       if (!response.ok) {
         throw new Error(`Error fetching air quality data: ${response.status}`);

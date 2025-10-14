@@ -6,5 +6,6 @@ namespace NodeJS {
     NEXT_PUBLIC_NASA_AIR_URL: string;
     NEXT_PUBLIC_NASA_EARTH_URL: string;
     NEXT_PUBLIC_NASA_WATER_URL: string;
+    NEXT_PUBLIC_NASA_SOIL_URL: string;
   }
 }

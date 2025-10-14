@@ -1,13 +1,14 @@
 import React from 'react';
 import { CardFooter, CardInfoSection, CardMainInfo } from '../molecules';
 import { useCompleteEarthData } from '../../hooks';
-import { LoadSpinner, NotFound } from '../atoms';
+import { LoadSpinner, LoadSpinnerChart, NotFound } from '../atoms';
 import { MarkNasa } from '../../data';
 
 interface UrbanFormExtendedProps {
   activeSubItem: MarkNasa;
+  extended?: boolean;
 }
-export const UrbanFormExtended = ({ activeSubItem }: UrbanFormExtendedProps) => {
+export const UrbanFormExtended = ({ activeSubItem, extended }: UrbanFormExtendedProps) => {
   const {
     data: completeEarthData,
     isLoading,
@@ -19,7 +20,12 @@ export const UrbanFormExtended = ({ activeSubItem }: UrbanFormExtendedProps) => 
     !!activeSubItem
   );
   if (isError) return <NotFound extended></NotFound>;
-  if (isLoading || !completeEarthData) return <LoadSpinner></LoadSpinner>;
+  if (isLoading || !completeEarthData)
+    return extended ? (
+      <LoadSpinnerChart type="urban"></LoadSpinnerChart>
+    ) : (
+      <LoadSpinner></LoadSpinner>
+    );
 
   return (
     <div className="space-y-4">

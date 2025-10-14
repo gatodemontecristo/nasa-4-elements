@@ -3,13 +3,14 @@ import { useAirQualityAnalysis } from '../../../hooks';
 import { MarkNasa } from '../../../data';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
-import { LoadSpinner, NotFound, NotFoundChart } from '../../atoms';
+import { LoadSpinner, LoadSpinnerChart, NotFound, NotFoundChart } from '../../atoms';
 import { ChartData } from 'chart.js';
 
 interface LineStockNasaProps {
   activeSubItem: MarkNasa;
+  extended?: boolean;
 }
-export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
+export const LineStockNasa = ({ activeSubItem, extended }: LineStockNasaProps) => {
   const { rawData, isLoading, isError, data } = useAirQualityAnalysis(
     activeSubItem
       ? { latitude: activeSubItem.lat, longitude: activeSubItem.lng }
@@ -17,7 +18,12 @@ export const LineStockNasa = ({ activeSubItem }: LineStockNasaProps) => {
     !!activeSubItem
   );
   if (isError) return <NotFoundChart></NotFoundChart>;
-  if (isLoading || !rawData) return <LoadSpinner></LoadSpinner>;
+  if (isLoading || !rawData)
+    return extended ? (
+      <LoadSpinnerChart type="air"></LoadSpinnerChart>
+    ) : (
+      <LoadSpinner></LoadSpinner>
+    );
 
   const stockChartOptions: ChartOptions<'line'> = {
     responsive: true,

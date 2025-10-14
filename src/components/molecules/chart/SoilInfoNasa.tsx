@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCloudRain, FaCloudShowersHeavy } from 'react-icons/fa6';
 import { MdLandscape } from 'react-icons/md';
-import { LoadSpinner, NotFound } from '../../atoms';
+import { LoadSpinner, LoadSpinnerChart, NotFound } from '../../atoms';
 import { MarkNasa } from '../../../data';
 import { useSoilAnalysis } from '../../../hooks';
 import { IconInfoSection } from '../IconInfoSection';
@@ -13,13 +13,17 @@ interface SoilInfoNasaProps {
   extended?: boolean;
 }
 export const SoilInfoNasa = ({ activeSubItem, extended = false }: SoilInfoNasaProps) => {
-  const { data, isLoading, isError, error } = useSoilAnalysis(
+  const { data, isLoading, isError } = useSoilAnalysis(
     { latitude: activeSubItem.lat, longitude: activeSubItem.lng },
     !!activeSubItem
   );
-  console.log('SoilInfoNasa data:', data, error, isError);
   if (isError) return <NotFound extended={extended}></NotFound>;
-  if (isLoading || !data) return <LoadSpinner></LoadSpinner>;
+  if (isLoading || !data)
+    return extended ? (
+      <LoadSpinnerChart type="general"></LoadSpinnerChart>
+    ) : (
+      <LoadSpinner></LoadSpinner>
+    );
   return (
     <div className="flex w-full flex-col gap-3 p-3">
       <div className="flex w-full flex-row justify-around">

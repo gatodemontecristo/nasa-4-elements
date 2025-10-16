@@ -3,8 +3,15 @@ import { useAirQualityAnalysis } from '../../../hooks';
 import { MarkNasa } from '../../../data';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
-import { LoadSpinner, LoadSpinnerChart, NotFound, NotFoundChart } from '../../atoms';
+import {
+  InformativeMsg,
+  LoadSpinner,
+  LoadSpinnerChart,
+  NotFound,
+  NotFoundChart,
+} from '../../atoms';
 import { ChartData } from 'chart.js';
+import { AIR_DESCRIPTION } from '../../../constants';
 
 interface LineStockNasaProps {
   activeSubItem: MarkNasa;
@@ -270,9 +277,12 @@ export const LineStockNasa = ({ activeSubItem, extended }: LineStockNasaProps) =
   return (
     <>
       <div className="mb-2 flex flex-row items-center justify-between">
-        <h2 className="font-nasalization mb-1 text-xl tracking-wider text-white">
-          AIR QUALITY MARKET
-        </h2>
+        <div className="flex flex-row items-center gap-3">
+          <h2 className="font-nasalization mb-1 text-xl tracking-wider text-white">
+            AIR QUALITY MARKET
+          </h2>
+          <InformativeMsg {...AIR_DESCRIPTION} />
+        </div>
         {data && (
           <div className="text-nasa-grey font-jetbrains flex flex-row gap-4 text-xs">
             <div>

@@ -3,6 +3,7 @@
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
 import {
   DashboardSidebar,
+  InformativeMsg,
   LineStockNasa,
   Markers,
   NavegationControl,
@@ -28,6 +29,7 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import clsx from 'clsx';
+import { URBAN_DEVELOPMENT_DESCRIPTION } from '../../../constants';
 
 ChartJS.register(
   ArcElement,
@@ -130,9 +132,14 @@ export default function Intro() {
             </Map>
             {expandedItem && (
               <div className="h-full w-[40%] overflow-y-scroll rounded-lg bg-black/40 p-4">
-                <h3 className="mb-4 text-sm font-semibold text-white">
-                  Urban Development Analysis
-                </h3>
+                <div className="mb-4 flex flex-row items-center gap-3">
+                  <h3 className="text-sm font-semibold text-white">Urban Development Analysis</h3>
+                  <InformativeMsg
+                    top={20}
+                    left={-4}
+                    message={URBAN_DEVELOPMENT_DESCRIPTION.message}
+                  />
+                </div>
                 <UrbanFormExtended activeSubItem={expandedItem} extended></UrbanFormExtended>
               </div>
             )}
@@ -148,9 +155,15 @@ export default function Intro() {
                 <SedapalNumbers extended></SedapalNumbers>
               </div>
               <div className="h-full w-1/4 overflow-y-scroll rounded-lg bg-black/40 p-4">
-                <h3 className="mb-4 text-sm font-semibold text-white">
-                  General Information Report
-                </h3>
+                <div className="mb-4 flex flex-row items-center gap-3">
+                  <h3 className="text-sm font-semibold text-white">General Information Report</h3>
+                  <InformativeMsg
+                    top={-140}
+                    left={-240}
+                    message={URBAN_DEVELOPMENT_DESCRIPTION.message}
+                  />
+                </div>
+
                 {expandedItem && (
                   <SoilInfoNasa activeSubItem={expandedItem} extended></SoilInfoNasa>
                 )}

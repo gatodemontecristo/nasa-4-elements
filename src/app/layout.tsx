@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Orbitron } from 'next/font/google';
 import localFont from 'next/font/local';
 import { Providers } from '@/providers/Providers';
+import { MobileBlocker } from '@/components/atoms/MobileBlocker';
 import './globals.css';
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${inter.variable} ${jetBrainsMono.variable} ${orbitron.variable} ${nasalization.variable} font-inter antialiased`}
       >
+        <MobileBlocker />
         <Providers>{children}</Providers>
       </body>
     </html>

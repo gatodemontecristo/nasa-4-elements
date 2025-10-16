@@ -14,3 +14,5 @@ export interface CardOtherInfoProps {
   title: string;
   children: React.ReactNode;
 }
+
+export type TailwindPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';

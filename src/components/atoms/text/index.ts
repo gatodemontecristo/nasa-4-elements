@@ -8,3 +8,4 @@ export * from './TagStatus';
 export * from './TitleJetbrains';
 export * from './SedapalStats';
 export * from './InformativeMsg';
+export * from './LinkTab';

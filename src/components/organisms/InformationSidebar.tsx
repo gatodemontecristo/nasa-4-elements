@@ -3,7 +3,7 @@ import { useStreetView } from '@/hooks';
 import Image from 'next/image';
 import React from 'react';
 import { GrLocationPin } from 'react-icons/gr';
-import { CloseSidebar, ExpandedButton, InfoSkeleton } from '../atoms';
+import { CloseSidebar, ExpandedButton, InformativeMsg, InfoSkeleton } from '../atoms';
 import { getElementIcon } from '@/utils';
 import {
   CardMainInfo,
@@ -14,6 +14,12 @@ import {
 } from '../molecules';
 import { useSidebarStore } from '@/store';
 import { UrbanFormComplete } from './UrbanFormComplete';
+import {
+  AIR_DESCRIPTION,
+  SEDAPAL_DESCRIPTION,
+  SOIL_MOISTURE_DESCRIPTION,
+  URBAN_DEVELOPMENT_DESCRIPTION,
+} from '../../constants';
 
 export interface InformationSidebarProps {
   onClose?: () => void;
@@ -29,8 +35,8 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
   if (!activeSubItem) return null;
   const elementIcon = getElementIcon(activeItem.id, activeSubItem.type);
   return (
-    <div className="bg-nasa-black animate-in slide-in-from-right-5 fade-in-0 ml-2 h-full w-100 transform overflow-hidden rounded-md shadow-2xl transition-all duration-500 ease-in-out">
-      <div className="custom-scroll relative h-full overflow-y-auto p-6">
+    <div className="bg-nasa-black animate-in slide-in-from-right-5 fade-in-0 ml-2 h-full w-100 transform overflow-visible rounded-md shadow-2xl transition-all duration-500 ease-in-out">
+      <div className="custom-scroll relative h-full overflow-x-visible overflow-y-auto p-6">
         {(() => {
           return (
             <>
@@ -119,7 +125,12 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
 
                   {/* Air Quality Chart */}
                   <div className="rounded-lg bg-black/40 p-4">
-                    <h3 className="mb-3 text-sm font-semibold text-white">Air Quality Analysis</h3>
+                    <div className="flex w-full flex-row items-center justify-between">
+                      <h3 className="mb-3 text-sm font-semibold text-white">
+                        Air Quality Analysis
+                      </h3>
+                      <InformativeMsg {...AIR_DESCRIPTION} />
+                    </div>
                     <DoughnutNasa
                       label="Air Quality Pollutants"
                       height="h-50"
@@ -129,22 +140,31 @@ export const InformationSidebar = ({ onClose }: InformationSidebarProps) => {
 
                   {/* Earth Quality Analysis */}
                   <div className="rounded-lg bg-black/40 p-4">
-                    <h3 className="mb-4 text-sm font-semibold text-white">
-                      Urban Development Analysis
-                    </h3>
+                    <div className="flex w-full flex-row items-center justify-between">
+                      <h3 className="mb-4 text-sm font-semibold text-white">
+                        Urban Development Analysis
+                      </h3>
+                      <InformativeMsg {...URBAN_DEVELOPMENT_DESCRIPTION} />
+                    </div>
                     <UrbanFormComplete activeSubItem={activeSubItem}></UrbanFormComplete>
                   </div>
 
                   <div className="rounded-lg bg-black/40 p-4">
-                    <h3 className="mb-4 text-sm font-semibold text-white">
-                      Sedapal Development Analysis
-                    </h3>
+                    <div className="flex w-full flex-row items-center justify-between">
+                      <h3 className="mb-4 text-sm font-semibold text-white">
+                        Sedapal Development Analysis
+                      </h3>
+                      <InformativeMsg {...SEDAPAL_DESCRIPTION} />
+                    </div>
                     <SedapalNumbers></SedapalNumbers>
                   </div>
                   <div className="rounded-lg bg-black/40 p-4">
-                    <h3 className="mb-4 text-sm font-semibold text-white">
-                      Soil Moisture Analysis
-                    </h3>
+                    <div className="flex w-full flex-row items-center justify-between">
+                      <h3 className="mb-4 text-sm font-semibold text-white">
+                        Soil Moisture Analysis
+                      </h3>
+                      <InformativeMsg {...SOIL_MOISTURE_DESCRIPTION} />
+                    </div>
                     <SoilInfoNasa activeSubItem={activeSubItem}></SoilInfoNasa>
                   </div>
 

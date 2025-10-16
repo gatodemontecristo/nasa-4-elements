@@ -1,4 +1,5 @@
 import { TypeMark } from '@/data';
+import { GenericLink } from '../components';
 
 export interface MenuItem {
   id: string;
@@ -14,3 +15,8 @@ export interface CardOtherInfoProps {
   title: string;
   children: React.ReactNode;
 }
+export interface LinkSection {
+  title: string;
+  links: GenericLink[];
+}
+export type TailwindPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';

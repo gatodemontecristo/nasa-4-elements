@@ -8,3 +8,4 @@ export * from './UrbanFormComplete';
 export * from './UrbanFormExtended';
 export * from './MembersCollection';
 export * from './MainTitle';
+export * from './FooterSection';

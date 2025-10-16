@@ -10,3 +10,4 @@ export * from './CardMainInfo';
 export * from './CardFooter';
 export * from './ElementsGoals';
 export * from './IconInfoSection';
+export * from './LinkCollection';

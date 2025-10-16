@@ -9,6 +9,8 @@ import {
 import { ELEMENTS_GOALS, ELEMENTS_SECTIONS } from '../../constants';
 import { nanoid } from 'nanoid';
 import ParticleNetworkComponent from '../../components/templates/ParticleNetworkComponent';
+import { FooterSection } from '../../components';
+import { COMPLETE_RESOURCES_SECTION } from '../../constants';
 
 export const metadata = {
   title: 'NASA Urban Observatory',
@@ -32,7 +34,6 @@ export default function MainPage() {
 
       <HeaderSection />
 
-      {/* Main Content */}
       <div className="relative z-30 mt-20 mb-10 flex h-full items-center justify-center px-8">
         <div className="mx-auto max-w-6xl">
           <MainScreenHome></MainScreenHome>
@@ -47,8 +48,11 @@ export default function MainPage() {
         <ElementSection key={nanoid()} element={element}></ElementSection>
       ))}
       <MembersCollection></MembersCollection>
-
-      {/* Footer */}
+      <FooterSection>
+        <FooterSection.Header />
+        <FooterSection.Line />
+        <FooterSection.Links collection={COMPLETE_RESOURCES_SECTION} />
+      </FooterSection>
       <div className="absolute right-8 bottom-8 left-8 z-30">
         <div className="font-jetbrains flex items-end justify-between text-xs text-gray-600">
           <div>
